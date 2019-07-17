@@ -1,0 +1,25 @@
+insert into materia (materia_ID, nombre, estado) values (1, 'Matematicas 1', 'A')
+insert into materia (materia_ID, nombre, estado) values (2, 'Espanol 1','A')
+insert into materia (materia_ID, nombre, estado) values (3, 'Civica 1','A')
+insert into materia (materia_ID, nombre, estado) values (4, 'Formacion civica 1','A')
+
+insert into estudiante(estudiante_ID, nombre, apellido_pat, apellido_mat, grado, edad, nombre_tutor, telefono, estado) values (1, 'Dafne', 'Cabrera', 'Garibaldi', '5to', 10, 'Norma del Carmen', '58-44-22-25', 'A')
+insert into estudiante(estudiante_ID, nombre, apellido_pat, apellido_mat, grado, edad, nombre_tutor, telefono, estado) values (2, 'Elsy', 'Rodriguez', 'Molina', '6to', 12, ':v', '58-44-22-25', 'A')
+insert into estudiante(estudiante_ID, nombre, apellido_pat, apellido_mat, grado, edad, nombre_tutor, telefono, estado) values (3, 'Karla Adriana', 'Alarcon', 'Barcenas', '6to', 12, ':v', '58-44-22-25', 'A')
+insert into estudiante(estudiante_ID, nombre, apellido_pat, apellido_mat, grado, edad, nombre_tutor, telefono, estado) values (4, 'Emiliano', 'Ibarra', 'Cruz', '6to', 12, ':v', '58-44-22-25', 'A')
+insert into estudiante(estudiante_ID, nombre, apellido_pat, apellido_mat, grado, edad, nombre_tutor, telefono, estado) values (5, 'Jimena Gabrielle', 'Salazar', 'Olivos', '6to', 12, ':v', '58-44-22-25', 'A')
+
+insert into profesor_especialista (profesor_ID, nombre, apellido_pat, apellido_mat, edad, telefono, estado, grado, nombre_materia) values (1,'Gabriela','Medina','Villalon', 32, '58-44-22-25', 'A', 'Primaria', 'Ingles')
+insert into profesor_especialista (profesor_ID, nombre, apellido_pat, apellido_mat, edad, telefono, estado, grado, nombre_materia) values (2,'Hernan Galileo','Cabrera','Garibaldi', 32, '58-44-22-25', 'A', 'Primaria', 'Computacion')
+insert into profesor_especialista (profesor_ID, nombre, apellido_pat, apellido_mat, edad, telefono, estado, grado, nombre_materia) values (3,'Ernesto','Sevilla','Cruz', 32, '58-44-22-25', 'A', 'Primaria', 'Artes Plasticas')
+insert into profesor_especialista (profesor_ID, nombre, apellido_pat, apellido_mat, edad, telefono, estado, grado, nombre_materia) values (5,'Ernesto','Sevilla','Cruz', 32, '58-44-22-25', 'A', 'Kinder', 'Artes Plasticas')
+insert into profesor_especialista (profesor_ID, nombre, apellido_pat, apellido_mat, edad, telefono, estado, grado, nombre_materia) values (4,'Edgar','Suarez','Caballero', 32, '58-44-22-25', 'A', 'Kinder', 'Computacion')
+
+insert into profesor_grado (profesor_ID, nombre, apellido_pat, apellido_mat,edad, telefono, estado, grado) values (1, 'Claudia Miriam', 'Alvarez','Velazquez',33, '58-44-22-25', 'A', 'Kinder 2' )
+insert into profesor_grado (profesor_ID, nombre, apellido_pat, apellido_mat,edad, telefono, estado, grado) values (2, 'Juan', 'Cervantes','Sanchez',33, '58-44-22-25', 'A', 'Primaria 4' )
+insert into profesor_grado (profesor_ID, nombre, apellido_pat, apellido_mat,edad, telefono, estado, grado) values (3, 'Alitzel Montserrat', 'Jimenez','Velazquez',27, '58-44-22-25', 'A', 'Kinder 3' )
+
+insert into inscripcion_grado(estudiante_ID, materia_ID, profesor_ID,calificacion_B1,calificacion_B2,calificacion_B3,calificacion_B4)values(1,1,1,10,9,8,9)
+insert into inscripcion_grado(estudiante_ID, materia_ID, profesor_ID,calificacion_B1,calificacion_B2,calificacion_B3,calificacion_B4)values(1,2,1,10,9,8,9)
+insert into inscripcion_grado(estudiante_ID, materia_ID, profesor_ID,calificacion_B1,calificacion_B2,calificacion_B3,calificacion_B4)values(1,3,1,10,9,8,9)
+insert into inscripcion_grado(estudiante_ID, materia_ID, profesor_ID,calificacion_B1,calificacion_B2,calificacion_B3,calificacion_B4)values(1,4,1,10,9,8,9)
