@@ -27,6 +27,13 @@ def insertarprof_grado(profesor_ID, nombre, apellido_pat, apellido_mat,edad, tel
     con.commit()
     con.close()
 
+def insertamateria(materia_ID, nombre, estado):
+    con = sql.connect("DB/baseConeyotl.db")
+    cursor = con.cursor()
+    cursor.execute("INSERT INTO materia(materia_ID, nombre, estado) VALUES(?, ?, ?)",(materia_ID, nombre, estado))
+    con.commit()
+    con.close()
+
 def consulta_estudiantes_id(id):
     pass
 

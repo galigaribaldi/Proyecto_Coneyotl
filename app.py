@@ -35,20 +35,14 @@ def registrar_esudiante2():
         nombre_tutor = request.form['nombre_tutor']
         telefono = request.form['telefono']
         estado = request.form['estado']
-        print(estudiante_ID) ; print(nombre) ; print(apellido_pat) ; print(apellido_mat)
-        print(grado) ; print(edad) ; print(nombre_tutor)
         try:
             coneccion.insertarestud(estudiante_ID, nombre, apellido_pat, apellido_mat, grado, edad, nombre_tutor, telefono, estado)
-            flash('El estudiante fue registrado sattisfacotriamente')
-            return redirect(url_for('index'))
+            flash('Tu cuenta ha quedado Registrada, por favor inicia sesion')
+            return redirect(url_for('registrar_esudiante'))            
         except:
-            flash('Hubo algun problema intetalo de nuevo')
-            return redirect(url_for('index'))
+            return 'Hubo un error favor de intentar de nuevo'
     else:
         return render_template('index.html')
-
-
-
 
 ###Ingresar como profesor
 @app.route('/profesor')
@@ -62,28 +56,28 @@ def registrar_profesores():
 
 @app.route('/profesor/agregar', methods =['POST'])
 def registrar_profesor():
-        if request.method == 'POST':
-            profesor_ID = request.form['profesor_ID']
-            nombre = request.form['nombre']
-            apellido_pat = request.form['apellido_pat']
-            apellido_mat = request.form['apellido_mat']
-            edad = request.form['edad']
-            telefono = request.form['telefono']
-            estado = request.form['estado']
-            grado = request.form['grado']
-            print(profesor_ID)
-            print(nombre)
-            print(apellido_mat)
+    if request.method == 'POST':
+        profesor_ID = request.form['profesor_ID']
+        nombre = request.form['nombre']
+        apellido_pat = request.form['apellido_pat']
+        apellido_mat = request.form['apellido_mat']
+        edad = request.form['edad']
+        telefono = request.form['telefono']
+        estado = request.form['estado']
+        grado = request.form['grado']
+        print(profesor_ID)
+        print(nombre)
+        print(apellido_mat)
 
-            try:
-                coneccion.insertarprof_grado(profesor_ID, nombre, apellido_pat, apellido_mat, edad, telefono, estado, grado)
-                flash('El profesor fue registrado sattisfacotriamente')
-                return redirect(url_for('index'))
-            except:
-                flash('Hubo algun problema intetalo de nuevo')
-                return "Hubo un problema"
-        else:
-            return render_template('index.html')
+        try:
+            coneccion.insertarprof_grado(profesor_ID, nombre, apellido_pat, apellido_mat, edad, telefono, estado, grado)
+            flash('El profesor fue registrado sattisfacotriamente')
+            return redirect(url_for('registrar_profesores'))
+        except:
+            flash('Hubo algun problema intetalo de nuevo')
+            return "Hubo un problema"
+    else:
+        return render_template('index.html')
 
 
 ##Tabla con calificaciones
@@ -92,10 +86,27 @@ def calificaciones():
     calificaciones = coneccion.consulta_materias()
     return render_template('calif.html', calif = calificaciones)
 
+###Visualizar la materia
+@app.route('/materia')
+def materia2():
+    return render_template('regismateria.html')
+
 ###Registrar materia
-@app.route('/registroMateria')
+@app.route('/registroMateria', methods = ['POST'])
 def materia():
-    pass
+    if request.method == 'POST':
+        materia_ID = request.form['materia_ID']
+        nombre = request.form['nombre']
+        estado = request.form['estado']
+        try:
+            coneccion.insertamateria(materia_ID, nombre, estado)
+            flash('La materia se registro sattisfacotriamente')
+            return redirect(url_for('index'))
+        except:
+            flash('Hubo algun problema intetalo de nuevo')
+            return "Hubo un problema"
+    else:
+        return render_template('index.html')
 
 @app.route('/edit/<id>')
 def get_data(id):
