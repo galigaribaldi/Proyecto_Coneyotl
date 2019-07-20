@@ -13,6 +13,31 @@ app.secret_key = 'secreto'
 def index():
     return render_template('index.html')
 
+@app.route('/admin')
+def administrador():
+    return render_template('admin.html')
+
+@app.route('/verAlumno')
+def verAlumno():
+    estudiantes = coneccion.consulta_estudiantes('6to')
+    return render_template('veralumno.html', estu=estudiantes )
+
+@app.route('/edit/<grado>')
+def get_grado(grado):
+    try:
+        coneccion.inscripcion_todos_estudiantes(grado)
+        return "Inscripcion Satisfactoria"
+    except:
+        return "ocurrio un error, favor de volver a intentarlo"
+
+@app.route('/editar/actualizar/<e_ID>/<grado>')
+def actualizar_au(e_ID,grado):
+    m_inscrita = coneccion.consulta_inscrita(e_ID,grado)
+    est = coneccion.consulta_estudiantes_id(e_ID,grado)
+    print(est)
+    print(m_inscrita)
+    return render_template('actualizarAlu.html', estudiante=est, materia=m_inscrita )
+
 ###Ingresar como estudiante
 @app.route('/alumno')
 def loggin_Estudiante():

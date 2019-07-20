@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ estu.4.4 }} grado</title>
+</head>
+
+<body>
+    <h1>Alumnos de {{ estu.4.4 }} </h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Clave Alumno </th>
+                <th>Nombre </th>
+                <th>Apellido Paterno </th>
+                <th>Apellido Materno </th>
+                <th>Grado </th>
+                <th>Edad </th>
+                <th>Nombre Tutor </th>
+                <th>Telefono </th>
+                <th> Estado Actual </th>
+                <th> Cambiar datos </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for i in estu %}
+                <td>{{ i.0 }}</td>
+                <td>{{ i.1 }}</td>
+                <td>{{ i.2 }}</td>
+                <td>{{ i.3 }}</td>
+                <td>{{ i.4 }}</td>
+                <td>{{ i.5 }}</td>
+                <td>{{ i.6 }}</td>
+                <td>{{ i.7 }}</td>
+                <td>{{ i.9 }}</td>
+                <td><a href="/editar/actualizar/{{ i.0 }}/{{ i.4 }}">Datos y Calificaciones </a></td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="/edit/{{ estu.4.4 }}">Dar de Alta a Todos los alumnos del grado</a>
+</body>
+
+</html>

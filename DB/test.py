@@ -20,5 +20,14 @@ cursor.execute("SELECT e.grado, e.estudiante_ID,p.profesor_ID FROM estudiante e 
 join = cursor.fetchall()
 print("\n\n\n\nJoins entre materia y profesor")
 print(join)
+
+cursor.execute("SELECT e.estudiante_ID, p.profesor_ID, m.materia_ID FROM estudiante e JOIN profesor_grado p ON e.grado=p.grado JOIN materia m ON m.grado=p.grado WHERE e.grado='6to' and e.estudiante_ID=16")
+join = cursor.fetchall()
+print("\n\n\n\nJoins entre materia, profesor y alumno")
+for i in join:
+    print(i[0])
+    print(i[1])
+    print(i[2])
+    print(i)
 con.commit()
 con.close()
