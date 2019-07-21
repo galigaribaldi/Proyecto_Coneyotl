@@ -15,11 +15,13 @@ def index():
 
 @app.route('/admin')
 def administrador():
-    return render_template('admin.html')
+    lista = ['K1','K2','K3','1ro','2do', '3ro', '4to', '5to', '6to']
+    return render_template('admin.html', g=lista)
 
-@app.route('/verAlumno')
-def verAlumno():
-    estudiantes = coneccion.consulta_estudiantes('6to')
+@app.route('/verAlumno/<grupo>')
+def verAlumno(grupo):
+    estudiantes = coneccion.consulta_estudiantes(grupo)
+    print(estudiantes)
     return render_template('veralumno.html', estu=estudiantes )
 
 @app.route('/edit/<grado>')
@@ -37,6 +39,13 @@ def actualizar_au(e_ID,grado):
     print(est)
     print(m_inscrita)
     return render_template('actualizarAlu.html', estudiante=est, materia=m_inscrita )
+
+@app.route('/editar/actualizar/calificaciones/<e_ID>/<grado>')
+def actualizar_calificacion(e_ID,grado):
+    p_id = coneccion.consulta_prof_grado2(grado)
+    m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
+    est = coneccion.consulta_estudiantes_id(e_ID,grado)
+    return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita )    
 
 ###Ingresar como estudiante
 @app.route('/alumno')

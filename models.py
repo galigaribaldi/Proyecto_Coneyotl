@@ -45,6 +45,15 @@ def consulta_inscrita(est_id, grado):
     con.commit()
     con.close()
     return datos_materia_inscrita
+def consulta_inscrita2(est_id, prof_id,grado):
+    con = sql.connect("DB/baseConeyotl.db")
+    cursor = con.cursor()
+    cursor.execute("SELECT  m.nombre,ig.calificacion_B1, ig.campo1_B1, ig.campo2_B1, ig.campo3_B1, ig.campo4_B1,ig.calificacion_B2, ig.campo1_B2, ig.campo2_B2, ig.campo3_B2, ig.campo4_B2,ig.calificacion_B3, ig.campo1_B3, ig.campo2_B3, ig.campo3_B3, ig.campo4_B3,ig.calificacion_B4, ig.campo1_B4, ig.campo2_B4, ig.campo3_B4, ig.campo4_B4,ig.calificacion_B5, ig.campo1_B5, ig.campo2_B5, ig.campo3_B5, ig.campo4_B5 FROM inscripcion_grado ig JOIN materia m ON m.materia_ID=ig.materia_ID where ig.estudiante_ID=? and ig.profesor_ID=? AND m.grado=?",(est_id, prof_id ,grado,))
+    datos_materia_inscrita = cursor.fetchall()
+    #print(datos_estudiantes)
+    con.commit()
+    con.close()
+    return datos_materia_inscrita
 
 ###Trae el estudiante especificado en el grupo especificado
 def consulta_estudiantes_id(est_id, grado):
@@ -77,6 +86,13 @@ def consulta_prof_especialista():
     con.commit()
     con.close()
     return datos_especialista
+
+def consulta_prof_grado2(grado):
+    con = sql.connect("DB/baseConeyotl.db")
+    cursor = con.cursor()
+    cursor.execute("SELECT profesor_ID from profesor_grado where grado=?", (grado,))
+    c = cursor.fetchall()
+    return (c[0][0])
 
 def consulta_materias():
     con = sql.connect("DB/baseConeyotl.db")

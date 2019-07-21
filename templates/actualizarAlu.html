@@ -1,50 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
-    <form action="", method="POST">
+    <h2>Datos del alumno {{ estudiante.0.1 }} {{estudiante.0.2}} {{estudiante.0.3}}</h2>
+    <form action="" , method="POST">
         <!-- Datos del estudiante -->
-        Nombre Actual: {{ estudiante.0.1 }} <br> Nuevo Nombre:<input type="text" name="nombre" placeholder="" >
-        Apellido Paterno Actual: {{ estudiante.0.2 }} <br> Nuevo apellido Paterno: <input type="text" name="apellido_p" placeholder="">
-        Apellido Materno Actual: {{ estudiante.0.3 }}:  <br> Nuevo apellido Paterno: <input type="text" name="apellido_m" placeholder="">
-        {{ estudiante.0.4 }}: <input type="text" name="grado" placeholder="">
-        {{ estudiante.0.5 }}: <input type="text" name="edad" placeholder="">
-        {{ estudiante.0.6 }}: <input type="text" name="nombre_tutor" placeholder="">
-        {{ estudiante.0.7 }}: <input type="text" name="telefono" placeholder="">
-        {{ estudiante.0.9 }}: <input type="text" name="estado" placeholder="">
-        <!--Datos de la inscripcion de la materia-->
-        <input type="text" name="calificacion_B1" placeholder="">
-        <input type="text" name="campo1_B1" placeholder="">
-        <input type="text" name="campo2_B1" placeholder="">
-        <input type="text" name="campo3_B1" placeholder="">
-        <input type="text" name="campo4_B1" placeholder="">
-        <input type="text" name="calificacion_B2" placeholder="">
-        <input type="text" name="campo1_B2" placeholder="">
-        <input type="text" name="campo2_B2" placeholder="">
-        <input type="text" name="campo3_B2" placeholder="">
-        <input type="text" name="campo4_B2" placeholder="">
-        <input type="text" name="calificacion_B3" placeholder="">
-        <input type="text" name="campo1_B3" placeholder="">
-        <input type="text" name="campo2_B3" placeholder="">
-        <input type="text" name="campo3_B3" placeholder="">
-        <input type="text" name="campo4_B3" placeholder="">
-        <input type="text" name="calificacion_B4" placeholder="">
-        <input type="text" name="campo1_B4" placeholder="">
-        <input type="text" name="campo2_B4" placeholder="">
-        <input type="text" name="campo3_B4" placeholder="">
-        <input type="text" name="campo4_B4" placeholder="">
-        <input type="text" name="calificacion_B5" placeholder="">
-        <input type="text" name="campo1_B5" placeholder="">
-        <input type="text" name="campo2_B5" placeholder="">
-        <input type="text" name="campo3_B5" placeholder="">
-        <input type="text" name="campo4_B5" placeholder="">
-        <button type="submit"> SAVE </button>
+        Nombre Actual: <input type="text" name="nombre" placeholder="{{ estudiante.0.1 }}">
+        Apellido Paterno Actual: <input type="text" name="apellido_p" placeholder=" {{ estudiante.0.2 }}">
+        Apellido Materno Actual: <input type="text" name="apellido_m" placeholder=" {{ estudiante.0.3 }}"><br>
+        Grado Actual: <input type="text" name="grado" placeholder=" {{ estudiante.0.4 }}">
+        Edad Actual: <input type="text" name="edad" placeholder=" {{ estudiante.0.5 }}">
+        Nombre Actual del Padre ó Tutor: <input type="text" name="nombre_tutor" placeholder=" {{ estudiante.0.6 }}"><br>
+        Teléfono Actual: <input type="text" name="telefono" placeholder="{{ estudiante.0.7 }}">
+        Estado Actual: <input type="text" name="estado" placeholder=" {{ estudiante.0.9 }}"><br>
+        <button type="submit"> Actualizar </button>
     </form>
-    <a href="">Regresar</a>
+    <a href="/admin">Regresar</a>
 </body>
+
 </html>

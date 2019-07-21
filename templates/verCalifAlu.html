@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calificaciones del alumno </title>
+</head>
+
+<body>
+    <h2>Datos del alumno {{ estudiante.0.1 }} {{estudiante.0.2}} {{estudiante.0.3}}</h2>
+    <form action="" , method="POST">
+        <!--Datos de la inscripcion de la materia-->
+        {% for i in materia %}
+        <h3>Materia: {{ i.0 }}</h3>
+        Promedio Bimestre 1: <input type="text" name="calificacion_B1" placeholder="{{ i.1 }}">
+        Campo 1: <input type="text" name="campo1_B1" placeholder="{{ i.2 }}">
+        Campo 2: <input type="text" name="campo2_B1" placeholder="{{ i.3 }}"><br>
+        Campo 3: <input type="text" name="campo3_B1" placeholder="{{ i.4 }}">
+        Campo 4: <input type="text" name="campo4_B1" placeholder="{{ i.5 }}"><br> <br> <br>
+        Promedio Bimestre 2: <input type="text" name="calificacion_B2" placeholder="{{ i.6 }}">
+        Campo 1: <input type="text" name="campo1_B2" placeholder="{{ i.7 }}">
+        Campo 2: <input type="text" name="campo2_B2" placeholder="{{ i.8 }}"><br>
+        Campo 3: <input type="text" name="campo3_B2" placeholder="{{ i.9 }}">
+        Campo 4: <input type="text" name="campo4_B2" placeholder="{{ i.10 }}"><br> <br> <br>
+        Promedio Bimestre 3: <input type="text" name="calificacion_B3" placeholder="{{ i.11 }}">
+        Campo 1: <input type="text" name="campo1_B3" placeholder="{{ i.12 }}">
+        Campo 2: <input type="text" name="campo2_B3" placeholder="{{ i.13 }}"><br>
+        Campo 3: <input type="text" name="campo3_B3" placeholder="{{ i.14 }}">
+        Campo 4: <input type="text" name="campo4_B3" placeholder="{{ i.15 }}"><br> <br> <br>
+        Promedio Bimestre 4: <input type="text" name="calificacion_B4" placeholder="{{ i.16 }}">
+        Campo 1: <input type="text" name="campo1_B4" placeholder="{{ i.17 }}">
+        Campo 2: <input type="text" name="campo2_B4" placeholder="{{ i.18 }}"><br>
+        Campo 3: <input type="text" name="campo3_B4" placeholder="{{ i.19 }}">
+        Campo 4: <input type="text" name="campo4_B4" placeholder="{{ i.20 }}"><br> <br> <br>
+        Promedio Bimestre 5: <input type="text" name="calificacion_B5" placeholder="{{ i.21 }}">
+        Campo 1: <input type="text" name="campo1_B5" placeholder="{{ i.22 }}">
+        Campo 2: <input type="text" name="campo2_B5" placeholder="{{ i.23 }}"><br>
+        Campo 3: <input type="text" name="campo3_B5" placeholder="{{ i.24 }}">
+        Campo 4: <input type="text" name="campo4_B5" placeholder="{{ i.25 }}"><br> <br> <br>
+        {% endfor %}
+        <button type="submit"> SAVE </button>
+    </form>
+    <a href="/admin">Regresar</a>
+</body>
+
+</html>

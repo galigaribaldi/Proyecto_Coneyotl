@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS materia(
     materia_ID NUMBER(30) PRIMARY KEY,
     nombre VARCHAR(30) NOT NULL,
     estado CHAR(2),
+    grado VARCHAR2(5),
     CONSTRAINT estado_ck CHECK(estado IN ('A', 'S', 'B'))
 )
 ;

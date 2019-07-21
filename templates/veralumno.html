@@ -23,6 +23,7 @@
                 <th>Telefono </th>
                 <th> Estado Actual </th>
                 <th> Cambiar datos </th>
+                <th> Cambiar Calificaciones </th>
             </tr>
         </thead>
         <tbody>
@@ -37,13 +38,15 @@
                 <td>{{ i.6 }}</td>
                 <td>{{ i.7 }}</td>
                 <td>{{ i.9 }}</td>
-                <td><a href="/editar/actualizar/{{ i.0 }}/{{ i.4 }}">Datos y Calificaciones </a></td>
+                <td><a href="/editar/actualizar/{{ i.0 }}/{{ i.4 }}">Datos del alumno </a></td>
+                <td><a href="/editar/actualizar/calificaciones/{{ i.0 }}/{{ i.4 }}">Calificaciones </a></td>
 
             </tr>
             {% endfor %}
         </tbody>
     </table>
     <a href="/edit/{{ estu.4.4 }}">Dar de Alta a Todos los alumnos del grado</a>
+    <a href="/admin">Regresar</a>
 </body>
 
 </html>
