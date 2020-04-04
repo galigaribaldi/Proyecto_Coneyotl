@@ -22,8 +22,8 @@
                 <th>Nombre Tutor </th>
                 <th>Telefono </th>
                 <th> Estado Actual </th>
-                <th> Cambiar datos </th>
-                <th> Cambiar Calificaciones </th>
+                <th> Datos Actuales </th>
+                <th> Calificaciones </th>
             </tr>
         </thead>
         <tbody>
@@ -38,8 +38,10 @@
                 <td>{{ i.6 }}</td>
                 <td>{{ i.7 }}</td>
                 <td>{{ i.9 }}</td>
-                <td><a href="/editar/actualizar/{{ i.0 }}/{{ i.4 }}">Datos del alumno </a></td>
-                <td><a href="/editar/actualizar/calificaciones/{{ i.0 }}/{{ i.4 }}">Calificaciones </a></td>
+                <td><a href="/editar/actualizar/{{ i.0 }}/{{ i.4 }}">Cambiar Datos</a> <a href="#">Ver datos</a> </td>
+                <td><a href="/editar/actualizar/calificaciones/{{ i.0 }}/{{ i.4 }}">Cambiar Calificaciones</a> <a href="#">Ver calificaciones</a> </td>
+                <td><a href="#">Dar de Baja</a></td>
+                <td><a href="">Dar de alta</a></td>
 
             </tr>
             {% endfor %}

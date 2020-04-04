@@ -11,6 +11,28 @@ def consulta_estudiantes(grado):
     con.close()
     return datos_estudiantes
 
+##Consulta profesores por grado
+def consulta_all_prof_grado():
+    con = sql.connect("DB/baseConeyotl.db")
+    cursor = con.cursor()
+    cursor.execute("SELECT * FROM profesor_grado")
+    datos_profesor_grado = cursor.fetchall()
+    #print(datos_estudiantes)
+    con.commit()
+    con.close()
+    return datos_profesor_grado
+
+##Consulta profesor especialista
+def consulta_all_prof_esp():
+    con = sql.connect("DB/baseConeyotl.db")
+    cursor = con.cursor()
+    cursor.execute("SELECT * FROM profesor_especialista")
+    datos_profesor_especialista = cursor.fetchall()
+    #print(datos_estudiantes)
+    con.commit()
+    con.close()
+    return datos_profesor_especialista
+
 ####Insertar datos a la tabla estudiantes
 def insertarestud(estudiante_ID, nombre, apellido_pat, apellido_mat, grado, edad, nombre_tutor, telefono, estado):
     con = sql.connect("DB/baseConeyotl.db")
@@ -114,6 +136,24 @@ def inscripcion_todos_estudiantes(grado):
     con.commit()
     con.close()
 
+##Dar de Baja
+def dar_baja_alumno(ids):
+    con = sql.connect("DB/baseConeyotl.db")
+    cursor = con.cursor()
+    cursor.execute("UPDATE estudiante SET estado = 'B' WHERE estudiante_ID = ?;",(ids,))
+    datos_estudiantes = cursor.fetchall()
+    con.commit()
+    con.close()
+
+##Dar de Alta
+def dar_alta_alumno(ids):
+    con = sql.connect("DB/baseConeyotl.db")
+    cursor = con.cursor()
+    cursor.execute("UPDATE estudiante SET estado = 'A' WHERE estudiante_ID = ?;",(ids,))
+    datos_estudiantes = cursor.fetchall()
+    #print(datos_estudiantes)
+    con.commit()
+    con.close()
 def inscripcion_estudiante_ID(grado, e_ID):
     con = sql.connect("DB/baseConeyotl.db")
     cursor = con.cursor()

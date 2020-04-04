@@ -9,7 +9,7 @@ app = Flask(__name__)
 ### Settings
 app.secret_key = 'secreto'
 
-@app.route('/')
+@app.route('/') 
 def index():
     return render_template('index.html')
 
@@ -113,6 +113,12 @@ def registrar_profesor():
     else:
         return render_template('index.html')
 
+##Vista de profesores
+@app.route('/verProfesor')
+def profesor():
+    grado = coneccion.consulta_all_prof_grado()
+    especialista = coneccion.consulta_all_prof_esp()
+    return render_template('verProfesor.html', prof_g = grado, prof_e = especialista)
 
 ##Tabla con calificaciones
 @app.route('/calificaciones')
