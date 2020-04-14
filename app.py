@@ -21,8 +21,12 @@ def administrador():
 @app.route('/verAlumno/<grupo>')
 def verAlumno(grupo):
     estudiantes = coneccion.consulta_estudiantes(grupo)
-    print(estudiantes)
     return render_template('veralumno.html', estu=estudiantes )
+
+@app.route('/verAlumnoDatos/<e_ID>/<grupo>')
+def verAlumnoDatos(e_ID,grupo):
+    estudiantes = coneccion.consulta_estudiantes_id(e_ID,grupo)
+    return render_template('verDatos.html', estu=estudiantes )    
 
 @app.route('/edit/<grado>')
 def get_grado(grado):
@@ -46,7 +50,72 @@ def actualizar_calificacion(e_ID,grado):
     m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
     est = coneccion.consulta_estudiantes_id(e_ID,grado)
     return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita )    
+####################################################################################################################
+####Operaciones de Dar de Baja, Alta y Suspender
 
+@app.route('/alta/<e_id>/<grado>')
+def alta_alumno(e_id,grado):
+    alta = coneccion.dar_alta_alumno(e_id)
+    estudiantes = coneccion.consulta_estudiantes(grado)
+    return render_template('veralumno.html', estu=estudiantes )
+
+@app.route('/baja/<e_id>/<grado>')
+def baja_alumno(e_id,grado):
+    baja = coneccion.dar_baja_alumno(e_id)
+    estudiantes = coneccion.consulta_estudiantes(grado)
+    return render_template('veralumno.html', estu=estudiantes )
+
+@app.route('/suspender/<e_id>/<grado>')
+def suspender_alumno(e_id,grado):
+    suspender = coneccion.suspender(e_id)
+    estudiantes = coneccion.consulta_estudiantes(grado)
+    return render_template('veralumno.html', estu=estudiantes )
+
+##profesores grado
+@app.route('/alta_prof_grado/<e_id>')
+def alta_prof_Grado(e_id):
+    alta = coneccion.dar_alta_profesor_grado(e_id)
+    prof_grado = coneccion.consulta_prof_grado()
+    prof_esp = coneccion.consulta_all_prof_esp()
+    return render_template('verProfesor.html', prof_g=prof_grado, prof_e=prof_esp )
+
+@app.route('/baja_prof_grado/<e_id>')
+def baja_prof_grado(e_id):
+    baja = coneccion.dar_baja_profesor_grado(e_id)
+    prof_grado = coneccion.consulta_prof_grado()
+    prof_esp = coneccion.consulta_all_prof_esp()
+    return render_template('verProfesor.html', prof_g=prof_grado, prof_e=prof_esp )
+
+@app.route('/suspender_prof_grado/<e_id>')
+def suspender_prof_grado(e_id):
+    suspender = coneccion.suspender_profesor_grado(e_id)
+    prof_grado = coneccion.consulta_prof_grado()
+    prof_esp = coneccion.consulta_all_prof_esp()
+    return render_template('verProfesor.html', prof_g=prof_grado, prof_e=prof_esp )
+
+##profeosres Especialistas
+@app.route('/alta_prof_esp/<e_id>')
+def alta_prof_esp(e_id):
+    alta = coneccion.dar_baja_profesor_es(e_id)
+    prof_grado = coneccion.consulta_prof_grado()
+    prof_esp = coneccion.consulta_all_prof_esp()
+    return render_template('verProfesor.html', prof_g=prof_grado, prof_e=prof_esp )
+
+@app.route('/baja_prof_esp/<e_id>')
+def baja_prof_esp(e_id):
+    baja = coneccion.dar_baja_profesor_es(e_id)
+    prof_grado = coneccion.consulta_prof_grado()
+    prof_esp = coneccion.consulta_all_prof_esp()
+    return render_template('verProfesor.html', prof_g=prof_grado, prof_e=prof_esp )
+
+@app.route('/suspender_prof_esp/<e_id>')
+def suspender_prof_esp(e_id):
+    suspender = coneccion.suspender_profesor_es(e_id)
+    prof_grado = coneccion.consulta_prof_grado()
+    prof_esp = coneccion.consulta_all_prof_esp()
+    return render_template('verProfesor.html', prof_g=prof_grado, prof_e=prof_esp )
+
+######################################################################################################################
 ###Ingresar como estudiante
 @app.route('/alumno')
 def loggin_Estudiante():
@@ -112,6 +181,29 @@ def registrar_profesor():
             return "Hubo un problema"
     else:
         return render_template('index.html')
+####Editar datos del alumno
+
+@app.route('/actualizardatos/alumno/<ids>', methods=['POST'])
+def actualizar_datos_alumno(ids):
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        apellido_pat = request.form['apellido_p']
+        apellido_mat = request.form['apellido_m']
+        grado = request.form['grado']
+        edad = request.form['edad']
+        nombre_tutor = request.form['nombre_tutor']
+        telefono = request.form['telefono']
+        estado = request.form['estado']
+        try:
+            coneccion.actualizar_alumno(nombre, apellido_pat, apellido_mat, grado, edad, nombre_tutor, telefono, estado, ids)
+            flash("Se Actualizaron los datos correctamente!")
+            return redirect(url_for('administrador'))
+        except:
+            flash("Hubo algún problema, intente de nuevo")
+            return "Hubo un problema"
+    else:
+        return render_template('index.html')
+
 
 ##Vista de profesores
 @app.route('/verProfesor')
@@ -148,9 +240,52 @@ def materia():
     else:
         return render_template('index.html')
 
-@app.route('/edit/<id>')
-def get_data(id):
-    return id
+###########################Cambiar calificaciones######Rutas#########################
+@app.route('/editar/cambiar/calificaciones/<e_ID>/<grado>')
+def cambiar_calificacion1(e_ID,grado):
+    p_id = coneccion.consulta_prof_grado2(grado)
+    m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
+    est = coneccion.consulta_estudiantes_id(e_ID,grado)
+    grados = coneccion.clave(grado)
+    clave_prof_g= coneccion.clave_prof_grado(grado)
+    return render_template('cambiarCalif.html', estudiante=est, materia=m_inscrita, num='1', lista=grados, clave_prof_g=clave_prof_g)    
+
+@app.route('/editar/cambiar/calificaciones/<e_ID>/<grado>/2')
+def cambiar_calificacion2(e_ID,grado):
+    p_id = coneccion.consulta_prof_grado2(grado)
+    m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
+    est = coneccion.consulta_estudiantes_id(e_ID,grado)
+    lista = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
+    return render_template('cambiarCalif.html', estudiante=est, materia=m_inscrita, num='2', lista=lista )    
+
+@app.route('/editar/cambiar/calificaciones/<e_ID>/<grado>/3')
+def cambiar_calificacion3(e_ID,grado):
+    p_id = coneccion.consulta_prof_grado2(grado)
+    m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
+    est = coneccion.consulta_estudiantes_id(e_ID,grado)
+    lista = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
+    return render_template('cambiarCalif.html', estudiante=est, materia=m_inscrita, num='3', lista=lista )    
+
+@app.route('/editar/cambiar/calificaciones/<e_ID>/<grado>/4')
+def cambiar_calificacion4(e_ID,grado):
+    p_id = coneccion.consulta_prof_grado2(grado)
+    m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
+    est = coneccion.consulta_estudiantes_id(e_ID,grado)
+    lista = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
+    return render_template('cambiarCalif.html', estudiante=est, materia=m_inscrita, num='4', lista=lista )    
+
+@app.route('/editar/cambiar/calificaciones/<e_ID>/<grado>/5')
+def cambiar_calificacion5(e_ID,grado):
+    p_id = coneccion.consulta_prof_grado2(grado)
+    m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
+    est = coneccion.consulta_estudiantes_id(e_ID,grado)
+    lista = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
+    return render_template('cambiarCalif.html', estudiante=est, materia=m_inscrita, num='5', lista=lista)
+#########################################################################################
+
+#################################Cambiar Calificaciones Coneccion a base#########################
+
+#################################################################################################
 
 if __name__ == '__main__':
     app.run(debug = True)

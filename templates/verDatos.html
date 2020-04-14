@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Datos</title>
+</head>
+<body>
+    <h1>Datos del Alumno</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Clave Alumno </th>
+                <th>Nombre </th>
+                <th>Apellido Paterno </th>
+                <th>Apellido Materno </th>
+                <th>Grado </th>
+                <th>Edad </th>
+                <th>Nombre Tutor </th>
+                <th>Telefono </th>
+                <th> Estado Actual </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for i in estu %}
+                <td>{{ i.0 }}</td>
+                <td>{{ i.1 }}</td>
+                <td>{{ i.2 }}</td>
+                <td>{{ i.3 }}</td>
+                <td>{{ i.4 }}</td>
+                <td>{{ i.5 }}</td>
+                <td>{{ i.6 }}</td>
+                <td>{{ i.7 }}</td>
+                <td>{{ i.9 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>Datos del Tutor</h2>
+</body>
+</html>

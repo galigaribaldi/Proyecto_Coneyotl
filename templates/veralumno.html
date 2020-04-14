@@ -38,16 +38,17 @@
                 <td>{{ i.6 }}</td>
                 <td>{{ i.7 }}</td>
                 <td>{{ i.9 }}</td>
-                <td><a href="/editar/actualizar/{{ i.0 }}/{{ i.4 }}">Cambiar Datos</a> <a href="#">Ver datos</a> </td>
-                <td><a href="/editar/actualizar/calificaciones/{{ i.0 }}/{{ i.4 }}">Cambiar Calificaciones</a> <a href="#">Ver calificaciones</a> </td>
-                <td><a href="#">Dar de Baja</a></td>
-                <td><a href="">Dar de alta</a></td>
-
+                <td><a href="/editar/actualizar/{{ i.0 }}/{{ i.4 }}">Cambiar Datos</a> <a href="/verAlumnoDatos/{{ i.0 }}/{{ i.4 }}">Ver datos</a> </td>
+                <td><a href="/editar/cambiar/calificaciones/{{ i.0 }}/{{ i.4 }}">Cambiar Calificaciones</a> <a href="/editar/actualizar/calificaciones/{{ i.0 }}/{{ i.4 }}">Ver calificaciones</a> </td>
+                <td><a href="/baja/{{ i.0 }}/{{ i.4 }}">Dar de Baja</a></td>
+                <td><a href="/alta/{{ i.0 }}/{{ i.4 }}">Dar de alta</a></td>
+                <td><a href="/suspender/{{ i.0 }}/{{ i.4 }}">Suspender</a></td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <a href="/edit/{{ estu.4.4 }}">Dar de Alta a Todos los alumnos del grado</a>
+    <a href="/edit/{{ estu.4.4 }}">Dar de Alta a Todos los alumnos del grado</a> <br>
+    <a href="">Cambiar calificaciones</a> <br>
     <a href="/admin">Regresar</a>
 </body>
 

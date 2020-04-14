@@ -21,6 +21,7 @@
                 <th>Telefono </th>
                 <th>Status </th>
                 <th>Grado </th>
+                <th>            Cambiar Status </th>
             </tr>
         </thead>
         <tbody>
@@ -34,6 +35,7 @@
                 <td>{{ i.6 }}</td>
                 <td>{{ i.7 }}</td>
                 <td>{{ i.9 }}</td>
+                <td><a href="/alta_prof_grado/{{ i.0 }}">Dar de Alta</a> <a href="/baja_prof_grado/{{ i.0 }}">Dar de Baja</a><a href="/suspender_prof_grado/{{ i.0 }}">Suspender</a></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -50,19 +52,21 @@
                 <th>Telefono </th>
                 <th>Status </th>
                 <th>Grado </th>
+                <th>             Cambiar Status </th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                {% for i in prof_e %}
-                <td>{{ i.1 }}</td>
-                <td>{{ i.2 }}</td>
-                <td>{{ i.3 }}</td>
-                <td>{{ i.4 }}</td>
-                <td>{{ i.5 }}</td>
-                <td>{{ i.6 }}</td>
-                <td>{{ i.7 }}</td>
-                <td>{{ i.9 }}</td>
+                {% for j in prof_e %}
+                <td>{{ j.1 }}</td>
+                <td>{{ j.2 }}</td>
+                <td>{{ j.3 }}</td>
+                <td>{{ j.4 }}</td>
+                <td>{{ j.5 }}</td>
+                <td>{{ j.6 }}</td>
+                <td>{{ j.7 }}</td>
+                <td>{{ j.9 }}</td>
+                <td><a href="/alta_prof_esp/{{ j.0 }}">Dar de Alta</a> <a href="/baja_prof_esp/{{ j.0 }}">Dar de Baja</a><a href="/suspender_prof_esp/{{ j.0 }}">Suspender</a></td>
             </tr>
             {% endfor %}
         </tbody>

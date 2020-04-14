@@ -1,47 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Calificaciones del alumno </title>
+    <title>Vista de Calificaciones</title>
 </head>
 
 <body>
-    <h2>Datos del alumno {{ estudiante.0.1 }} {{estudiante.0.2}} {{estudiante.0.3}}</h2>
-    <form action="" , method="POST">
+    <h2>Califiaciones del alumno {{ estudiante.0.1 }} {{ estudiante.0.2 }} {{ estudiante.0.3 }}</h2>
+    este estudiante se encuentra actualmente como: {{ estudiante.0.9 }} <br>
+    <br>
         <!--Datos de la inscripcion de la materia-->
-        {% for i in materia %}
-        <h3>Materia: {{ i.0 }}</h3>
-        Promedio Bimestre 1: <input type="text" name="calificacion_B1" placeholder="{{ i.1 }}">
-        Campo 1: <input type="text" name="campo1_B1" placeholder="{{ i.2 }}">
-        Campo 2: <input type="text" name="campo2_B1" placeholder="{{ i.3 }}"><br>
-        Campo 3: <input type="text" name="campo3_B1" placeholder="{{ i.4 }}">
-        Campo 4: <input type="text" name="campo4_B1" placeholder="{{ i.5 }}"><br> <br> <br>
-        Promedio Bimestre 2: <input type="text" name="calificacion_B2" placeholder="{{ i.6 }}">
-        Campo 1: <input type="text" name="campo1_B2" placeholder="{{ i.7 }}">
-        Campo 2: <input type="text" name="campo2_B2" placeholder="{{ i.8 }}"><br>
-        Campo 3: <input type="text" name="campo3_B2" placeholder="{{ i.9 }}">
-        Campo 4: <input type="text" name="campo4_B2" placeholder="{{ i.10 }}"><br> <br> <br>
-        Promedio Bimestre 3: <input type="text" name="calificacion_B3" placeholder="{{ i.11 }}">
-        Campo 1: <input type="text" name="campo1_B3" placeholder="{{ i.12 }}">
-        Campo 2: <input type="text" name="campo2_B3" placeholder="{{ i.13 }}"><br>
-        Campo 3: <input type="text" name="campo3_B3" placeholder="{{ i.14 }}">
-        Campo 4: <input type="text" name="campo4_B3" placeholder="{{ i.15 }}"><br> <br> <br>
-        Promedio Bimestre 4: <input type="text" name="calificacion_B4" placeholder="{{ i.16 }}">
-        Campo 1: <input type="text" name="campo1_B4" placeholder="{{ i.17 }}">
-        Campo 2: <input type="text" name="campo2_B4" placeholder="{{ i.18 }}"><br>
-        Campo 3: <input type="text" name="campo3_B4" placeholder="{{ i.19 }}">
-        Campo 4: <input type="text" name="campo4_B4" placeholder="{{ i.20 }}"><br> <br> <br>
-        Promedio Bimestre 5: <input type="text" name="calificacion_B5" placeholder="{{ i.21 }}">
-        Campo 1: <input type="text" name="campo1_B5" placeholder="{{ i.22 }}">
-        Campo 2: <input type="text" name="campo2_B5" placeholder="{{ i.23 }}"><br>
-        Campo 3: <input type="text" name="campo3_B5" placeholder="{{ i.24 }}">
-        Campo 4: <input type="text" name="campo4_B5" placeholder="{{ i.25 }}"><br> <br> <br>
-        {% endfor %}
-        <button type="submit"> SAVE </button>
-    </form>
+        {{ materia }} <br>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre de la Materia </th>
+                    <th>Calificacion Bimestral 1 (Agosto - Septiembre - Octubre) </th>
+                    <th>Campo 1 </th>
+                    <th>Campo 2</th>
+                    <th>Campo 3</th>
+                    <th>Campo 4</th>
+                    <th>Calificacion Bimestral 2 (Noviembre - Diciembre) </th>
+                    <th>Campo 1 </th>
+                    <th>Campo 2</th>
+                    <th>Campo 3</th>
+                    <th>Campo 4</th>
+                    <th>Calificacion Bimestral 3 (Enero - Febrero) </th>
+                    <th>Campo 1 </th>
+                    <th>Campo 2</th>
+                    <th>Campo 3</th>
+                    <th>Campo 4</th>
+                    <th>Calificacion Bimestral 4 (Marzo - Abril) </th>
+                    <th>Campo 1 </th>
+                    <th>Campo 2</th>
+                    <th>Campo 3</th>
+                    <th>Campo 4</th>
+                    <th>Calificacion Bimestral 5 (Mayo - Junio) </th>
+                    <th>Campo 1 </th>
+                    <th>Campo 2</th>
+                    <th>Campo 3</th>
+                    <th>Campo 4</th>
+                    <th>Promedio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for i in materia %}
+                    <td>{{ i.0 }}</td>
+                    <td>{{ i.1 }}</td>
+                    <td>{{ i.2 }}</td>
+                    <td>{{ i.3 }}</td>
+                    <td>{{ i.4 }}</td>
+                    <td>{{ i.5 }}</td>
+                    <td>{{ i.6 }}</td>
+                    <td>{{ i.7 }}</td>
+                    <td>{{ i.8 }}</td>
+                    <td>{{ i.9 }}</td>
+                    <td>{{ i.10 }}</td>    
+                    <td>{{ i.11 }}</td>
+                    <td>{{ i.12 }}</td>
+                    <td>{{ i.13 }}</td>
+                    <td>{{ i.14 }}</td>
+                    <td>{{ i.15 }}</td>
+                    <td>{{ i.16 }}</td>
+                    <td>{{ i.17 }}</td>
+                    <td>{{ i.18 }}</td>
+                    <td>{{ i.19 }}</td>
+                    <td>{{ i.20 }}</td>
+                    <td>{{ i.21 }}</td>
+                    <td>{{ i.22 }}</td>
+                    <td>{{ i.23 }}</td>
+                    <td>{{ i.24 }}</td>
+                    <td>{{ i.25 }}</td>
+                    <td>{{ i.26 }}</td>
+                    <td>{{ i.27 }}</td>
+                    <td>{{ i.28 }}</td>
+                    <td>{{ i.29 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     <a href="/admin">Regresar</a>
 </body>
 

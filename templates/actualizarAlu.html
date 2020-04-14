@@ -9,17 +9,18 @@
 </head>
 
 <body>
+    {{ estudiante.0.0 }}
     <h2>Datos del alumno {{ estudiante.0.1 }} {{estudiante.0.2}} {{estudiante.0.3}}</h2>
-    <form action="" , method="POST">
+    <form action="/actualizardatos/alumno/{{ estudiante.0.0 }}" , method="POST">
         <!-- Datos del estudiante -->
-        Nombre Actual: <input type="text" name="nombre" placeholder="{{ estudiante.0.1 }}">
-        Apellido Paterno Actual: <input type="text" name="apellido_p" placeholder=" {{ estudiante.0.2 }}">
-        Apellido Materno Actual: <input type="text" name="apellido_m" placeholder=" {{ estudiante.0.3 }}"><br>
-        Grado Actual: <input type="text" name="grado" placeholder=" {{ estudiante.0.4 }}">
-        Edad Actual: <input type="text" name="edad" placeholder=" {{ estudiante.0.5 }}">
-        Nombre Actual del Padre ó Tutor: <input type="text" name="nombre_tutor" placeholder=" {{ estudiante.0.6 }}"><br>
-        Teléfono Actual: <input type="text" name="telefono" placeholder="{{ estudiante.0.7 }}">
-        Estado Actual: <input type="text" name="estado" placeholder=" {{ estudiante.0.9 }}"><br>
+        Nombre Actual: <input type="text" name="nombre" value="{{ estudiante.0.1 }}"><br>
+        Apellido Paterno Actual: <input type="text" name="apellido_p" value="{{ estudiante.0.2 }}"><br>
+        Apellido Materno Actual: <input type="text" name="apellido_m" value="{{ estudiante.0.3 }}"><br>
+        Grado Actual: <input type="text" name="grado" value="{{ estudiante.0.4 }}"><br>
+        Edad Actual: <input type="text" name="edad" value="{{ estudiante.0.5 }}"><br>
+        Nombre Actual del Padre ó Tutor: <input type="text" name="nombre_tutor" value="{{ estudiante.0.6 }}"><br>
+        Teléfono Actual: <input type="text" name="telefono" value="{{ estudiante.0.7 }}"><br>
+        Estado Actual: <input type="text" name="estado" value="{{ estudiante.0.9 }}"><br>
         <button type="submit"> Actualizar </button>
     </form>
     <a href="/admin">Regresar</a>

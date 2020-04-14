@@ -3,7 +3,7 @@ import sqlite3
 con = sqlite3.connect('baseConeyotl.db')
 cursor = con.cursor()
 
-carga = open("alumnos.sql",'r') ##abrimos nuestro archivo en modo lectura
+carga = open("cargaCalifgrado.sql",'r') ##abrimos nuestro archivo en modo lectura
 
 for i in carga:
     print(i)
