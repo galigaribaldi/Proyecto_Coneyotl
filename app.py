@@ -2,7 +2,7 @@ from flask import Flask
 from flask import render_template, request, flash
 from flask import redirect, url_for
 import models as coneccion
-import models2 as inscripciones 
+#import models2 as inscripciones 
 #import sqlite3
 
 app = Flask(__name__)
@@ -326,7 +326,7 @@ def cambiar_calificacion_Bimestre2(id_materia, id_estudiante, id_profesor):
         try:
             coneccion.insertarcalificacion_Bimestre1(campo1_B2, campo2_B2, campo3_B2, campo4_B2, promedio, id_estudiante, id_materia, id_profesor)
             flash('La materia se registro sattisfacotriamente')
-            return "Done!"
+            return "MAteria del Segundo Bloque guardada"
         except:
             return "Error"
 
@@ -342,7 +342,7 @@ def cambiar_calificacion_Bimestre3(id_materia, id_estudiante, id_profesor):
         try:
             inscripciones.insertarcalificacion_Bimestre1(campo1_B3, campo2_B3, campo3_B3, campo4_B3, promedio, id_estudiante, id_materia, id_profesor)
             flash('La materia se registro sattisfacotriamente')
-            return "Done!"
+            return "Materia del tercer Bimestre Guardada"
         except:
             return "Error"
 
@@ -356,9 +356,9 @@ def cambiar_calificacion_Bimestre4(id_materia, id_estudiante, id_profesor):
         campo5_B4 = request.form['campo5_B4'] ##Cuaderno
         promedio = (int(campo1_B4)*.50) + (int(campo2_B4)*.15) + (int(campo3_B4)*.15) + (int(campo4_B4)*.10) + (int(campo5_B4)*.10)
         try:
-            inscripciones.insertarcalificacion_Bimestre1(campo1_B4, campo2_B4, campo3_B4, campo4_B4, promedio, id_estudiante, id_materia, id_profesor)
+            coneccion.insertarcalificacion_Bimestre1(campo1_B4, campo2_B4, campo3_B4, campo4_B4, promedio, id_estudiante, id_materia, id_profesor)
             flash('La materia se registro sattisfacotriamente')
-            return "Done!"
+            return "MAteria del 4to bloque guardada"
         except:
             return "Error"
 
