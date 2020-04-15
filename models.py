@@ -70,7 +70,7 @@ def consulta_inscrita(est_id, grado):
 def consulta_inscrita2(est_id, prof_id,grado):
     con = sql.connect("DB/baseConeyotl.db")
     cursor = con.cursor()
-    cursor.execute("SELECT  m.nombre,ig.calificacion_B1, ig.campo1_B1, ig.campo2_B1, ig.campo3_B1, ig.campo4_B1,ig.calificacion_B2, ig.campo1_B2, ig.campo2_B2, ig.campo3_B2, ig.campo4_B2,ig.calificacion_B3, ig.campo1_B3, ig.campo2_B3, ig.campo3_B3, ig.campo4_B3,ig.calificacion_B4, ig.campo1_B4, ig.campo2_B4, ig.campo3_B4, ig.campo4_B4,ig.calificacion_B5, ig.campo1_B5, ig.campo2_B5, ig.campo3_B5, ig.campo4_B5, ig.promedio FROM inscripcion_grado ig JOIN materia m ON m.materia_ID=ig.materia_ID where ig.estudiante_ID=? and ig.profesor_ID=? AND m.grado=?",(est_id, prof_id ,grado,))
+    cursor.execute("SELECT  m.nombre,ig.calificacion_B1, ig.campo1_B1, ig.campo2_B1, ig.campo3_B1, ig.campo4_B1,ig.calificacion_B2, ig.campo1_B2, ig.campo2_B2, ig.campo3_B2, ig.campo4_B2,ig.calificacion_B3, ig.campo1_B3, ig.campo2_B3, ig.campo3_B3, ig.campo4_B3,ig.calificacion_B4, ig.campo1_B4, ig.campo2_B4, ig.campo3_B4, ig.campo4_B4,ig.calificacion_B5, ig.campo1_B5, ig.campo2_B5, ig.campo3_B5, ig.campo4_B5, ig.promedio, m.materia_ID, ig.profesor_ID FROM inscripcion_grado ig JOIN materia m ON m.materia_ID=ig.materia_ID where ig.estudiante_ID=? and ig.profesor_ID=? AND m.grado=?",(est_id, prof_id ,grado,))
     datos_materia_inscrita = cursor.fetchall()
     #print(datos_estudiantes)
     con.commit()
@@ -220,10 +220,10 @@ def suspender_profesor_es(ids):
 def inscripcion_estudiante_ID(grado, e_ID):
     con = sql.connect("DB/baseConeyotl.db")
     cursor = con.cursor()
-    cursor.execute("SELECT e.estudiante_ID, p.profesor_ID, m.materia_ID FROM estudiante e JOIN profesor_grado p ON e.grado=p.grado JOIN materia m ON m.grado=p.grado WHERE e.grado=? and e.estudiante_ID=?", grado, e_ID)
+    cursor.execute("SELECT e.estudiante_ID, p.profesor_ID, m.materia_ID FROM estudiante e JOIN profesor_grado p ON e.grado=p.grado JOIN materia m ON m.grado=p.grado WHERE e.grado=? and e.estudiante_ID=?", (grado, e_ID,))
     join = cursor.fetchall() ###TRae una lista de tupla
     for i in join:
-        cursor.execute("INSERT INTO inscripcion_grado(estudiante_ID, materia_ID,profesor_ID) VALUES(?, ?, ?)", i[0],i[1], i[2])
+        cursor.execute("INSERT INTO inscripcion_grado(estudiante_ID, profesor_ID, materia_ID) VALUES(?, ?, ?)", (i[0],i[1], i[2]),)
     con.commit()
     con.close()
 
@@ -251,3 +251,35 @@ def clave_prof_grado(grado):
     con.commit()
     con.close()
     return datos
+##Calificaciones para le bimestre 1
+def insertarcalificacion_Bimestre1(campo1_B1,campo2_B1,campo3_B1, campo4_B1,promedio, estudiante_ID, materia_ID, profesor_ID):
+    con = sql.connect("DB/baseConeyotl.db")
+    cursor = con.cursor()
+    cursor.execute("UPDATE inscripcion_grado SET campo1_B1=? ,campo2_B1=?, campo3_B1=?, campo4_B1=?, calificacion_B1=? WHERE estudiante_ID =? AND materia_ID=? AND profesor_ID=?", (campo1_B1,campo2_B1,campo3_B1, campo4_B1,promedio, estudiante_ID, materia_ID, profesor_ID))
+    print("Lo hace")
+    con.commit()
+    con.commit()
+    con.close()
+
+#Calificaciones para el bimestre 2
+def insertarcalificacion_Bimestre2(campo1_B2,campo2_B2,campo3_B2, campo4_B2,promedio, estudiante_ID, materia_ID, profesor_ID):
+    con = sql.connect("DB/baseConeyotl.db")
+    cursor = con.cursor()
+    cursor.execute("UPDATE inscripcion_grado SET campo1_B2=? ,campo2_B2=?, campo3_B2=?, campo4_B2=?, calificacion_B2=? WHERE estudiante_ID =? AND materia_ID=? AND profesor_ID=?", (campo1_B2,campo2_B2,campo3_B2, campo4_B2,promedio, estudiante_ID, materia_ID, profesor_ID))
+    con.commit()
+    con.close()
+
+#3Calificaciones para el bimestre 3
+def insertarcalificacion_Bimestre3(campo1_B3,campo2_B3,campo3_B3, campo4_B3,promedio, estudiante_ID, materia_ID, profesor_ID):
+    con = sql.connect("DB/baseConeyotl.db")
+    cursor = con.cursor()
+    cursor.execute("UPDATE inscripcion_grado SET campo1_B3=? ,campo2_B3=?, campo3_B3=?, campo4_B3=?, calificacion_B3=? WHERE estudiante_ID =? AND materia_ID=? AND profesor_ID=?", (campo1_B3,campo2_B3,campo3_B3, campo4_B3,promedio, estudiante_ID, materia_ID, profesor_ID))
+    con.commit()
+    con.close()
+##Calificaciones para el bimestre 4
+def insertarcalificacion_Bimestre4(campo1_B4,campo2_B4,campo3_B4, campo4_B4,promedio, estudiante_ID, materia_ID, profesor_ID):
+    con = sql.connect("DB/baseConeyotl.db")
+    cursor = con.cursor()
+    cursor.execute("UPDATE inscripcion_grado SET campo1_B4=? ,campo2_B4=?, campo3_B4=?, campo4_B4=?, calificacion_B4=? WHERE estudiante_ID =? AND materia_ID=? AND profesor_ID=?", (campo1_B4,campo2_B4,campo3_B4, campo4_B4,promedio, estudiante_ID, materia_ID, profesor_ID))
+    con.commit()
+    con.close()

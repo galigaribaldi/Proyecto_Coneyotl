@@ -9,11 +9,11 @@
 </head>
 
 <body>
+    {% if materia %}
     <h2>Califiaciones del alumno {{ estudiante.0.1 }} {{ estudiante.0.2 }} {{ estudiante.0.3 }}</h2>
     este estudiante se encuentra actualmente como: {{ estudiante.0.9 }} <br>
     <br>
         <!--Datos de la inscripcion de la materia-->
-        {{ materia }} <br>
         <table>
             <thead>
                 <tr>
@@ -83,7 +83,14 @@
                 {% endfor %}
             </tbody>
         </table>
+    {% endif %}
+    {% if not materia %}
+    <h1>no hay calificaciones, ¿desea inscribirlo?</h1>
+    <a href="/admin">NO</a> <a href="/inscripcionalumno/{{ estudiante.0.0 }}/{{ estudiante.0.4 }}">SI</a>
+    {% endif %}
+    <br>
     <a href="/admin">Regresar</a>
+
 </body>
 
 </html>

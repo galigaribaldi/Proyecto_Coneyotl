@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template, request, flash
 from flask import redirect, url_for
 import models as coneccion
+import models2 as inscripciones 
 #import sqlite3
 
 app = Flask(__name__)
@@ -47,7 +48,9 @@ def actualizar_au(e_ID,grado):
 @app.route('/editar/actualizar/calificaciones/<e_ID>/<grado>')
 def actualizar_calificacion(e_ID,grado):
     p_id = coneccion.consulta_prof_grado2(grado)
+    print(p_id)
     m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
+    print(m_inscrita)
     est = coneccion.consulta_estudiantes_id(e_ID,grado)
     return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita )    
 ####################################################################################################################
@@ -240,6 +243,11 @@ def materia():
     else:
         return render_template('index.html')
 
+@app.route('/inscripcionalumno/<id_alumno>/<grupo>')
+def inscripcionalumno(id_alumno, grupo):
+    coneccion.inscripcion_estudiante_ID(grupo, id_alumno)
+    return redirect(url_for('administrador'))
+
 ###########################Cambiar calificaciones######Rutas#########################
 @app.route('/editar/cambiar/calificaciones/<e_ID>/<grado>')
 def cambiar_calificacion1(e_ID,grado):
@@ -284,7 +292,86 @@ def cambiar_calificacion5(e_ID,grado):
 #########################################################################################
 
 #################################Cambiar Calificaciones Coneccion a base#########################
+@app.route('/guardar1/calificacion/Bimestre_1/<id_materia>/<id_estudiante>/<id_profesor>', methods = ['POST'])
+def cambiar_calificacion_Bimestre1(id_materia, id_estudiante, id_profesor):
+    if request.method == 'POST':
+        campo1_B1 = int(request.form['campo1_B1']) ##Examenes
+        campo2_B1 = int(request.form['campo2_B1']) ## Tareas
+        campo3_B1 = int(request.form['campo3_B1']) ##Exposisicon
+        campo4_B1 = int(request.form['campo4_B1']) ## Asistencia
+        campo5_B1 = int(request.form['campo5_B1']) ##Cuaderno
+        promedio = (int(campo1_B1)*.50) + (int(campo2_B1)*.15) + (int(campo3_B1)*.15) + (int(campo4_B1)*.10) + (int(campo5_B1)*.10)
+        #try:
+        coneccion.insertarcalificacion_Bimestre1(campo1_B1, campo2_B1, campo3_B1, campo4_B1, promedio, id_estudiante, id_materia, id_profesor)
+        print(campo1_B1, campo2_B1, campo3_B1, campo4_B1, promedio, id_materia, id_estudiante, id_profesor)
+        print(type(campo1_B1), type(campo2_B1), type(campo3_B1), type(campo4_B1), type(promedio))
+        #flash('La materia se registro sattisfacotriamente')
+        #return redirect(url_for('administrador'))
+        #except:
+        #return "Error"
+        return "Hecho!"
+    else:
+        return render_template('index.html')
 
+
+@app.route('/guardar/calificacion/Bimestre_2/<id_materia>/<id_estudiante>/<id_profesor>', methods = ['POST'])
+def cambiar_calificacion_Bimestre2(id_materia, id_estudiante, id_profesor):
+    if request.method == 'POST':
+        campo1_B2 = request.form['campo1_B2'] ##Examenes
+        campo2_B2 = request.form['campo2_B2'] ## Tareas
+        campo3_B2 = request.form['campo3_B2'] ##Exposisicon
+        campo4_B2 = request.form['campo4_B2'] ## Asistencia
+        campo5_B2 = request.form['campo5_B2'] ##Cuaderno
+        promedio = (int(campo1_B2)*.50) + (int(campo2_B2)*.15) + (int(campo3_B2)*.15) + (int(campo4_B2)*.10) + (int(campo5_B2)*.10)
+        try:
+            coneccion.insertarcalificacion_Bimestre1(campo1_B2, campo2_B2, campo3_B2, campo4_B2, promedio, id_estudiante, id_materia, id_profesor)
+            flash('La materia se registro sattisfacotriamente')
+            return "Done!"
+        except:
+            return "Error"
+
+@app.route('/guardar/calificacion/Bimestre_3/<id_materia>/<id_estudiante>/<id_profesor>', methods = ['POST'])
+def cambiar_calificacion_Bimestre3(id_materia, id_estudiante, id_profesor):
+    if request.method == 'POST':
+        campo1_B3 = request.form['campo1_B3'] ##Examenes
+        campo2_B3 = request.form['campo2_B3'] ## Tareas
+        campo3_B3 = request.form['campo3_B3'] ##Exposisicon
+        campo4_B3 = request.form['campo4_B3'] ## Asistencia
+        campo5_B3 = request.form['campo5_B3'] ##Cuaderno
+        promedio = (int(campo1_B3)*.50) + (int(campo2_B3)*.15) + (int(campo3_B3)*.15) + (int(campo4_B3)*.10) + (int(campo5_B3)*.10)
+        try:
+            inscripciones.insertarcalificacion_Bimestre1(campo1_B3, campo2_B3, campo3_B3, campo4_B3, promedio, id_estudiante, id_materia, id_profesor)
+            flash('La materia se registro sattisfacotriamente')
+            return "Done!"
+        except:
+            return "Error"
+
+@app.route('/guardar/calificacion/Bimestre_4/<id_materia>/<id_estudiante>/<id_profesor>', methods = ['POST'])
+def cambiar_calificacion_Bimestre4(id_materia, id_estudiante, id_profesor):
+    if request.method == 'POST':
+        campo1_B4 = request.form['campo1_B4'] ##Examenes
+        campo2_B4 = request.form['campo2_B4'] ## Tareas
+        campo3_B4 = request.form['campo3_B4'] ##Exposisicon
+        campo4_B4 = request.form['campo4_B4'] ## Asistencia
+        campo5_B4 = request.form['campo5_B4'] ##Cuaderno
+        promedio = (int(campo1_B4)*.50) + (int(campo2_B4)*.15) + (int(campo3_B4)*.15) + (int(campo4_B4)*.10) + (int(campo5_B4)*.10)
+        try:
+            inscripciones.insertarcalificacion_Bimestre1(campo1_B4, campo2_B4, campo3_B4, campo4_B4, promedio, id_estudiante, id_materia, id_profesor)
+            flash('La materia se registro sattisfacotriamente')
+            return "Done!"
+        except:
+            return "Error"
+
+@app.route('/guardar/calificacion/Bimestre_5/<id_materia>/<id_estudiante>/<id_profesor>', methods = ['POST'])
+def cambiar_calificacion_Bimestre5(id_materia, id_estudiante, id_profesor):
+    if request.method == 'POST':
+        campo1_B1 = request.form['campo1_B5'] ##Examenes
+        campo2_B1 = request.form['campo2_B5'] ## Tareas
+        campo3_B1 = request.form['campo3_B5'] ##Exposisicon
+        campo4_B1 = request.form['campo4_B5'] ## Asistencia
+        campo5_B1 = request.form['campo5_B5'] ##Cuaderno
+        promedio = (int(campo1_B1)*.50) + (int(campo2_B1)*.15) + (int(campo3_B1)*.15) + (int(campo4_B1)*.10) + (int(campo5_B1)*.10)
+    return str(promedio)
 #################################################################################################
 
 if __name__ == '__main__':
