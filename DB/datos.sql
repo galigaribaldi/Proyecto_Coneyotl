@@ -1,4 +1,0 @@
-insert into inscripcion_grado(estudiante_ID, materia_ID, profesor_ID,calificacion_B1,calificacion_B2,calificacion_B3,calificacion_B4)values(1,1,1,10,9,8,9)
-insert into inscripcion_grado(estudiante_ID, materia_ID, profesor_ID,calificacion_B1,calificacion_B2,calificacion_B3,calificacion_B4)values(1,2,1,10,9,8,9)
-insert into inscripcion_grado(estudiante_ID, materia_ID, profesor_ID,calificacion_B1,calificacion_B2,calificacion_B3,calificacion_B4)values(1,3,1,10,9,8,9)
-insert into inscripcion_grado(estudiante_ID, materia_ID, profesor_ID,calificacion_B1,calificacion_B2,calificacion_B3,calificacion_B4)values(1,4,1,10,9,8,9)

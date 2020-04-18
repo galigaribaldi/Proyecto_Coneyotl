@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -9,20 +9,33 @@
 </head>
 
 <body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for messages in messages %}
+    {{ messages }}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
     <h1>Registro Estudiante</h1>
     <form action="/alumno/agregar" , method="POST">
-        <input type="text" name="estudiante_ID" placeholder="Contra">
+        <input type="text" name="estudiante_ID" placeholder="Clave Interna">
+        <input type="text" name="curp" placeholder="CURP">
         <input type="text" name="nombre" placeholder="Nombre">
         <input type="text" name="apellido_pat" placeholder="Apellido Paterno">
         <input type="text" name="apellido_mat" placeholder="Apellido Materno">
         <input type="text" name="grado" placeholder="Grado Escolar">
         <input type="text" name="edad" placeholder="Edad">
         <input type="text" name="nombre_tutor" placeholder="Nombre del Tutor">
-        <input type="text" name="telefono" placeholder="Telefono">
+        <input type="text" name="telefono_casa" placeholder="Telefono Casa">
+        <input type="text" name="telefono_celular" placeholder="Telefono Celular">
+        <input type="text" name="correo_electronico" placeholder="Correo Electronico">
+        <input type="text" name="passwords" placeholder="contraseña">
+        <input type="text" name="dia_registro" placeholder="Dia de Registro">
         <input type="text" name="estado" placeholder="Estado A, S, B">
         <button type="submit"> SAVE </button>
     </form>
 
+    <a href="/admin">Regresar</a>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,18 +7,47 @@
     <title>Registro Profesores</title>
 </head>
 <body>
+    <!--REgistro de profesores por grado-->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for messages in messages %}
+    {{ messages }}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
     <h1>Registro Profesores</h1>
-    <form action="/profesor/agregar" , method="POST">
-        <input type="text" name="profesor_ID" placeholder="Contraseña">
+    <h2>Profesor de Grado</h2>
+    <form action="/profesor_grado/agregar" , method="POST">
+        <input type="text" name="profesor_ID" placeholder="Calve interna">
+        <input type="text" name="CURP" placeholder="CURP">
         <input type="text" name="nombre" placeholder="Nombre">
         <input type="text" name="apellido_pat" placeholder="Apellido Paterno">
         <input type="text" name="apellido_mat" placeholder="Apellido Materno">
         <input type="text" name="edad" placeholder="Edad">
         <input type="text" name="telefono" placeholder="Telefono">
+        <input type="text" name="correo_electronico" placeholder="Correo Electronico">
+        <input type="text" name="passwords" placeholder="Contraseña">
         <input type="text" name="estado" placeholder="Estado A, S, B">
         <input type="text" name="grado" placeholder="Grado Escolar que imparte">
         <button type="submit"> SAVE </button>
     </form>
-    
+    <!--Formulario de profesor especialistA-->
+    <h2>Profesor Extracurricular</h2>
+    <form action="/profesor_especialista/agregar" , method="POST">
+        <input type="text" name="profesor_ID" placeholder="Calve interna">
+        <input type="text" name="CURP" placeholder="CURP">
+        <input type="text" name="nombre" placeholder="Nombre">
+        <input type="text" name="apellido_pat" placeholder="Apellido Paterno">
+        <input type="text" name="apellido_mat" placeholder="Apellido Materno">
+        <input type="text" name="edad" placeholder="Edad">
+        <input type="text" name="telefono" placeholder="Telefono">
+        <input type="text" name="correo_electronico" placeholder="Correo Electronico">
+        <input type="text" name="passwords" placeholder="Contraseña">
+        <input type="text" name="estado" placeholder="Estado A, S, B">
+        <input type="text" name="grado" placeholder="Primaria o kinder">
+        <input type="text" name="nom_materia" placeholder="Nombre de la MAteria">
+        <button type="submit"> SAVE </button>
+    </form>
+    <a href="/admin">Regresar</a>
 </body>
 </html>

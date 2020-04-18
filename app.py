@@ -133,16 +133,21 @@ def registrar_esudiante():
 def registrar_esudiante2():
     if request.method == 'POST':
         estudiante_ID = request.form['estudiante_ID']
+        curp = request.form['curp']
         nombre = request.form['nombre']
         apellido_pat = request.form['apellido_pat']
         apellido_mat = request.form['apellido_mat']
         grado = request.form['grado']
         edad = request.form['edad']
         nombre_tutor = request.form['nombre_tutor']
-        telefono = request.form['telefono']
+        telefono_casa = request.form['telefono_casa']
+        telefono_celular = request.form['telefono_celular']
+        correo_electronico = request.form['correo_electronico']
+        passwords = request.form['passwords']
+        dia_registro = request.form['dia_registro']
         estado = request.form['estado']
         try:
-            coneccion.insertarestud(estudiante_ID, nombre, apellido_pat, apellido_mat, grado, edad, nombre_tutor, telefono, estado)
+            coneccion.insertarestud(estudiante_ID, curp,nombre, apellido_pat, apellido_mat, grado, edad, nombre_tutor, telefono_casa, telefono_celular,correo_electronico, passwords, dia_registro,estado)
             flash('Tu cuenta ha quedado Registrada, por favor inicia sesion')
             return redirect(url_for('registrar_esudiante'))            
         except:
@@ -160,28 +165,52 @@ def loggin_profesor():
 def registrar_profesores():
     return render_template('regisprofe.html')
 
-@app.route('/profesor/agregar', methods =['POST'])
+@app.route('/profesor_grado/agregar', methods =['POST'])
 def registrar_profesor():
     if request.method == 'POST':
         profesor_ID = request.form['profesor_ID']
+        curp = request.form['CURP']
         nombre = request.form['nombre']
         apellido_pat = request.form['apellido_pat']
         apellido_mat = request.form['apellido_mat']
         edad = request.form['edad']
         telefono = request.form['telefono']
+        correo_electronico = request.form['correo_electronico']
+        passwords = request.form['passwords']
         estado = request.form['estado']
-        grado = request.form['grado']
-        print(profesor_ID)
-        print(nombre)
-        print(apellido_mat)
+        grado = (request.form['grado'])#.upper()
+        #try:
+        coneccion.insertarprof_grado(profesor_ID, curp, nombre, apellido_pat, apellido_mat, edad, telefono, correo_electronico, passwords,estado, grado)
+        flash('El profesor fue registrado sattisfacotriamente')
+        return redirect(url_for('registrar_profesores'))
+        #except:
+        flash('Hubo algun problema intetalo de nuevo')
+        return "Hubo un problema"
+    else:
+        return render_template('index.html')
 
+@app.route('/profesor_especialista/agregar', methods =['POST'])
+def registrar_profesor_esp():
+    if request.method == 'POST':
+        profesor_ID = request.form['profesor_ID']
+        curp = request.form['CURP']
+        nombre = request.form['nombre']
+        apellido_pat = request.form['apellido_pat']
+        apellido_mat = request.form['apellido_mat']
+        edad = request.form['edad']
+        telefono = request.form['telefono']
+        correo_electronico = request.form['correo_electronico']
+        passwords = request.form['passwords']
+        estado = request.form['estado']
+        grado = (request.form['grado']).upper()
+        nombre_materia = request.form['nom_materia']
         try:
-            coneccion.insertarprof_grado(profesor_ID, nombre, apellido_pat, apellido_mat, edad, telefono, estado, grado)
+            coneccion.insertarprof_especialista(profesor_ID, curp, nombre, apellido_pat, apellido_mat, edad, telefono, correo_electronico, passwords,estado, grado, nombre_materia)
             flash('El profesor fue registrado sattisfacotriamente')
             return redirect(url_for('registrar_profesores'))
         except:
             flash('Hubo algun problema intetalo de nuevo')
-            return "Hubo un problema"
+            return redirect(url_for('registrar_profesores'))
     else:
         return render_template('index.html')
 ####Editar datos del alumno
@@ -233,13 +262,14 @@ def materia():
         materia_ID = request.form['materia_ID']
         nombre = request.form['nombre']
         estado = request.form['estado']
-        try:
-            coneccion.insertamateria(materia_ID, nombre, estado)
-            flash('La materia se registro sattisfacotriamente')
-            return redirect(url_for('index'))
-        except:
-            flash('Hubo algun problema intetalo de nuevo')
-            return "Hubo un problema"
+        grado = request.form['grado']
+        #try:
+        coneccion.insertamateria(materia_ID, nombre, estado, grado)
+        flash('La materia se registro sattisfacotriamente')
+        return redirect(url_for('materia2'))
+        #except:
+        flash('Hubo algun problema intetalo de nuevo')
+        return "Hubo un problema"
     else:
         return render_template('index.html')
 
@@ -294,7 +324,10 @@ def cambiar_calificacion5(e_ID,grado):
 #################################Cambiar Calificaciones Coneccion a base#########################
 @app.route('/guardar1/calificacion/Bimestre_1/<id_materia>/<id_estudiante>/<id_profesor>', methods = ['POST'])
 def cambiar_calificacion_Bimestre1(id_materia, id_estudiante, id_profesor):
+    import sqlite3 as sql
     if request.method == 'POST':
+        con = sql.connect("DB/baseConeyotl.db")
+        cursor = con.cursor()
         campo1_B1 = int(request.form['campo1_B1']) ##Examenes
         campo2_B1 = int(request.form['campo2_B1']) ## Tareas
         campo3_B1 = int(request.form['campo3_B1']) ##Exposisicon
@@ -302,19 +335,21 @@ def cambiar_calificacion_Bimestre1(id_materia, id_estudiante, id_profesor):
         campo5_B1 = int(request.form['campo5_B1']) ##Cuaderno
         promedio = (int(campo1_B1)*.50) + (int(campo2_B1)*.15) + (int(campo3_B1)*.15) + (int(campo4_B1)*.10) + (int(campo5_B1)*.10)
         #try:
-        coneccion.insertarcalificacion_Bimestre1(campo1_B1, campo2_B1, campo3_B1, campo4_B1, promedio, id_estudiante, id_materia, id_profesor)
-        print(campo1_B1, campo2_B1, campo3_B1, campo4_B1, promedio, id_materia, id_estudiante, id_profesor)
+        coneccion.insertarcalificacion_Bimestre1(campo1_B1,campo2_B1,campo3_B1, campo4_B1,promedio, id_estudiante, id_materia, id_profesor)
+        print(campo1_B1, campo2_B1, campo3_B1, campo4_B1, promedio, id_materia, id_estudiante, id_profesor, promedio)
         print(type(campo1_B1), type(campo2_B1), type(campo3_B1), type(campo4_B1), type(promedio))
         #flash('La materia se registro sattisfacotriamente')
         #return redirect(url_for('administrador'))
         #except:
         #return "Error"
-        return "Hecho!"
+        con.commit()
+        con.close()
+        return str(promedio)
     else:
         return render_template('index.html')
 
 
-@app.route('/guardar/calificacion/Bimestre_2/<id_materia>/<id_estudiante>/<id_profesor>', methods = ['POST'])
+@app.route('/guardar/calificacion/Bimestre_2/<id_materia>/<id_estudiante>/<id_profesor>', methods = ['POST', 'GET'])
 def cambiar_calificacion_Bimestre2(id_materia, id_estudiante, id_profesor):
     if request.method == 'POST':
         campo1_B2 = request.form['campo1_B2'] ##Examenes
@@ -324,9 +359,10 @@ def cambiar_calificacion_Bimestre2(id_materia, id_estudiante, id_profesor):
         campo5_B2 = request.form['campo5_B2'] ##Cuaderno
         promedio = (int(campo1_B2)*.50) + (int(campo2_B2)*.15) + (int(campo3_B2)*.15) + (int(campo4_B2)*.10) + (int(campo5_B2)*.10)
         try:
-            coneccion.insertarcalificacion_Bimestre1(campo1_B2, campo2_B2, campo3_B2, campo4_B2, promedio, id_estudiante, id_materia, id_profesor)
-            flash('La materia se registro sattisfacotriamente')
-            return "MAteria del Segundo Bloque guardada"
+            print(campo1_B2, campo2_B2, campo3_B2, campo4_B2, promedio, id_materia, id_estudiante, id_profesor, promedio)
+            print(type(campo1_B2), type(campo2_B2), type(campo3_B2), type(campo4_B2), type(promedio))
+            coneccion.insertarcalificacion_Bimestre2(campo1_B2, campo2_B2, campo3_B2, campo4_B2, promedio, id_estudiante, id_materia, id_profesor)
+            return str(promedio)
         except:
             return "Error"
 
@@ -340,7 +376,9 @@ def cambiar_calificacion_Bimestre3(id_materia, id_estudiante, id_profesor):
         campo5_B3 = request.form['campo5_B3'] ##Cuaderno
         promedio = (int(campo1_B3)*.50) + (int(campo2_B3)*.15) + (int(campo3_B3)*.15) + (int(campo4_B3)*.10) + (int(campo5_B3)*.10)
         try:
-            inscripciones.insertarcalificacion_Bimestre1(campo1_B3, campo2_B3, campo3_B3, campo4_B3, promedio, id_estudiante, id_materia, id_profesor)
+            print(campo1_B3, campo2_B3, campo3_B3, campo4_B3, promedio, id_materia, id_estudiante, id_profesor, promedio)
+            print(type(campo1_B3), type(campo2_B3), type(campo3_B3), type(campo4_B3), type(promedio))
+            coneccion.insertarcalificacion_Bimestre3(campo1_B3, campo2_B3, campo3_B3, campo4_B3, promedio, id_estudiante, id_materia, id_profesor)
             flash('La materia se registro sattisfacotriamente')
             return "Materia del tercer Bimestre Guardada"
         except:
@@ -356,7 +394,9 @@ def cambiar_calificacion_Bimestre4(id_materia, id_estudiante, id_profesor):
         campo5_B4 = request.form['campo5_B4'] ##Cuaderno
         promedio = (int(campo1_B4)*.50) + (int(campo2_B4)*.15) + (int(campo3_B4)*.15) + (int(campo4_B4)*.10) + (int(campo5_B4)*.10)
         try:
-            coneccion.insertarcalificacion_Bimestre1(campo1_B4, campo2_B4, campo3_B4, campo4_B4, promedio, id_estudiante, id_materia, id_profesor)
+            print(campo1_B4, campo2_B4, campo3_B4, campo4_B4, promedio, id_materia, id_estudiante, id_profesor, promedio)
+            print(type(campo1_B4), type(campo2_B4), type(campo3_B4), type(campo4_B4), type(promedio))
+            coneccion.insertarcalificacion_Bimestre4(campo1_B4, campo2_B4, campo3_B4, campo4_B4, promedio, id_estudiante, id_materia, id_profesor)
             flash('La materia se registro sattisfacotriamente')
             return "MAteria del 4to bloque guardada"
         except:

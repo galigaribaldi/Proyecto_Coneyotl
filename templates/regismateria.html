@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -10,13 +10,22 @@
 </head>
 
 <body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for messages in messages %}
+    {{ messages }}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
     <h1>Registro Materias</h1>
     <form action="/registroMateria" , method="POST">
-        <input type="text" name="materia_ID" placeholder="Clave de la materia">
+        <input type="text" name="materia_ID" placeholder="Clave interna de la materia">
         <input type="text" name="nombre" placeholder="Nombre de la materia">
         <input type="text" name="estado" placeholder="Estado: A, B, S">
+        <input type="text" name="grado" placeholder="Grado al cual va dirigida">
         <button type="submit"> SAVE </button>
     </form>
+    <a href="/admin">Regresar</a>
 </body>
 
 </html>
