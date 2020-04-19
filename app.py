@@ -540,7 +540,7 @@ def cambiar_calificacion_Bimestre1(id_materia, id_estudiante, id_profesor,grado)
             promedio = (float(campo1_B1)*.50) + ((campo2_B1)*.15) + ((campo3_B1)*.15) + ((campo4_B1)*.10) + ((campo5_B1)*.10)
             try:
                 coneccion.insertarcalificacion_Bimestre1(campo1_B1,campo2_B1,campo3_B1, campo4_B1,campo5_B1 ,promedio, id_estudiante, id_materia, id_profesor)
-                flash('La Calificacion se ACtualizó correctamente')
+                flash('La Calificacion se Actualizó correctamente')
                 return redirect(url_for('administrador'))
             except:
                 flash('La materia no se pudo actualizar')
@@ -558,7 +558,7 @@ def cambiar_calificacion_Bimestre1(id_materia, id_estudiante, id_profesor,grado)
             promedio = (float(campo1_B1)*.50) + ((campo2_B1)*.15) + ((campo3_B1)*.15) + ((campo4_B1)*.10) + ((campo5_B1)*.10)
             try:
                 coneccion.insertarcalificacion_Bimestre1(campo1_B1,campo2_B1,campo3_B1, campo4_B1,campo5_B1 ,promedio, id_estudiante, id_materia, id_profesor)
-                flash('La Calificacion se ACtualizó correctamente')
+                flash('La Calificacion se Actualizó correctamente')
                 estudiantes = coneccion.consulta_estudiantes(grado)
                 return render_template('veralumno.html', estu=estudiantes, bandera=1)
             except:
@@ -583,7 +583,7 @@ def cambiar_calificacion_Bimestre2(id_materia, id_estudiante, id_profesor, grado
             promedio = (float((campo1_B2)*.50) + ((campo2_B2)*.15) + ((campo3_B2)*.15) + ((campo4_B2)*.10) + ((campo5_B2)*.10))
             try:
                 coneccion.insertarcalificacion_Bimestre2(campo1_B2, campo2_B2, campo3_B2, campo4_B2, campo5_B2,promedio, id_estudiante, id_materia, id_profesor)
-                flash('La Calificacion se ACtualizó correctamente')
+                flash('La Calificacion se Actualizó correctamente')
                 return redirect(url_for('administrador'))
             except:
                 flash('La materia no se pudo actualizar')
@@ -599,7 +599,7 @@ def cambiar_calificacion_Bimestre2(id_materia, id_estudiante, id_profesor, grado
             promedio = (float((campo1_B2)*.50) + ((campo2_B2)*.15) + ((campo3_B2)*.15) + ((campo4_B2)*.10) + ((campo5_B2)*.10))
             try:
                 coneccion.insertarcalificacion_Bimestre2(campo1_B2, campo2_B2, campo3_B2, campo4_B2, campo5_B2,promedio, id_estudiante, id_materia, id_profesor)
-                flash('La Calificacion se ACtualizó correctamente')
+                flash('La Calificacion se Actualizó correctamente')
                 estudiantes = coneccion.consulta_estudiantes(grado)
                 return render_template('veralumno.html', estu=estudiantes, bandera=1)
             except:
@@ -621,7 +621,7 @@ def cambiar_calificacion_Bimestre3(id_materia, id_estudiante, id_profesor, grado
             promedio = float((campo1_B3)*.50) + ((campo2_B3)*.15) + ((campo3_B3)*.15) + ((campo4_B3)*.10) + ((campo5_B3)*.10)
             try:
                 coneccion.insertarcalificacion_Bimestre3(campo1_B3, campo2_B3, campo3_B3, campo4_B3, campo5_B3,promedio, id_estudiante, id_materia, id_profesor)
-                flash('La Calificacion se ACtualizó correctamente')
+                flash('La Calificacion se Actualizó correctamente')
                 return redirect(url_for('administrador'))
             except:
                 flash('La materia no se pudo actualizar')
@@ -637,7 +637,7 @@ def cambiar_calificacion_Bimestre3(id_materia, id_estudiante, id_profesor, grado
             promedio = float((campo1_B3)*.50) + ((campo2_B3)*.15) + ((campo3_B3)*.15) + ((campo4_B3)*.10) + ((campo5_B3)*.10)
             try:
                 coneccion.insertarcalificacion_Bimestre3(campo1_B3, campo2_B3, campo3_B3, campo4_B3, campo5_B3,promedio, id_estudiante, id_materia, id_profesor)
-                flash('La Calificacion se ACtualizó correctamente')
+                flash('La Calificacion se Actualizó correctamente')
                 estudiantes = coneccion.consulta_estudiantes(grado)
                 return render_template('veralumno.html', estu=estudiantes, bandera=1 )
             except:
@@ -659,7 +659,7 @@ def cambiar_calificacion_Bimestre4(id_materia, id_estudiante, id_profesor, grado
             promedio = float((campo1_B4)*.50) + ((campo2_B4)*.15) + ((campo3_B4)*.15) + ((campo4_B4)*.10) + ((campo5_B4)*.10)
             try:
                 coneccion.insertarcalificacion_Bimestre4(campo1_B4, campo2_B4, campo3_B4, campo4_B4, campo5_B4,promedio, id_estudiante, id_materia, id_profesor)
-                flash('La Calificacion se ACtualizó correctamente')
+                flash('La Calificacion se Actualizó correctamente')
                 return redirect(url_for('administrador'))
             except:
                 flash('La materia no se pudo actualizar')
@@ -675,7 +675,7 @@ def cambiar_calificacion_Bimestre4(id_materia, id_estudiante, id_profesor, grado
             promedio = float((campo1_B4)*.50) + ((campo2_B4)*.15) + ((campo3_B4)*.15) + ((campo4_B4)*.10) + ((campo5_B4)*.10)
             try:
                 coneccion.insertarcalificacion_Bimestre4(campo1_B4, campo2_B4, campo3_B4, campo4_B4, campo5_B4,promedio, id_estudiante, id_materia, id_profesor)
-                flash('La Calificacion se ACtualizó correctamente')
+                flash('La Calificacion se Actualizó correctamente')
                 estudiantes = coneccion.consulta_estudiantes(grado)
                 return render_template('veralumno.html', estu=estudiantes, bandera=1)
             except:
