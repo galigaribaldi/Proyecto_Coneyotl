@@ -5,11 +5,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ estu.4.4 }} grado</title>
+    <title>{{ estu.4.5 }} grado</title>
 </head>
 
 <body>
     <h1>Alumnos de {{ estu.4.5 }} </h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for messages in messages %}
+    {{ messages }}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    {% if bandera %}
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre </th>
+                <th>Apellido Paterno </th>
+                <th>Apellido Materno </th>
+                <th> Calificaciones </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for i in estu %}
+                <td>{{ i.2 }}</td>
+                <td>{{ i.3 }}</td>
+                <td>{{ i.4 }}</td>
+                <td><a href="/editar/cambiar/calificaciones/{{ i.0 }}/{{ i.5 }}">Cambiar Calificaciones</a> <a href="/editar/actualizar/calificaciones/{{ i.0 }}/{{ i.5 }}">Ver calificaciones</a> </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
     <table>
         <thead>
             <tr>
@@ -42,8 +71,9 @@
             {% endfor %}
         </tbody>
     </table>
-    <a href="/edit/{{ estu.4.4 }}">Dar de Alta a Todos los alumnos del grado</a> <br>
     <a href="/admin">Regresar</a>
+    {% endif %}
+    <a href="/salir">Salir</a>
 </body>
 
 </html>

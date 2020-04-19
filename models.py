@@ -354,3 +354,14 @@ def valida_loggin_prof_es(curp, correo_electronico):
     cursor.close()
     conexion.close()
     return datos
+
+##Sacar El grado por el Id del profesor de grado
+def grado_id(ids):
+    conexion = psycopg2.connect(host="localhost", database="escuela", user="postgres", password="password")
+    cursor = conexion.cursor()
+    cursor.execute("SELECT grado from profesor_grado WHERE profesor_id=%s", (ids,))
+    datos = cursor.fetchall()
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return datos    

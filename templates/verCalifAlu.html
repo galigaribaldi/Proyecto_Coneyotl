@@ -74,10 +74,10 @@
     {% endif %}
     {% if not materia %}
     <h1>no hay calificaciones, ¿desea inscribirlo?</h1>
-    <a href="/admin">NO</a> <a href="/inscripcionalumno/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}">SI</a>
+    <a href="/verAlumno/{{ estudiante.0.5 }}">NO</a> <a href="/inscripcionalumno/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}">SI</a>
     {% endif %}
     <br>
-    <a href="/admin">Regresar</a>
+    <a href="/verAlumno/{{ estudiante.0.5 }}">Regresar</a>
 
 </body>
 

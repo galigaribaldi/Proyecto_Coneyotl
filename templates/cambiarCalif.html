@@ -23,7 +23,7 @@
     <h3> Bimestre 1 </h3>
     {% for i in materia %}
     <!--id_materia, id_estudiante, id_profesor-->
-    <form action="/guardar1/calificacion/Bimestre_1/{{ i.22 }}/{{ estudiante.0.0 }}/{{ materia.0.23 }}" , method="POST">
+    <form action="/guardar1/calificacion/Bimestre_1/{{ i.22 }}/{{ estudiante.0.0 }}/{{ materia.0.23 }}/{{ estudiante.0.5 }}" , method="POST">
         <h3>Materia: {{ i.0 }} con clave {{ i.22 }}</h3>
         Promedio Bimestre 1: {{ i.1 }} <br>
         Examen: <input type="text" name="campo1_B1" value="{{ i.2 }}"> <br>
@@ -39,7 +39,7 @@
         {% if num == '2' %}
         <h3> Bimestre 2 </h3>
         {% for i in materia %}
-    <form action="/guardar/calificacion/Bimestre_2/{{ i.22 }}/{{ estudiante.0.0 }}/{{ materia.0.23 }}" , method="POST">
+    <form action="/guardar/calificacion/Bimestre_2/{{ i.22 }}/{{ estudiante.0.0 }}/{{ materia.0.23 }}/{{ estudiante.0.5 }}" , method="POST">
         <h3>Materia: {{ i.0 }}</h3>
         Promedio Bimestre 2: {{ i.6 }} <br>
         Examen (50%): <input type="text" name="campo1_B2" value="{{ i.7 }}"> <br>
@@ -54,7 +54,7 @@
         {% if num == '3' %}
         <h3> Bimestre 3 </h3>
         {% for i in materia %}
-    <form action="/guardar/calificacion/Bimestre_3/{{ i.22 }}/{{ estudiante.0.0 }}/{{ materia.0.23 }}" , method="POST">
+    <form action="/guardar/calificacion/Bimestre_3/{{ i.22 }}/{{ estudiante.0.0 }}/{{ materia.0.23 }}/{{ estudiante.0.5 }}" , method="POST">
         <h3>Materia: {{ i.0 }}</h3>
         Promedio Bimestre 3: {{ i.11 }} <br>
         Examen (50%): <input type="text" name="campo1_B3" value="{{ i.12 }}"><br>
@@ -69,7 +69,7 @@
         {% if num == '4' %}
         <h3> Bimestre 4 </h3>
         {% for i in materia %}
-    <form action="/guardar/calificacion/Bimestre_4/{{ i.22 }}/{{ estudiante.0.0 }}/{{ materia.0.23 }}" , method="POST">
+    <form action="/guardar/calificacion/Bimestre_4/{{ i.22 }}/{{ estudiante.0.0 }}/{{ materia.0.23 }}/{{ estudiante.0.5 }}" , method="POST">
         <h3>Materia: {{ i.0 }}</h3>
         Promedio Bimestre 4: {{ i.16 }} <br>
         Examen (50%): <input type="text" name="campo1_B4" value="{{ i.17 }}"><br>
@@ -89,7 +89,7 @@
     <br>
     Ups! Parece que el alumno aun no está inscito, por favor inscribelo primero en las materias!
     <br>
-    <a href="/admin">Regresar</a>
+    <a href="/verAlumno/{{ estudiante.0.5 }}">Regresar</a>
 </body>
 
 </html>
