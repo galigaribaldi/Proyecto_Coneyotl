@@ -14,15 +14,10 @@
         <thead>
             <tr>
                 <th>Clave Alumno </th>
-                <th>CURP</th>
                 <th>Nombre </th>
                 <th>Apellido Paterno </th>
                 <th>Apellido Materno </th>
                 <th>Grado </th>
-                <th>Edad </th>
-                <th>Nombre Tutor </th>
-                <th>Telefono </th>
-                <th>Correo Electrónico</th>
                 <th> Estado Actual </th>
                 <th> Datos Actuales </th>
                 <th> Calificaciones </th>
@@ -33,21 +28,16 @@
             <tr>
                 {% for i in estu %}
                 <td>{{ i.0 }}</td>
-                <td>{{ i.1 }}</td>
                 <td>{{ i.2 }}</td>
                 <td>{{ i.3 }}</td>
                 <td>{{ i.4 }}</td>
                 <td>{{ i.5 }}</td>
-                <td>{{ i.6 }}</td>
-                <td>{{ i.7 }}</td>
-                <td>{{ i.9 }}</td>
-                <td>{{ i.10 }}</td>
                 <td>{{ i.13 }}</td>
-                <td><a href="/editar/actualizar/{{ i.0 }}/{{ i.4 }}">Cambiar Datos</a> <br><a href="/verAlumnoDatos/{{ i.0 }}/{{ i.4 }}">Ver datos</a> </td>
-                <td><a href="/editar/cambiar/calificaciones/{{ i.0 }}/{{ i.4 }}">Cambiar Calificaciones</a> <a href="/editar/actualizar/calificaciones/{{ i.0 }}/{{ i.4 }}">Ver calificaciones</a> </td>
-                <td><a href="/baja/{{ i.0 }}/{{ i.4 }}">Dar de Baja</a><br>
-                    <a href="/alta/{{ i.0 }}/{{ i.4 }}">Dar de alta</a><br>
-                    <a href="/suspender/{{ i.0 }}/{{ i.4 }}">Suspender</a></td>
+                <td><a href="/editar/actualizar/{{ i.0 }}/{{ i.5 }}">Cambiar Datos</a> <br><a href="/verAlumnoDatos/{{ i.0 }}/{{ i.5 }}">Ver datos</a> </td>
+                <td><a href="/editar/cambiar/calificaciones/{{ i.0 }}/{{ i.5 }}">Cambiar Calificaciones</a> <a href="/editar/actualizar/calificaciones/{{ i.0 }}/{{ i.5 }}">Ver calificaciones</a> </td>
+                <td><a href="/baja/{{ i.0 }}/{{ i.5 }}">Dar de Baja</a><br>
+                    <a href="/alta/{{ i.0 }}/{{ i.5 }}">Dar de alta</a><br>
+                    <a href="/suspender/{{ i.0 }}/{{ i.5 }}">Suspender</a></td>
             </tr>
             {% endfor %}
         </tbody>

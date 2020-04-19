@@ -1,12 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Index</title>
-    <h1>Index</h1>
+    <title> Inicia Sesion</title>
+    <h1>Inicia Sesion</h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for messages in messages %}
+    {{ messages }}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <form action="/" , method="POST">
+        <h3>Registro</h3>
+        Correo Electronico: <input type="text" name="correo_electronico" value="CURP"> <br>
+        CURP: <input type="password" name="curp" value="curp"><br>
+        <button type="submit"> SAVE </button>
+    </form>
 </head>
 
 <body>

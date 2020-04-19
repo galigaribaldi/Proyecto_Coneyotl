@@ -9,9 +9,10 @@
 </head>
 
 <body>
+
     {% if materia %}
-    <h2>Califiaciones del alumno {{ estudiante.0.1 }} {{ estudiante.0.2 }} {{ estudiante.0.3 }}</h2>
-    este estudiante se encuentra actualmente como: {{ estudiante.0.9 }} <br>
+    <h2>Califiaciones del alumno {{ estudiante.0.2 }} {{ estudiante.0.3 }} {{ estudiante.0.4 }}</h2>
+    este estudiante se encuentra actualmente como: {{ estudiante.0.13 }} <br>
     <br>
         <!--Datos de la inscripcion de la materia-->
         <table>
@@ -34,11 +35,6 @@
                     <th>Campo 3</th>
                     <th>Campo 4</th>
                     <th>Calificacion Bimestral 4 (Marzo - Abril) </th>
-                    <th>Campo 1 </th>
-                    <th>Campo 2</th>
-                    <th>Campo 3</th>
-                    <th>Campo 4</th>
-                    <th>Calificacion Bimestral 5 (Mayo - Junio) </th>
                     <th>Campo 1 </th>
                     <th>Campo 2</th>
                     <th>Campo 3</th>
@@ -71,14 +67,6 @@
                     <td>{{ i.19 }}</td>
                     <td>{{ i.20 }}</td>
                     <td>{{ i.21 }}</td>
-                    <td>{{ i.22 }}</td>
-                    <td>{{ i.23 }}</td>
-                    <td>{{ i.24 }}</td>
-                    <td>{{ i.25 }}</td>
-                    <td>{{ i.26 }}</td>
-                    <td>{{ i.27 }}</td>
-                    <td>{{ i.28 }}</td>
-                    <td>{{ i.29 }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -86,7 +74,7 @@
     {% endif %}
     {% if not materia %}
     <h1>no hay calificaciones, ¿desea inscribirlo?</h1>
-    <a href="/admin">NO</a> <a href="/inscripcionalumno/{{ estudiante.0.0 }}/{{ estudiante.0.4 }}">SI</a>
+    <a href="/admin">NO</a> <a href="/inscripcionalumno/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}">SI</a>
     {% endif %}
     <br>
     <a href="/admin">Regresar</a>

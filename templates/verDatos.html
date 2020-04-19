@@ -6,17 +6,17 @@
 </head>
 <body>
     <h1>Datos del Alumno</h1>
+    {% if estu %}
     <table>
         <thead>
             <tr>
                 <th>Clave Alumno </th>
+                <th>CURP</th>
                 <th>Nombre </th>
                 <th>Apellido Paterno </th>
                 <th>Apellido Materno </th>
                 <th>Grado </th>
                 <th>Edad </th>
-                <th>Nombre Tutor </th>
-                <th>Telefono </th>
                 <th> Estado Actual </th>
             </tr>
         </thead>
@@ -30,12 +30,34 @@
                 <td>{{ i.4 }}</td>
                 <td>{{ i.5 }}</td>
                 <td>{{ i.6 }}</td>
-                <td>{{ i.7 }}</td>
-                <td>{{ i.9 }}</td>
+                <td>{{ i.13 }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <h2>Datos del Tutor</h2>
+    <h1>Datos del Tutor</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre del Tutor </th>
+                <th>Telefono Celular</th>
+                <th>Telefono de Casa </th>
+                <th>Correo Electronico </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for i in estu %}
+                <td>{{ i.7 }}</td>
+                <td>{{ i.8 }}</td>
+                <td>{{ i.9 }}</td>
+                <td>{{ i.10 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    Ups! Parece que este alumno no tiene datos :'c' <br>
+    {% endif %}
 </body>
 </html>
