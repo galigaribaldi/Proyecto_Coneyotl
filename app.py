@@ -22,8 +22,15 @@ def index():
             ##Estudiante
             if ids:
                 if type(ids[0][0]) == int:
+                    ##Obtener el grado y el estudiante_id
+                    datos = coneccion.consulta_estudiantes_id5(correo_electronico, curp)
+                    grado = datos[0][1]
+                    e_ID=datos[0][0]
                     session['username'] = 'estudiante'
-                    return  "eres Estudiante"#redirect(url_for('administrador'))
+                    p_id = coneccion.consulta_prof_grado2(grado)
+                    m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
+                    est = coneccion.consulta_estudiantes_id(e_ID,grado)
+                    return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera3=1 )
             ##Profesor de Grado
             if ids2:
                 if type(ids2[0][0]) == int:
@@ -37,7 +44,9 @@ def index():
             if ids3:
                 if type(ids3[0][0]) == int:
                     session['username'] = 'profesor_especialista'
-                    return "Eres Profesor especialista"#redirect(url_for('administrador'))            
+                    print(ids3[0][0])
+                    return render_template('profesor_especialista.html', prof_esp=ids3[0][0])
+            ##Administracion        
             if correo_electronico =='19174536' and curp =='19174536':
                 session['username'] = 'ADMINISTRADOR'
                 return redirect(url_for('administrador'))            
@@ -72,11 +81,48 @@ def administrador():
 def verAlumno(grupo):
     if "username" in session and session["username"] =='ADMINISTRADOR':
         estudiantes = coneccion.consulta_estudiantes(grupo)
-        return render_template('veralumno.html', estu=estudiantes )
+        return render_template('veralumno.html', estu=estudiantes, bandera3=1 )
 
     if "username" in session and session["username"] =='profesor_grado':
         estudiantes = coneccion.consulta_estudiantes(grupo)
-        return render_template('veralumno.html', estu=estudiantes, bandera=1 )        
+        return render_template('veralumno.html', estu=estudiantes, bandera=1 )
+    else:
+        flash("Inicia Sesion Primero")
+        return redirect(url_for("index"))
+
+@app.route('/verAlumno/<grupo>/<id_profesor>')
+def verAlumno_es(grupo, id_profesor):
+    if "username" in session and session["username"] =='profesor_especialista':
+        estudiantes = coneccion.consulta_estudiantes(grupo)
+        return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_profesor )
+    else:
+        flash("Inicia Sesion Primero")
+        return redirect(url_for("index"))
+
+@app.route('/editar/actualizar/<e_ID>/<grado>/<id_profesor>')
+def actualizar_alu_esp(e_ID,grado):
+    if "username" in session and session["username"] =='ADMINISTRADOR':
+        m_inscrita = coneccion.consulta_inscrita(e_ID,grado)
+        est = coneccion.consulta_estudiantes_id(e_ID,grado)
+        return render_template('actualizarAlu.html', estudiante=est, materia=m_inscrita )
+    else:
+        flash("Inicia Sesion Primero")
+        return redirect(url_for("index"))
+
+@app.route('/editar/actualizar/calificaciones/<e_ID>/<grado>/<id_profesor>')
+def actualizar_calificacion_esp(e_ID,grado, id_profesor):
+    if "username" in session and session["username"] =='profesor_especialista':
+        p_id = coneccion.consulta_prof_grado2(grado)
+        m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
+        est = coneccion.consulta_estudiantes_id(e_ID,grado)
+        d = coneccion.especialista_calif(id_profesor)
+        r = coneccion.obtener_Rango(grado, str(d[0][0]), str(d[0][1]))
+        materia_especial = []
+        if m_inscrita:
+            materia_especial.append(m_inscrita[r])
+        print(materia_especial)
+        print(r)
+        return render_template('verCalifAlu.html', estudiante=est, materia=materia_especial, bandera1=1, prof_esp=id_profesor, b=1)
     else:
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
@@ -118,13 +164,19 @@ def actualizar_calificacion(e_ID,grado):
         p_id = coneccion.consulta_prof_grado2(grado)
         m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
         est = coneccion.consulta_estudiantes_id(e_ID,grado)
-        return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita )
+        return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera1=1 )
 
     if "username" in session and session["username"] =='profesor_grado':
         p_id = coneccion.consulta_prof_grado2(grado)
         m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
         est = coneccion.consulta_estudiantes_id(e_ID,grado)
-        return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita )
+        return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera1=1 )
+
+    if "username" in session and session["username"] =='profesor_especialista':
+        p_id = coneccion.consulta_prof_grado2(grado)
+        m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
+        est = coneccion.consulta_estudiantes_id(e_ID,grado)
+        return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera2=1)
     else:
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
@@ -456,7 +508,7 @@ def cambiar_calificacion1(e_ID,grado):
         est = coneccion.consulta_estudiantes_id(e_ID,grado)
         grados = coneccion.clave(grado)
         clave_prof_g= coneccion.clave_prof_grado(grado)
-        return render_template('cambiarCalif.html', estudiante=est, materia=m_inscrita, num='1', lista=grados, clave_prof_g=clave_prof_g)
+        return render_template('cambiarCalif.html', estudiante=est, materia=m_inscrita, num='1', lista=grados, clave_prof_g=clave_prof_g, bandera=1)
 
     if "username" in session and session["username"] =='profesor_grado':
         p_id = coneccion.consulta_prof_grado2(grado)
@@ -464,10 +516,7 @@ def cambiar_calificacion1(e_ID,grado):
         est = coneccion.consulta_estudiantes_id(e_ID,grado)
         grados = coneccion.clave(grado)
         clave_prof_g= coneccion.clave_prof_grado(grado)
-        return render_template('cambiarCalif.html', estudiante=est, materia=m_inscrita, num='1', lista=grados, clave_prof_g=clave_prof_g)        
-    else:
-        flash("Inicia Sesion Primero")
-        return redirect(url_for("index"))
+        return render_template('cambiarCalif.html', estudiante=est, materia=m_inscrita, num='1', lista=grados, clave_prof_g=clave_prof_g, bandera=1)
 
 @app.route('/editar/cambiar/calificaciones/<e_ID>/<grado>/2')
 def cambiar_calificacion2(e_ID,grado):
@@ -527,6 +576,81 @@ def cambiar_calificacion4(e_ID,grado):
         return redirect(url_for("index"))
 #########################################################################################
 
+###########################Cambiar calificaciones Especialistas######Rutas#########################
+@app.route('/editar/cambiar/calificaciones/<e_ID>/<grado>/<id_profesor>')
+def cambiar_calificacion1_esp(e_ID,grado, id_profesor):
+    if "username" in session and session["username"] =='profesor_especialista':
+        p_id = coneccion.consulta_prof_grado2(grado)
+        m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
+        est = coneccion.consulta_estudiantes_id(e_ID,grado)
+        d = coneccion.especialista_calif(id_profesor)
+        r = coneccion.obtener_Rango(grado, str(d[0][0]), str(d[0][1]))
+        materia_especial = []
+        if m_inscrita:
+            materia_especial.append(m_inscrita[r])
+        print(materia_especial)
+        print(r)
+        return render_template('cambiarCalifEsp.html', estudiante=est, materia=materia_especial, num='1', bandera=1,clave_prof_g=id_profesor)        
+
+    else:
+        flash("Inicia Sesion Primero")
+        return redirect(url_for("index"))
+
+@app.route('/editar/cambiar/calificaciones/<e_ID>/<grado>/<id_profesor>/2')
+def cambiar_calificacion1_esp2(e_ID,grado, id_profesor):
+    if "username" in session and session["username"] =='profesor_especialista':
+        p_id = coneccion.consulta_prof_grado2(grado)
+        m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
+        est = coneccion.consulta_estudiantes_id(e_ID,grado)
+        d = coneccion.especialista_calif(id_profesor)
+        r = coneccion.obtener_Rango(grado, str(d[0][0]), str(d[0][1]))
+        materia_especial = []
+        if m_inscrita:
+            materia_especial.append(m_inscrita[r])
+        print(materia_especial)
+        print(r)
+        return render_template('cambiarCalifEsp.html', estudiante=est, materia=materia_especial, num='2', bandera=1,clave_prof_g=id_profesor)        
+
+    else:
+        flash("Inicia Sesion Primero")
+        return redirect(url_for("index"))
+
+@app.route('/editar/cambiar/calificaciones/<e_ID>/<grado>/<id_profesor>/3')
+def cambiar_calificacion1_esp3(e_ID,grado, id_profesor):
+    if "username" in session and session["username"] =='profesor_especialista':
+        p_id = coneccion.consulta_prof_grado2(grado)
+        m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
+        est = coneccion.consulta_estudiantes_id(e_ID,grado)
+        d = coneccion.especialista_calif(id_profesor)
+        r = coneccion.obtener_Rango(grado, str(d[0][0]), str(d[0][1]))
+        materia_especial = []
+        if m_inscrita:
+            materia_especial.append(m_inscrita[r])
+        print(materia_especial)
+        print(r)
+        return render_template('cambiarCalifEsp.html', estudiante=est, materia=materia_especial, num='3', bandera=1,clave_prof_g=id_profesor)        
+    else:
+        flash("Inicia Sesion Primero")
+        return redirect(url_for("index"))
+
+@app.route('/editar/cambiar/calificaciones/<e_ID>/<grado>/<id_profesor>/4')
+def cambiar_calificacion1_esp4(e_ID,grado, id_profesor):
+    if "username" in session and session["username"] =='profesor_especialista':
+        p_id = coneccion.consulta_prof_grado2(grado)
+        m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
+        est = coneccion.consulta_estudiantes_id(e_ID,grado)
+        d = coneccion.especialista_calif(id_profesor)
+        r = coneccion.obtener_Rango(grado, str(d[0][0]), str(d[0][1]))
+        materia_especial = []
+        if m_inscrita:
+            materia_especial.append(m_inscrita[r])
+        print(materia_especial)
+        print(r)
+        return render_template('cambiarCalifEsp.html', estudiante=est, materia=materia_especial, num='4', bandera=1,clave_prof_g=id_profesor)        
+
+    else:
+        flash("Inicia Sesion Primero")
+        return redirect(url_for("index"))
 #################################Cambiar Calificaciones Coneccion a base#########################
 @app.route('/guardar1/calificacion/Bimestre_1/<id_materia>/<id_estudiante>/<id_profesor>/<grado>', methods = ['POST'])
 def cambiar_calificacion_Bimestre1(id_materia, id_estudiante, id_profesor,grado):
@@ -563,7 +687,27 @@ def cambiar_calificacion_Bimestre1(id_materia, id_estudiante, id_profesor,grado)
                 return render_template('veralumno.html', estu=estudiantes, bandera=1)
             except:
                 flash('La materia no se pudo actualizar')
-                return redirect(url_for('administrador'))
+                return render_template('veralumno.html', estu=estudiantes, bandera=1)
+        else:
+            return render_template('index.html')
+
+    if "username" in session and session["username"] =='profesor_especialista':
+        if request.method == 'POST':
+            campo1_B1 = float(request.form['campo1_B1']) ##Examenes
+            campo2_B1 = float(request.form['campo2_B1']) ## Tareas
+            campo3_B1 = float(request.form['campo3_B1']) ##Exposisicon
+            campo4_B1 = float(request.form['campo4_B1']) ## Asistencia
+            campo5_B1 = float(request.form['campo5_B1']) ##Cuaderno
+            promedio = (float(campo1_B1)*.50) + ((campo2_B1)*.15) + ((campo3_B1)*.15) + ((campo4_B1)*.10) + ((campo5_B1)*.10)
+            try:
+
+                coneccion.insertarcalificacion_Bimestre1(campo1_B1,campo2_B1,campo3_B1, campo4_B1,campo5_B1 ,promedio, id_estudiante, id_materia, id_profesor)
+                flash('La Calificacion se Actualizó correctamente')
+                estudiantes = coneccion.consulta_estudiantes(grupo)
+                return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_profesor )
+            except:
+                flash('La materia no se pudo actualizar')
+                return "Algo fallo"
         else:
             return render_template('index.html')
 
@@ -638,14 +782,13 @@ def cambiar_calificacion_Bimestre3(id_materia, id_estudiante, id_profesor, grado
             try:
                 coneccion.insertarcalificacion_Bimestre3(campo1_B3, campo2_B3, campo3_B3, campo4_B3, campo5_B3,promedio, id_estudiante, id_materia, id_profesor)
                 flash('La Calificacion se Actualizó correctamente')
-                estudiantes = coneccion.consulta_estudiantes(grado)
-                return render_template('veralumno.html', estu=estudiantes, bandera=1 )
+                return redirect(url_for('administrador'))
             except:
                 flash('La materia no se pudo actualizar')
                 return redirect(url_for('administrador'))
     else:
         flash("Inicia Sesion Primero")
-        return redirect(url_for("index"))
+        return redirect(url_for("index"))    
 
 @app.route('/guardar/calificacion/Bimestre_4/<id_materia>/<id_estudiante>/<id_profesor>/<grado>', methods = ['POST'])
 def cambiar_calificacion_Bimestre4(id_materia, id_estudiante, id_profesor, grado):
@@ -685,6 +828,95 @@ def cambiar_calificacion_Bimestre4(id_materia, id_estudiante, id_profesor, grado
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
 #################################################################################################
+
+########################################################################################################
+@app.route('/guardar1/calificacion/Bimestre_1/<id_materia>/<id_estudiante>/<id_profesor>/<grado>/<id_esp>', methods = ['POST'])
+def cambiar_calificacion_Bimestre1_esp(id_materia, id_estudiante, id_profesor,grado,id_esp):
+    if "username" in session and session["username"] =='profesor_especialista':
+        if request.method == 'POST':
+            campo1_B1 = float(request.form['campo1_B1']) ##Examenes
+            campo2_B1 = float(request.form['campo2_B1']) ## Tareas
+            campo3_B1 = float(request.form['campo3_B1']) ##Exposisicon
+            campo4_B1 = float(request.form['campo4_B1']) ## Asistencia
+            campo5_B1 = float(request.form['campo5_B1']) ##Cuaderno
+            promedio = (float(campo1_B1)*.50) + ((campo2_B1)*.15) + ((campo3_B1)*.15) + ((campo4_B1)*.10) + ((campo5_B1)*.10)
+            #try:
+            coneccion.insertarcalificacion_Bimestre1(campo1_B1,campo2_B1,campo3_B1, campo4_B1,campo5_B1 ,promedio, id_estudiante, id_materia, id_profesor)
+            flash('La Calificacion se Actualizó correctamente')
+            estudiantes = coneccion.consulta_estudiantes(grado)
+            return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_esp )
+            #except:
+            flash('La materia no se pudo actualizar')
+            return "Algo fallo"
+        else:
+            return render_template('index.html')
+
+    else:
+        flash("Inicia Sesion Primero")
+        return redirect(url_for("index"))
+
+@app.route('/guardar/calificacion/Bimestre_2/<id_materia>/<id_estudiante>/<id_profesor>/<grado>/<id_esp>', methods = ['POST', 'GET'])
+def cambiar_calificacion_Bimestre2_esp(id_materia, id_estudiante, id_profesor, grado,id_esp):
+    if "username" in session and session["username"] =='profesor_especialista':    
+        if request.method == 'POST':
+            campo1_B2 = float(request.form['campo1_B2']) ##Examenes
+            campo2_B2 = float(request.form['campo2_B2'])## Tareas
+            campo3_B2 = float(request.form['campo3_B2']) ##Exposisicon
+            campo4_B2 = float(request.form['campo4_B2']) ## Asistencia
+            campo5_B2 = float(request.form['campo5_B2']) ##Cuaderno
+            promedio = (float((campo1_B2)*.50) + ((campo2_B2)*.15) + ((campo3_B2)*.15) + ((campo4_B2)*.10) + ((campo5_B2)*.10))
+            #try:
+            coneccion.insertarcalificacion_Bimestre2(campo1_B2, campo2_B2, campo3_B2, campo4_B2, campo5_B2,promedio, id_estudiante, id_materia, id_profesor)
+            flash('La Calificacion se Actualizó correctamente')
+            estudiantes = coneccion.consulta_estudiantes(grado)
+            return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_esp )
+            #except:
+            flash('La materia no se pudo actualizar')
+            return redirect(url_for('administrador'))
+    else:
+        flash("Inicia Sesion Primero")
+        return redirect(url_for("index"))
+
+@app.route('/guardar/calificacion/Bimestre_3/<id_materia>/<id_estudiante>/<id_profesor>/<grado>/<id_esp>', methods = ['POST'])
+def cambiar_calificacion_Bimestre3_esp(id_materia, id_estudiante, id_profesor, grado,id_esp):
+    if "username" in session and session["username"] =='profesor_especialista':
+        if request.method == 'POST':
+            campo1_B3 = float(request.form['campo1_B3']) ##Examenes
+            campo2_B3 = float(request.form['campo2_B3']) ## Tareas
+            campo3_B3 = float(request.form['campo3_B3']) ##Exposisicon
+            campo4_B3 = float(request.form['campo4_B3']) ## Asistencia
+            campo5_B3 = float(request.form['campo5_B3']) ##Cuaderno
+            promedio = float((campo1_B3)*.50) + ((campo2_B3)*.15) + ((campo3_B3)*.15) + ((campo4_B3)*.10) + ((campo5_B3)*.10)
+            try:
+                coneccion.insertarcalificacion_Bimestre3(campo1_B3, campo2_B3, campo3_B3, campo4_B3, campo5_B3,promedio, id_estudiante, id_materia, id_profesor)
+                estudiantes = coneccion.consulta_estudiantes(grado)
+                return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_esp )
+            except:
+                flash('La materia no se pudo actualizar')
+                return redirect(url_for('administrador'))
+
+@app.route('/guardar/calificacion/Bimestre_4/<id_materia>/<id_estudiante>/<id_profesor>/<grado>/<id_esp>', methods = ['POST'])
+def cambiar_calificacion_Bimestre4_esp(id_materia, id_estudiante, id_profesor, grado,id_esp):
+    if "username" in session and session["username"] =='profesor_especialista':
+        if request.method == 'POST':
+            campo1_B4 = float(request.form['campo1_B4']) ##Examenes
+            campo2_B4 = float(request.form['campo2_B4']) ## Tareas
+            campo3_B4 = float(request.form['campo3_B4']) ##Exposisicon
+            campo4_B4 = float(request.form['campo4_B4']) ## Asistencia
+            campo5_B4 = float(request.form['campo5_B4']) ##Cuaderno
+            promedio = float((campo1_B4)*.50) + ((campo2_B4)*.15) + ((campo3_B4)*.15) + ((campo4_B4)*.10) + ((campo5_B4)*.10)
+            try:
+                coneccion.insertarcalificacion_Bimestre4(campo1_B4, campo2_B4, campo3_B4, campo4_B4, campo5_B4,promedio, id_estudiante, id_materia, id_profesor)
+                flash('La Calificacion se Actualizó correctamente')
+                estudiantes = coneccion.consulta_estudiantes(grado)
+                return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_esp )
+            except:
+                flash('La materia no se pudo actualizar')
+                return redirect(url_for('administrador'))
+    else:
+        flash("Inicia Sesion Primero")
+        return redirect(url_for("index"))
+#######################################################################################################3
 
 if __name__ == '__main__':
     app.run(debug = True)

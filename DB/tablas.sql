@@ -104,36 +104,45 @@ CREATE TABLE inscripcion_grado(
 )
 ;
 
-CREATE TABLE IF NOT EXISTS inscripcion_especialista(
-    estudiante_ID CONSTRAINT estudiante_ID_fk REFERENCES estudiante(estudiante_ID),
-    materia_ID CONSTRAINT materia_ID_fk REFERENCES materia(materia_ID),
-    profesor_ID CONSTRAINT profesor_ID_fk REFERENCEs profesor_grado(profesor_ID),
-    calificacion_B1 NUMBER(4,2) DEFAULT 0,
-    campo1_B1 NUMBER(4,2) DEFAULT 0,
-    campo2_B1 NUMBER(4,2) DEFAULT 0,
-    campo3_B1 NUMBER(4,2) DEFAULT 0,
-    campo4_B1 NUMBER(4,2) DEFAULT 0,
-    campo5_B1 NUMBER(4,2) DEFAULT 0,
-    calificacion_B2 NUMBER(4,2) DEFAULT 0,
-    campo1_B2 NUMBER(4,2) DEFAULT 0,
-    campo2_B2 NUMBER(4,2) DEFAULT 0,
-    campo3_B2 NUMBER(4,2) DEFAULT 0,
-    campo4_B2 NUMBER(4,2) DEFAULT 0,
-    campo5_B2 NUMBER(4,2) DEFAULT 0,
-    calificacion_B3 NUMBER(4,2) DEFAULT 0,
-    campo1_B3 NUMBER(4,2) DEFAULT 0,
-    campo2_B3 NUMBER(4,2) DEFAULT 0,
-    campo3_B3 NUMBER(4,2) DEFAULT 0,
-    campo4_B3 NUMBER(4,2) DEFAULT 0,
-    campo5_B3 NUMBER(4,2) DEFAULT 0,
-    calificacion_B4 NUMBER(4,2) DEFAULT 0,
-    campo1_B4 NUMBER(4,2) DEFAULT 0,
-    campo2_B4 NUMBER(4,2) DEFAULT 0,
-    campo3_B4 NUMBER(4,2) DEFAULT 0,
-    campo4_B4 NUMBER(4,2) DEFAULT 0,
-    campo5_B4 NUMBER(4,2) DEFAULT 0,
-    calificacion_B5 NUMBER(4,2) DEFAULT 0,
-    promedio NUMBER(4,2) DEFAULT 0,
-    PRIMARY KEY(estudiante_ID, materia_ID, profesor_ID)
+CREATE TABLE inscripcion_especialista(
+  estudiante_id integer NOT NULL,
+  materia_id integer NOT NULL,
+  profesor_id integer NOT NULL,
+    calificacion_B1 decimal(4,2) DEFAULT 0,
+    campo1_B1 decimal(4,2) DEFAULT 0,
+    campo2_B1 decimal(4,2) DEFAULT 0,
+    campo3_B1 decimal(4,2) DEFAULT 0,
+    campo4_B1 decimal(4,2) DEFAULT 0,
+    campo5_B1 decimal(4,2) DEFAULT 0,
+    calificacion_B2 decimal(4,2) DEFAULT 0,
+    campo1_B2 decimal(4,2) DEFAULT 0,
+    campo2_B2 decimal(4,2) DEFAULT 0,
+    campo3_B2 decimal(4,2) DEFAULT 0,
+    campo4_B2 decimal(4,2) DEFAULT 0,
+    campo5_B2 decimal(4,2) DEFAULT 0,
+    calificacion_B3 decimal(4,2) DEFAULT 0,
+    campo1_B3 decimal(4,2) DEFAULT 0,
+    campo2_B3 decimal(4,2) DEFAULT 0,
+    campo3_B3 decimal(4,2) DEFAULT 0,
+    campo4_B3 decimal(4,2) DEFAULT 0,
+    campo5_B3 decimal(4,2) DEFAULT 0,
+    calificacion_B4 decimal(4,2) DEFAULT 0,
+    campo1_B4 decimal(4,2) DEFAULT 0,
+    campo2_B4 decimal(4,2) DEFAULT 0,
+    campo3_B4 decimal(4,2) DEFAULT 0,
+    campo4_B4 decimal(4,2) DEFAULT 0,
+    campo5_B4 decimal(4,2) DEFAULT 0,
+    calificacion_B5 decimal(4,2) DEFAULT 0,
+    promedio decimal(4,2) DEFAULT 0,
+  CONSTRAINT inscripcion_especialista_pkey PRIMARY KEY (estudiante_id, materia_id, profesor_id),
+  CONSTRAINT inscripcion_especialista_estudiante_id_fkey FOREIGN KEY (estudiante_id)
+      REFERENCES public.estudiante (estudiante_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT inscripcion_especialista_materia_id_fkey FOREIGN KEY (materia_id)
+      REFERENCES public.materia (materia_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT inscripcion_especialista_profesor_id_fkey FOREIGN KEY (profesor_id)
+      REFERENCES public.profesor_especialista (profesor_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 ;

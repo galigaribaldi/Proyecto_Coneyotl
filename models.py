@@ -87,7 +87,7 @@ def consulta_inscrita(est_id, grado):
 def consulta_inscrita2(est_id, prof_id,grado):
     conexion = psycopg2.connect(host="localhost", database="escuela", user="postgres", password="password")
     cursor = conexion.cursor()
-    cursor.execute("SELECT  m.nombre,ig.calificacion_B1, ig.campo1_B1, ig.campo2_B1, ig.campo3_B1, ig.campo4_B1,ig.calificacion_B2, ig.campo1_B2, ig.campo2_B2, ig.campo3_B2, ig.campo4_B2,ig.calificacion_B3, ig.campo1_B3, ig.campo2_B3, ig.campo3_B3, ig.campo4_B3,ig.calificacion_B4, ig.campo1_B4, ig.campo2_B4, ig.campo3_B4, ig.campo4_B4, ig.promedio, m.materia_ID, ig.profesor_ID FROM inscripcion_grado ig JOIN materia m ON m.materia_ID=ig.materia_ID where ig.estudiante_ID=%s and ig.profesor_ID=%s AND m.grado=%s",(est_id, prof_id ,grado,))
+    cursor.execute("SELECT  m.nombre,ig.calificacion_B1, ig.campo1_B1, ig.campo2_B1, ig.campo3_B1, ig.campo4_B1, ig.campo5_B1,ig.calificacion_B2, ig.campo1_B2, ig.campo2_B2, ig.campo3_B2, ig.campo4_B2, ig.campo5_B2, ig.calificacion_B3, ig.campo1_B3, ig.campo2_B3, ig.campo3_B3, ig.campo4_B3, ig.campo5_B3, ig.calificacion_B4, ig.campo1_B4, ig.campo2_B4, ig.campo3_B4, ig.campo4_B4, ig.campo5_B4, ig.promedio, m.materia_ID, ig.profesor_ID FROM inscripcion_grado ig JOIN materia m ON m.materia_ID=ig.materia_ID where ig.estudiante_ID=%s and ig.profesor_ID=%s AND m.grado=%s",(est_id, prof_id ,grado,))
     datos_materia_inscrita = cursor.fetchall()
     #print(datos_estudiantes)
     conexion.commit()
@@ -360,6 +360,186 @@ def grado_id(ids):
     conexion = psycopg2.connect(host="localhost", database="escuela", user="postgres", password="password")
     cursor = conexion.cursor()
     cursor.execute("SELECT grado from profesor_grado WHERE profesor_id=%s", (ids,))
+    datos = cursor.fetchall()
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return datos
+
+def especialista_calif(ids):
+    conexion = psycopg2.connect(host="localhost", database="escuela", user="postgres", password="password")
+    cursor = conexion.cursor()
+    cursor.execute("SELECT nombre_materia, grado from profesor_especialista WHERE profesor_id=%s", (ids,))
+    datos = cursor.fetchall()
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return datos
+
+def obtener_Rango(grado, nombre_materia, grado_profesor):
+    if nombre_materia == "EDUCACIÓN FÍSICA":
+        if grado_profesor== "KINDER":
+            if grado == "K1":
+                return 4
+            if grado == "K2":
+                return 4
+            if grado == "K3":
+                return 4
+        if grado_profesor == "PRIMARIA":
+            if grado == "1ro":
+                return 5
+            if grado == "2do":
+                return 5
+            if grado == "3ro":
+                return 5
+            if grado == "4to":
+                return 5
+            if grado == "5to":
+                return 5
+            if grado == "6to":
+                return 5
+        if grado_profesor== "KINDER-PRIMARIA":        
+            if grado == "K1":
+                return 4
+            if grado == "K2":
+                return 4
+            if grado == "K3":
+                return 4
+            if grado == "1ro":
+                return 5
+            if grado == "2do":
+                return 5
+            if grado == "3ro":
+                return 5
+            if grado == "4to":
+                return 5
+            if grado == "5to":
+                return 5
+            if grado == "6to":
+                return 5
+
+    if nombre_materia == "MÚSICA" or "ARTES PLÁSTICAS":
+        if grado_profesor== "KINDER":
+            if grado == "K1":
+                return 3
+            if grado == "K2":
+                return 3
+            if grado == "K3":
+                return 3
+        if grado_profesor == "PRIMARIA":
+            if grado == "1ro":
+                return 6
+            if grado == "2do":
+                return 6
+            if grado == "3ro":
+                return 6
+            if grado == "4to":
+                return 6
+            if grado == "5to":
+                return 6
+            if grado == "6to":
+                return 6
+        if grado_profesor== "KINDER-PRIMARIA":   
+            if grado == "K1":
+                return 3
+            if grado == "K2":
+                return 3
+            if grado == "K3":
+                return 3
+            if grado == "1ro":
+                return 6
+            if grado == "2do":
+                return 6
+            if grado == "3ro":
+                return 6
+            if grado == "4to":
+                return 6
+            if grado == "5to":
+                return 6
+            if grado == "6to":
+                return 6
+
+    if nombre_materia == "COMPUTACIÓN":
+        if grado_profesor== "KINDER":
+            if grado == "K1":
+                return 5
+            if grado == "K2":
+                return 5
+            if grado == "K3":
+                return 5
+        if grado_profesor == "PRIMARIA":
+            if grado == "1ro":
+                return 7
+            if grado == "2do":
+                return 7
+            if grado == "3ro":
+                return 8
+            if grado == "4to":
+                return 9
+            if grado == "5to":
+                return 9
+            if grado == "6to":
+                return 9
+        if grado_profesor== "KINDER-PRIMARIA":        
+            if grado == "K1":
+                return 5
+            if grado == "K2":
+                return 5
+            if grado == "K3":
+                return 5
+            if grado == "1ro":
+                return 7
+            if grado == "2do":
+                return 7
+            if grado == "3ro":
+                return 8
+            if grado == "4to":
+                return 9
+            if grado == "5to":
+                return 9
+            if grado == "6to":
+                return 9
+    if nombre_materia == "INGLÉS":
+        if grado_profesor== "KINDER-PRIMARIA":        
+            if grado == "K1":
+                return 5
+            if grado == "K2":
+                return 5
+            if grado == "K3":
+                return 5
+            if grado == "1ro":
+                return 4
+            if grado == "2do":
+                return 4
+            if grado == "3ro":
+                return 4
+            if grado == "4to":
+                return 4
+            if grado == "5to":
+                return 4
+            if grado == "6to":
+                return 4
+        if grado_profesor== "KINDER":
+            if grado == "K3":
+                return 5
+        if grado_profesor == "PRIMARIA":
+            if grado == "1ro":
+                return 4
+            if grado == "2do":
+                return 4
+            if grado == "3ro":
+                return 4
+            if grado == "4to":
+                return 4
+            if grado == "5to":
+                return 4
+            if grado == "6to":
+                return 4
+
+def consulta_estudiantes_id5(correo, curp):
+    conexion = psycopg2.connect(host="localhost", database="escuela", user="postgres", password="password")
+    cursor = conexion.cursor()
+    cursor.execute("SELECT estudiante_id, grado from estudiante WHERE correo_electronico=%s AND CURP=%s", (correo, curp))
     datos = cursor.fetchall()
     conexion.commit()
     cursor.close()

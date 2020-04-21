@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    {{ prof_esp }}
     <h1>Alumnos de {{ estu.4.5 }} </h1>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -38,7 +39,8 @@
             {% endfor %}
         </tbody>
     </table>
-    {% else %}
+    {% endif %}
+    {% if bandera3 %}
     <table>
         <thead>
             <tr>
@@ -73,7 +75,30 @@
     </table>
     <a href="/admin">Regresar</a>
     {% endif %}
-    <a href="/salir">Salir</a>
+    {% if bandera2 %}
+    Materias ExtraCurriculares
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre </th>
+                <th>Apellido Paterno </th>
+                <th>Apellido Materno </th>
+                <th> Calificaciones </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for i in estu %}
+                <td>{{ i.2 }}</td>
+                <td>{{ i.3 }}</td>
+                <td>{{ i.4 }}</td>
+                <td><a href="/editar/cambiar/calificaciones/{{ i.0 }}/{{ i.5 }}/{{ prof_esp }}">Cambiar Calificaciones</a> <a href="/editar/actualizar/calificaciones/{{ i.0 }}/{{ i.5 }}/{{ prof_esp }}">Ver calificaciones</a> </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    <br><a href="/salir">Salir</a>
 </body>
 
 </html>

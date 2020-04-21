@@ -9,11 +9,12 @@
 </head>
 
 <body>
-
+  
     {% if materia %}
     <h2>Califiaciones del alumno {{ estudiante.0.2 }} {{ estudiante.0.3 }} {{ estudiante.0.4 }}</h2>
     este estudiante se encuentra actualmente como: {{ estudiante.0.13 }} <br>
     <br>
+    {% if bandera1 %}
         <!--Datos de la inscripcion de la materia-->
         <table>
             <thead>
@@ -24,21 +25,25 @@
                     <th>Campo 2</th>
                     <th>Campo 3</th>
                     <th>Campo 4</th>
+                    <th>Campo 5</th>
                     <th>Calificacion Bimestral 2 (Noviembre - Diciembre) </th>
                     <th>Campo 1 </th>
                     <th>Campo 2</th>
                     <th>Campo 3</th>
                     <th>Campo 4</th>
+                    <th>Campo 5</th>
                     <th>Calificacion Bimestral 3 (Enero - Febrero) </th>
                     <th>Campo 1 </th>
                     <th>Campo 2</th>
                     <th>Campo 3</th>
                     <th>Campo 4</th>
+                    <th>Campo 5</th>
                     <th>Calificacion Bimestral 4 (Marzo - Abril) </th>
                     <th>Campo 1 </th>
                     <th>Campo 2</th>
                     <th>Campo 3</th>
                     <th>Campo 4</th>
+                    <th>Campo 5</th>
                     <th>Promedio</th>
                 </tr>
             </thead>
@@ -67,17 +72,112 @@
                     <td>{{ i.19 }}</td>
                     <td>{{ i.20 }}</td>
                     <td>{{ i.21 }}</td>
+                    <td>{{ i.22 }}</td>
+                    <td>{{ i.23 }}</td>
+                    <td>{{ i.24 }}</td>
+                    <td>{{ i.25 }}</td>                    
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     {% endif %}
+    {% endif %}
     {% if not materia %}
+    {%  if not b %}
+    {% if not bandera3 %}
+    {% if bandera1 %}
     <h1>no hay calificaciones, ¿desea inscribirlo?</h1>
     <a href="/verAlumno/{{ estudiante.0.5 }}">NO</a> <a href="/inscripcionalumno/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}">SI</a>
     {% endif %}
+    {% endif %}
+    {% endif %}
+    {% endif %}
     <br>
+    {% if not materia %}
+    {% if b %}
+    <h1>¡No hay Calificaciones!</h1>
+    Contáctese con el maestro de grupo o con Adminsitración para poder dar de alta a este alumno
+    <a href="/verAlumno/{{ estudiante.0.5 }}/{{ prof_esp }}">Regresar Especialista</a>
+    {% else %}
     <a href="/verAlumno/{{ estudiante.0.5 }}">Regresar</a>
+    {% endif %}
+    {% endif %}
+
+    {% if not materia %}
+    {% if bandera3 %}
+    <h1>¡No hay Calificaciones!</h1>
+    Contáctese con el maestro de grupo o con Adminsitración para poder dar de alta a este alumno
+    {% endif %}
+    {% endif %}
+    {% if materia %}
+    {% if bandera3 %}
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre de la Materia </th>
+                <th>Calificacion Bimestral 1 (Agosto - Septiembre - Octubre) </th>
+                <th>Examen <br> 50%</th>
+                <th>Tareas 15%</th>
+                <th>Exposición 15%</th>
+                <th>Asistencia/Participación en Clase 10%</th>
+                <th>Cuaderno y Libros 10%</th>
+                <th>Calificacion Bimestral 2 (Noviembre - Diciembre) </th>
+                <th>Examen 50%</th>
+                <th>Tareas 15%</th>
+                <th>Exposición 15%</th>
+                <th>Asistencia/Participación en Clase 10%</th>
+                <th>Cuaderno y Libros 10%</th>
+                <th>Calificacion Bimestral 3 (Enero - Febrero) </th>
+                <th>Examen 50%</th>
+                <th>Tareas 15%</th>
+                <th>Exposición 15%</th>
+                <th>Asistencia/Participación en Clase 10%</th>
+                <th>Cuaderno y Libros 10%</th>
+                <th>Calificacion Bimestral 4 (Marzo - Abril) </th>
+                <th>Examen 50%</th>
+                <th>Tareas 15%</th>
+                <th>Exposición 15%</th>
+                <th>Asistencia/Participación en Clase 10%</th>
+                <th>Cuaderno y Libros 10%</th>
+                <th>Promedio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for i in materia %}
+                <td>{{ i.0 }}</td>
+                <td>{{ i.1 }}</td>
+                <td>{{ i.2 }}</td>
+                <td>{{ i.3 }}</td>
+                <td>{{ i.4 }}</td>
+                <td>{{ i.5 }}</td>
+                <td>{{ i.6 }}</td>
+                <td>{{ i.7 }}</td>
+                <td>{{ i.8 }}</td>
+                <td>{{ i.9 }}</td>
+                <td>{{ i.10 }}</td>    
+                <td>{{ i.11 }}</td>
+                <td>{{ i.12 }}</td>
+                <td>{{ i.13 }}</td>
+                <td>{{ i.14 }}</td>
+                <td>{{ i.15 }}</td>
+                <td>{{ i.16 }}</td>
+                <td>{{ i.17 }}</td>
+                <td>{{ i.18 }}</td>
+                <td>{{ i.19 }}</td>
+                <td>{{ i.20 }}</td>
+                <td>{{ i.21 }}</td>
+                <td>{{ i.22 }}</td>
+                <td>{{ i.23 }}</td>
+                <td>{{ i.24 }}</td>
+                <td>{{ i.25 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="/salir">Salir</a>
+    {% endif %}
+    {% endif %}
 
 </body>
 
