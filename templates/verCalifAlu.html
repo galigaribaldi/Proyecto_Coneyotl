@@ -1,6 +1,8 @@
 {% extends "layout.html" %} {% block content %} {% if materia %}
-<h2>Calificaciones del alumn@ <br>{{ estudiante.0.2 }} {{ estudiante.0.3 }} {{ estudiante.0.4 }}</h2>
-Este estudiante se encuentra actualmente como: {{ estudiante.0.13 }} <br>
+<h2 class="center">Calificaciones del alumn@ <br>{{ estudiante.0.2 }} {{ estudiante.0.3 }} {{ estudiante.0.4 }}</h2>
+<div class="container">
+    <a href="/avisos/{{ estudiante.0.5 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">book</i>Avisos de Actividades</a>
+</div>
 <div class="container">
     <br> {% if bandera1 %}
     <!--Datos de la inscripcion de la materia-->

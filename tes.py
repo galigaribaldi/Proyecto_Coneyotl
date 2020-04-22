@@ -23,171 +23,210 @@ MEZJ800407MDFZNF02
 """
 d = coneccion.grado_id(9000)
 print(d)
-
 def obtener_Rango(grado, nombre_materia, grado_profesor):
     if nombre_materia == "EDUCACIÓN FÍSICA":
         if grado_profesor== "KINDER":
             if grado == "K1":
-                print("Es el profesor de " +str(nombre_materia)+" dando K1")            
+                return 4
             if grado == "K2":
-                print("Es el profesor de " +str(nombre_materia)+" dando K2")            
+                return 4
             if grado == "K3":
-                print("Es el profesor de " +str(nombre_materia)+" dando K3")
+                return 4
         if grado_profesor == "PRIMARIA":
             if grado == "1ro":
-                print("Es el profesor de " +str(nombre_materia)+" dando 1ro")
+                return 5
             if grado == "2do":
-                print("Es el profesor de " +str(nombre_materia)+" dando 2do")
+                return 5
             if grado == "3ro":
-                print("Es el profesor de " +str(nombre_materia)+" dando 3ro")
+                return 5
             if grado == "4to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 4to")
+                return 5
             if grado == "5to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 5to")
+                return 5
             if grado == "6to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 6to")        
+                return 5
         if grado_profesor== "KINDER-PRIMARIA":        
             if grado == "K1":
-                print("Es el profesor de " +str(nombre_materia)+" dando K1")
+                return 4
             if grado == "K2":
-                print("Es el profesor de " +str(nombre_materia)+" dando K2")        
+                return 4
             if grado == "K3":
-                print("Es el profesor de " +str(nombre_materia)+" dando K3")
+                return 4
             if grado == "1ro":
-                print("Es el profesor de " +str(nombre_materia)+" dando 1ro")
+                return 5
             if grado == "2do":
-                print("Es el profesor de " +str(nombre_materia)+" dando 2do")
+                return 5
             if grado == "3ro":
-                print("Es el profesor de " +str(nombre_materia)+" dando 3ro")
+                return 5
             if grado == "4to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 4to")
+                return 5
             if grado == "5to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 5to")
+                return 5
             if grado == "6to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 6to")
+                return 5
 
     if nombre_materia == "MÚSICA":
         if grado_profesor== "KINDER":
             if grado == "K1":
-                print("Es el profesor de " +str(nombre_materia)+" dando K1")            
+                return 3
             if grado == "K2":
-                print("Es el profesor de " +str(nombre_materia)+" dando K2")            
+                return 3
             if grado == "K3":
-                print("Es el profesor de " +str(nombre_materia)+" dando K3")
+                return 3
         if grado_profesor == "PRIMARIA":
             if grado == "1ro":
-                print("Es el profesor de " +str(nombre_materia)+" dando 1ro")
+                return 6
             if grado == "2do":
-                print("Es el profesor de " +str(nombre_materia)+" dando 2do")
+                return 6
             if grado == "3ro":
-                print("Es el profesor de " +str(nombre_materia)+" dando 3ro")
+                return 6
             if grado == "4to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 4to")
+                return 6
             if grado == "5to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 5to")
+                return 6
             if grado == "6to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 6to")        
+                return 6
         if grado_profesor== "KINDER-PRIMARIA":   
             if grado == "K1":
-                print("Es el profesor de " +str(nombre_materia)+" dando K1")
+                return 3
             if grado == "K2":
-                print("Es el profesor de " +str(nombre_materia)+" dando K2")        
+                return 3
             if grado == "K3":
-                print("Es el profesor de " +str(nombre_materia)+" dando K3")
+                return 3
             if grado == "1ro":
-                print("Es el profesor de " +str(nombre_materia)+" dando 1ro")
+                return 6
             if grado == "2do":
-                print("Es el profesor de " +str(nombre_materia)+" dando 2do")
+                return 6
             if grado == "3ro":
-                print("Es el profesor de " +str(nombre_materia)+" dando 3ro")
+                return 6
             if grado == "4to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 4to")
+                return 6
             if grado == "5to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 5to")
+                return 6
             if grado == "6to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 6to")
-
+                return 6
+    if nombre_materia == "ARTES PLÁSTICAS":
+        if grado_profesor== "KINDER":
+            if grado == "K1":
+                return 3
+            if grado == "K2":
+                return 3
+            if grado == "K3":
+                return 3
+        if grado_profesor == "PRIMARIA":
+            if grado == "1ro":
+                return 6
+            if grado == "2do":
+                return 6
+            if grado == "3ro":
+                return 6
+            if grado == "4to":
+                return 6
+            if grado == "5to":
+                return 6
+            if grado == "6to":
+                return 6
+        if grado_profesor== "KINDER-PRIMARIA":   
+            if grado == "K1":
+                return 3
+            if grado == "K2":
+                return 3
+            if grado == "K3":
+                return 3
+            if grado == "1ro":
+                return 6
+            if grado == "2do":
+                return 6
+            if grado == "3ro":
+                return 6
+            if grado == "4to":
+                return 6
+            if grado == "5to":
+                return 6
+            if grado == "6to":
+                return 6
     if nombre_materia == "COMPUTACIÓN":
         if grado_profesor== "KINDER":
             if grado == "K1":
-                print("Es el profesor de " +str(nombre_materia)+" dando K1")            
+                return 5
             if grado == "K2":
-                print("Es el profesor de " +str(nombre_materia)+" dando K2")            
+                return 5
             if grado == "K3":
-                print("Es el profesor de " +str(nombre_materia)+" dando K3")
+                return 5
         if grado_profesor == "PRIMARIA":
             if grado == "1ro":
-                print("Es el profesor de " +str(nombre_materia)+" dando 1ro")
+                return 7
             if grado == "2do":
-                print("Es el profesor de " +str(nombre_materia)+" dando 2do")
+                return 7
             if grado == "3ro":
-                print("Es el profesor de " +str(nombre_materia)+" dando 3ro")
+                return 8
             if grado == "4to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 4to")
+                return 9
             if grado == "5to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 5to")
+                return 9
             if grado == "6to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 6to")        
+                return 9
         if grado_profesor== "KINDER-PRIMARIA":        
             if grado == "K1":
-                print("Es el profesor de " +str(nombre_materia)+" dando K1")
+                return 5
             if grado == "K2":
-                print("Es el profesor de " +str(nombre_materia)+" dando K2")        
+                return 5
             if grado == "K3":
-                print("Es el profesor de " +str(nombre_materia)+" dando K3")
+                return 5
             if grado == "1ro":
-                print("Es el profesor de " +str(nombre_materia)+" dando 1ro")
+                return 7
             if grado == "2do":
-                print("Es el profesor de " +str(nombre_materia)+" dando 2do")
+                return 7
             if grado == "3ro":
-                print("Es el profesor de " +str(nombre_materia)+" dando 3ro")
+                return 8
             if grado == "4to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 4to")
+                return 9
             if grado == "5to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 5to")
+                return 9
             if grado == "6to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 6to")
+                return 9
     if nombre_materia == "INGLÉS":
         if grado_profesor== "KINDER-PRIMARIA":        
             if grado == "K1":
-                print("Es el profesor de " +str(nombre_materia)+" dando K1")
+                return 5
             if grado == "K2":
-                print("Es el profesor de " +str(nombre_materia)+" dando K2")        
+                return 5
             if grado == "K3":
-                print("Es el profesor de " +str(nombre_materia)+" dando K3")
+                return 5
             if grado == "1ro":
-                print("Es el profesor de " +str(nombre_materia)+" dando 1ro")
+                return 4
             if grado == "2do":
-                print("Es el profesor de " +str(nombre_materia)+" dando 2do")
+                return 4
             if grado == "3ro":
-                print("Es el profesor de " +str(nombre_materia)+" dando 3ro")
+                return 4
             if grado == "4to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 4to")
+                return 4
             if grado == "5to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 5to")
+                return 4
             if grado == "6to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 6to")        
+                return 4
         if grado_profesor== "KINDER":
             if grado == "K3":
-                print("Es el profesor de " +str(nombre_materia)+" dando K3")
+                return 5
         if grado_profesor == "PRIMARIA":
             if grado == "1ro":
-                print("Es el profesor de " +str(nombre_materia)+" dando 1ro")
+                return 4
             if grado == "2do":
-                print("Es el profesor de " +str(nombre_materia)+" dando 2do")
+                return 4
             if grado == "3ro":
-                print("Es el profesor de " +str(nombre_materia)+" dando 3ro")
+                return 4
             if grado == "4to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 4to")
+                return 4
             if grado == "5to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 5to")
+                return 4
             if grado == "6to":
-                print("Es el profesor de " +str(nombre_materia)+" dando 6to")
-
+                return 4
+"""
 d = coneccion.especialista_calif(124)
 print(str(d[0][0]), str(d[0][1]))
 obtener_Rango("K3", str(d[0][0]), str(d[0][1]))
 
 datos = coneccion.consulta_estudiantes_id5("NULL", "CUCD161223HDFRRGA0")
 print(datos[0][0])
-print(datos[0][1])
+print(datos[0][1])"""
+print(obtener_Rango("1ro", "ARTES PLÁSTICAS", "KINDER-PRIMARIA"))

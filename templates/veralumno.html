@@ -1,26 +1,28 @@
 {% extends "layout.html" %} {% block content %} {{ prof_esp }}
 <h1 class="center">Alumnos de {{ estu.4.5 }} </h1>
-{% with messages = get_flashed_messages() %} {% if messages %} {% for messages in messages %} {{ messages }} {% endfor %} {% endif %} {% endwith %} {% if bandera %}
-<table class="responsive-table highlight striped">
-    <thead>
-        <tr>
-            <th>Nombre </th>
-            <th>Apellido Paterno </th>
-            <th>Apellido Materno </th>
-            <th> Calificaciones </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            {% for i in estu %}
-            <td>{{ i.2 }}</td>
-            <td>{{ i.3 }}</td>
-            <td>{{ i.4 }}</td>
-            <td><a href="/editar/cambiar/calificaciones/{{ i.0 }}/{{ i.5 }}">Cambiar Calificaciones</a> <a href="/editar/actualizar/calificaciones/{{ i.0 }}/{{ i.5 }}">Ver calificaciones</a> </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% if bandera %}
+<div class="container">
+    <table class="responsive-table highlight striped">
+        <thead>
+            <tr>
+                <th>Nombre </th>
+                <th>Apellido Paterno </th>
+                <th>Apellido Materno </th>
+                <th> Calificaciones </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for i in estu %}
+                <td>{{ i.2 }}</td>
+                <td>{{ i.3 }}</td>
+                <td>{{ i.4 }}</td>
+                <td><a href="/editar/cambiar/calificaciones/{{ i.0 }}/{{ i.5 }}">Cambiar Calificaciones</a> <a href="/editar/actualizar/calificaciones/{{ i.0 }}/{{ i.5 }}">Ver calificaciones</a> </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endif %} {% if bandera3 %}
 <table class="responsive-table highlight striped">
     <thead>

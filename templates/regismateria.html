@@ -1,4 +1,4 @@
-{% extends "layout.html" %} {% block content %} {% with messages = get_flashed_messages() %} {% if messages %} {% for messages in messages %} {{ messages }} {% endfor %} {% endif %} {% endwith %}
+{% extends "layout.html" %} {% block content %}
 <div class="container">
     <h1>Registro Materias</h1>
     <form action="/registroMateria" , method="POST">

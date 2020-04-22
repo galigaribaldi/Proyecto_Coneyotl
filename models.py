@@ -418,7 +418,7 @@ def obtener_Rango(grado, nombre_materia, grado_profesor):
             if grado == "6to":
                 return 5
 
-    if nombre_materia == "MÚSICA" or "ARTES PLÁSTICAS":
+    if nombre_materia == "MÚSICA":
         if grado_profesor== "KINDER":
             if grado == "K1":
                 return 3
@@ -458,7 +458,46 @@ def obtener_Rango(grado, nombre_materia, grado_profesor):
                 return 6
             if grado == "6to":
                 return 6
-
+    if nombre_materia == "ARTES PLÁSTICAS":
+        if grado_profesor== "KINDER":
+            if grado == "K1":
+                return 3
+            if grado == "K2":
+                return 3
+            if grado == "K3":
+                return 3
+        if grado_profesor == "PRIMARIA":
+            if grado == "1ro":
+                return 6
+            if grado == "2do":
+                return 6
+            if grado == "3ro":
+                return 6
+            if grado == "4to":
+                return 6
+            if grado == "5to":
+                return 6
+            if grado == "6to":
+                return 6
+        if grado_profesor== "KINDER-PRIMARIA":   
+            if grado == "K1":
+                return 3
+            if grado == "K2":
+                return 3
+            if grado == "K3":
+                return 3
+            if grado == "1ro":
+                return 6
+            if grado == "2do":
+                return 6
+            if grado == "3ro":
+                return 6
+            if grado == "4to":
+                return 6
+            if grado == "5to":
+                return 6
+            if grado == "6to":
+                return 6
     if nombre_materia == "COMPUTACIÓN":
         if grado_profesor== "KINDER":
             if grado == "K1":
@@ -535,7 +574,6 @@ def obtener_Rango(grado, nombre_materia, grado_profesor):
                 return 4
             if grado == "6to":
                 return 4
-
 def consulta_estudiantes_id5(correo, curp):
     conexion = psycopg2.connect(host="localhost", database="escuela", user="postgres", password="password")
     cursor = conexion.cursor()

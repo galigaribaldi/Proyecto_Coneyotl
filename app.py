@@ -39,11 +39,13 @@ def index():
                     grado = coneccion.grado_id(ids2[0][0])
                     print("Grado: ", grado[0][0])
                     estudiantes = coneccion.consulta_estudiantes(grado[0][0])
+                    print(estudiantes)
                     return render_template('veralumno.html', estu=estudiantes, bandera=1 )
             ##Profesor Especialista
             if ids3:
                 if type(ids3[0][0]) == int:
                     session['username'] = 'profesor_especialista'
+                    print(ids3)
                     print(ids3[0][0])
                     return render_template('profesor_especialista.html', prof_esp=ids3[0][0])
             ##Administracion        
@@ -65,6 +67,10 @@ def logout():
     session.pop("username", None)
     return redirect(url_for('index'))
 
+@app.route("/avisos/<grupo>")
+def avisos(grupo):
+    print(type(grupo))
+    return render_template("avisos.html", grupo=grupo)
 @app.route('/admin')
 def administrador():
     if "username" in session and session["username"] =='ADMINISTRADOR':
@@ -94,6 +100,7 @@ def verAlumno(grupo):
 def verAlumno_es(grupo, id_profesor):
     if "username" in session and session["username"] =='profesor_especialista':
         estudiantes = coneccion.consulta_estudiantes(grupo)
+        print(estudiantes)
         return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_profesor )
     else:
         flash("Inicia Sesion Primero")
@@ -584,7 +591,9 @@ def cambiar_calificacion1_esp(e_ID,grado, id_profesor):
         m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
         est = coneccion.consulta_estudiantes_id(e_ID,grado)
         d = coneccion.especialista_calif(id_profesor)
+        print(d[0][0], d[0][1],grado)
         r = coneccion.obtener_Rango(grado, str(d[0][0]), str(d[0][1]))
+        print(r)
         materia_especial = []
         if m_inscrita:
             materia_especial.append(m_inscrita[r])
