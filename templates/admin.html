@@ -1,41 +1,39 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends "layout.html" %} {% block content %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Adminsitración</title>
-</head>
-<body>
-    <h1>Registrar </h1>
-    <a href="/alumno/registraralumno">Registrar Alumno</a>
-    <a href="/profesor/registroprofesor">Registrar Profesor</a>
-    <a href="/materia">Registrar Materia</a>
 
-    <div>
-        <!--Se recibe el numero del grado y accede a la base-->
-        <h2>Ver Alumnos Registrados</h2>
-        <a href="/verAlumno/{{ g.0 }}">Kinder 1</a>
-        <a href="/verAlumno/{{ g.1 }}">Kinder 2</a>
-        <a href="/verAlumno/{{ g.2 }}">Kinder3</a>
-        <a href="/verAlumno/{{ g.3 }}">1ro de Primaria</a>
-        <a href="/verAlumno/{{ g.4 }}">2do de Primaria</a>
-        <a href="/verAlumno/{{ g.5 }}">3ero de Primaria</a>
-        <a href="/verAlumno/{{ g.6 }}">4to de Primaria</a>
-        <a href="/verAlumno/{{ g.7 }}">5to de Primaria</a>
-        <a href="/verAlumno/{{ g.8 }}">6to de Primaria</a>
-    </div>
+<h1 class="center">Administración</h1>
+</div>
+<div class="container">
+    <h1 class="center"> Registrar </h1>
+    <a class="waves-effect waves-light btn-large" href="/alumno/registraralumno"><i class="material-icons left">local_library</i>Registrar Nuevo Alumnos</a>
+    <a class="waves-effect waves-light btn-large" href="/profesor/registroprofesor"><i class="material-icons left">assignment_ind</i>Registrar Nuevo Profesor</a>
+    <a class="waves-effect waves-light btn-large" href="/materia"><i class="material-icons left">class</i>Registrar Nueva Materia</a>
+</div>
 
-    <div>
-        <h2>Ver profesores Registrados</h2>
-        <a href="/verProfesor">Ver Todos los profesores</a>
-    </div>
 
-    <div>
-        <h2>Ver Pagos</h2>
-    </div>
-    <a href="/salir">Salir</a>
-</body>
 
-</html>
+<!--Se recibe el numero del grado y accede a la base-->
+<div class="container">
+    <h2 class="center">Ver Alumnos Registrados</h2>
+    <a href="/verAlumno/{{ g.0 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>Kinder 1</a>
+    <a href="/verAlumno/{{ g.1 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>Kinder 2</a>
+    <a href="/verAlumno/{{ g.2 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>Kinder 3</a>
+    <a href="/verAlumno/{{ g.3 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>1° de Primaria</a>
+    <a href="/verAlumno/{{ g.4 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>2° de Primaria</a>
+    <a href="/verAlumno/{{ g.5 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>3° de Primaria</a>
+    <a href="/verAlumno/{{ g.6 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>4° de Primaria</a>
+    <a href="/verAlumno/{{ g.7 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>5° de Primaria</a>
+    <a href="/verAlumno/{{ g.8 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>6° de Primaria</a>
+</div>
+
+
+
+<div class="container">
+    <h2 class="center">Ver profesores Registrados</h2>
+    <a href="/verProfesor" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>Ver Profesor</a>
+</div>
+
+<div>
+    <h2>Ver Pagos</h2>
+</div>
+<a href="/salir">Salir</a> {% endblock %}

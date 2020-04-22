@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profesor de: </title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block content %}
     {{ prof_esp }}
     <h1>Kinder</h1>
     <a href="/verAlumno/K1/{{ prof_esp }}">K1</a>
@@ -20,5 +14,4 @@
     <a href="/verAlumno/6to/{{ prof_esp }}">6to</a>
     <br>
     <a href="/salir">Salir</a>
-</body>
-</html>
+{% endblock %}

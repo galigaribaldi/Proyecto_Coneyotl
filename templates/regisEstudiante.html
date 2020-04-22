@@ -1,22 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Registro Estudiante</title>
-</head>
-
-<body>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    {% for messages in messages %}
-    {{ messages }}
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-    <h1>Registro Estudiante</h1>
+{% extends "layout.html" %} {% block content %} {% with messages = get_flashed_messages() %} {% if messages %} {% for messages in messages %} {{ messages }} {% endfor %} {% endif %} {% endwith %}
+<div class="container">
+    <h1 class="center">Registro Estudiante</h1>
     <form action="/alumno/agregar" , method="POST">
         <input type="text" name="estudiante_ID" placeholder="Clave Interna">
         <input type="text" name="curp" placeholder="CURP">
@@ -32,10 +16,11 @@
         <input type="text" name="passwords" placeholder="contraseña">
         <input type="text" name="dia_registro" placeholder="Dia de Registro">
         <input type="text" name="estado" placeholder="Estado A, S, B">
-        <button type="submit"> SAVE </button>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+            <i class="material-icons right">send</i>
+          </button>
     </form>
 
     <a href="/admin">Regresar</a>
-</body>
-
-</html>
+</div>
+{% endblock %}

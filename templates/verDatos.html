@@ -1,63 +1,53 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Datos</title>
-</head>
-<body>
-    <h1>Datos del Alumno</h1>
-    {% if estu %}
-    <table>
-        <thead>
-            <tr>
-                <th>Clave Alumno </th>
-                <th>CURP</th>
-                <th>Nombre </th>
-                <th>Apellido Paterno </th>
-                <th>Apellido Materno </th>
-                <th>Grado </th>
-                <th>Edad </th>
-                <th> Estado Actual </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                {% for i in estu %}
-                <td>{{ i.0 }}</td>
-                <td>{{ i.1 }}</td>
-                <td>{{ i.2 }}</td>
-                <td>{{ i.3 }}</td>
-                <td>{{ i.4 }}</td>
-                <td>{{ i.5 }}</td>
-                <td>{{ i.6 }}</td>
-                <td>{{ i.13 }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <h1>Datos del Tutor</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre del Tutor </th>
-                <th>Telefono Celular</th>
-                <th>Telefono de Casa </th>
-                <th>Correo Electronico </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                {% for i in estu %}
-                <td>{{ i.7 }}</td>
-                <td>{{ i.8 }}</td>
-                <td>{{ i.9 }}</td>
-                <td>{{ i.10 }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    Ups! Parece que este alumno no tiene datos :'c' <br>
-    {% endif %}
-</body>
-</html>
+{% extends "layout.html" %} {% block content %}
+<h1>Datos del Alumno</h1>
+{% if estu %}
+<table class="responsive-table highlight striped">
+    <thead>
+        <tr>
+            <th>Clave Alumno </th>
+            <th>CURP</th>
+            <th>Nombre </th>
+            <th>Apellido Paterno </th>
+            <th>Apellido Materno </th>
+            <th>Grado </th>
+            <th>Edad </th>
+            <th> Estado Actual </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for i in estu %}
+            <td>{{ i.0 }}</td>
+            <td>{{ i.1 }}</td>
+            <td>{{ i.2 }}</td>
+            <td>{{ i.3 }}</td>
+            <td>{{ i.4 }}</td>
+            <td>{{ i.5 }}</td>
+            <td>{{ i.6 }}</td>
+            <td>{{ i.13 }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h1>Datos del Tutor</h1>
+<table class="responsive-table highlight striped">
+    <thead>
+        <tr>
+            <th>Nombre del Tutor </th>
+            <th>Telefono Celular</th>
+            <th>Telefono de Casa </th>
+            <th>Correo Electronico </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for i in estu %}
+            <td>{{ i.7 }}</td>
+            <td>{{ i.8 }}</td>
+            <td>{{ i.9 }}</td>
+            <td>{{ i.10 }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %} Ups! Parece que este alumno no tiene datos :'c' <br> {% endif %} {% endblock %}

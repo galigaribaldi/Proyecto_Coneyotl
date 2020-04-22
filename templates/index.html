@@ -1,29 +1,36 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Inicia Sesion</title>
-    <h1>Inicia Sesion</h1>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    {% for messages in messages %}
-    {{ messages }}
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-    <form action="/" , method="POST">
-        <h3>Registro</h3>
-        Correo Electronico: <input type="text" name="correo_electronico" value="eduardo_salazar@hotmail.com"> <br>
-        CURP: <input type="password" name="curp" value="SACA870526HDFLRB07"><br>
-        <button type="submit"> SAVE </button>
-    </form>
-</head>
-
-<body>
-
-</body>
-
-</html>
+{% extends "layout.html" %} {% block content %}
+<title>Inicio</title>
+<div class="container">
+    <!--<div class="row">-->
+    <h1 class="blue-text text-darken-1">Inicia Sesion</h1>
+    <div class="row">
+        <form class="col s12" action="/" , method="POST">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input name="correo_electronico" id="email" type="text" class="validate">
+                    <label for="email">Correo Electronico (Si no tienes Correo Electronico, escribe NULL)</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input name="curp" id="password" type="password" class="validate">
+                    <label for="password">CURP</label>
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+              </button>
+        </form>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!--</div>-->
+</div>
+{% endblock %}

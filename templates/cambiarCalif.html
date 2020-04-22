@@ -1,101 +1,58 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Vista de Calificaciones</title>
-</head>
-
-<body>
-    <h2>Calificaciones del alumno {{ estudiante.0.2 }} {{estudiante.0.3}} {{estudiante.0.4}}</h2>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    {% for messages in messages %}
-    {{ messages }}
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
+{% extends "layout.html" %} {% block content %}
+<div class="container">
+    <h2 class="center">Calificaciones del alumno <br>{{ estudiante.0.2 }} {{estudiante.0.3}} {{estudiante.0.4}}</h2>
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for messages in messages %} {{ messages }} {% endfor %} {% endif %} {% endwith %}
     <!--Datos de la inscripcion de la materia-->
-    {{ materia }}
-    {% if materia %}
-    {% if num == '1' %}
+    {% if materia %} {% if num == '1' %}
     <h3> Bimestre 1 </h3>
     {% for i in materia %}
-    Id_materia: {{ i.26 }}
-    id_estudiante: {{ estudiante.0.0 }}
-    id_profesor: {{ materia.0.27 }}
-    grado: {{ estudiante.0.5 }}
     <!--id_materia, id_estudiante, id_profesor-->
     <form action="/guardar1/calificacion/Bimestre_1/{{ i.26 }}/{{ estudiante.0.0 }}/{{ materia.0.27 }}/{{ estudiante.0.5 }}" , method="POST">
-        <h3>Materia: {{ i.0 }} con clave {{ i.26 }}</h3>
-        Promedio Bimestre 1: {{ i.1 }} <br>
-        Examen: <input type="text" name="campo1_B1" value="{{ i.2 }}"> <br>
-        Tareas: <input type="text" name="campo2_B1" value="{{ i.3 }}"><br>
-        Exposición: <input type="text" name="campo3_B1" value="{{ i.4 }}"> <br>
-        Asistencia / Participación en clase: <input type="text" name="campo4_B1" value="{{ i.5 }}"><br>
-        Cuaderno y Libros (10%): <input type="text" name="campo5_B1" value="{{ i.6 }}"><br> <br> <br>
-        <button type="submit"> SAVE </button>
+        <h3 class="center">{{ i.0 }}</h3>
+        Promedio Bimestre 1: {{ i.1 }} <br> Examen: <input type="text" name="campo1_B1" value="{{ i.2 }}"> <br> Tareas: <input type="text" name="campo2_B1" value="{{ i.3 }}"><br> Exposición: <input type="text" name="campo3_B1" value="{{ i.4 }}"> <br>        Asistencia / Participación en clase: <input type="text" name="campo4_B1" value="{{ i.5 }}"><br> Cuaderno y Libros (10%): <input type="text" name="campo5_B1" value="{{ i.6 }}"><br> <br> <br>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
+            <i class="material-icons right">send</i>
+          </button>
     </form>
-    Clave del profesor que da la Materia: {{ materia.0.23 }} <br>
-    {% endfor %}
-    {% endif %}
-        {% if num == '2' %}
-        <h3> Bimestre 2 </h3>
-        {% for i in materia %}
+    {% endfor %} {% endif %} {% if num == '2' %}
+    <h3> Bimestre 2 </h3>
+    {% for i in materia %}
 
     <form action="/guardar/calificacion/Bimestre_2/{{ i.22 }}/{{ estudiante.0.0 }}/{{ materia.0.23 }}/{{ estudiante.0.5 }}" , method="POST">
-        <h3>Materia: {{ i.0 }}</h3>
-        Promedio Bimestre 2: {{ i.6 }} <br>
-        Examen (50%): <input type="text" name="campo1_B2" value="{{ i.7 }}"> <br>
-        Tareas (15%): <input type="text" name="campo2_B2" value="{{ i.8 }}"><br>
-        Exposición (15%): <input type="text" name="campo3_B2" value="{{ i.9 }}"> <br>
-        Asistencia / Participación en Clase (10%):  <input type="text" name="campo4_B2" value="{{ i.10 }}"><br>
-        Cuaderno y Libros (10%): <input type="text" name="campo5_B2" value="{{ i.11 }}"><br> <br> <br>
-        <button type="submit"> SAVE </button>
+        <h3 class="center">{{ i.0 }}</h3>
+        Promedio Bimestre 2: {{ i.6 }} <br> Examen (50%): <input type="text" name="campo1_B2" value="{{ i.7 }}"> <br> Tareas (15%): <input type="text" name="campo2_B2" value="{{ i.8 }}"><br> Exposición (15%): <input type="text" name="campo3_B2" value="{{ i.9 }}">        <br> Asistencia / Participación en Clase (10%): <input type="text" name="campo4_B2" value="{{ i.10 }}"><br> Cuaderno y Libros (10%): <input type="text" name="campo5_B2" value="{{ i.11 }}"><br> <br> <br>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
+            <i class="material-icons right">send</i>
+          </button>
     </form>
-    {% endfor %}
-        {% endif %}
-        {% if num == '3' %}
-        <h3> Bimestre 3 </h3>
-        {% for i in materia %}
+    {% endfor %} {% endif %} {% if num == '3' %}
+    <h3> Bimestre 3 </h3>
+    {% for i in materia %}
     <form action="/guardar/calificacion/Bimestre_3/{{ i.22 }}/{{ estudiante.0.0 }}/{{ materia.0.23 }}/{{ estudiante.0.5 }}" , method="POST">
-        <h3>Materia: {{ i.0 }}</h3>
-        Promedio Bimestre 3: {{ i.11 }} <br>
-        Examen (50%): <input type="text" name="campo1_B3" value="{{ i.12 }}"><br>
-        Tareas (15%): <input type="text" name="campo2_B3" value="{{ i.13 }}"><br>
-        Exposición (15%): <input type="text" name="campo3_B3" value="{{ i.14 }}"><br>
-        Asistencia / Participación en Clase (10%):  <input type="text" name="campo4_B3" value="{{ i.15 }}"><br>
-        Cuaderno y Libros (10%): <input type="text" name="campo5_B3" value="{{ i.16 }}"><br> <br> <br>
-        <button type="submit"> SAVE </button>
+        <h3 class="center">{{ i.0 }}</h3>
+        Promedio Bimestre 3: {{ i.11 }} <br> Examen (50%): <input type="text" name="campo1_B3" value="{{ i.12 }}"><br> Tareas (15%): <input type="text" name="campo2_B3" value="{{ i.13 }}"><br> Exposición (15%): <input type="text" name="campo3_B3" value="{{ i.14 }}"><br>        Asistencia / Participación en Clase (10%): <input type="text" name="campo4_B3" value="{{ i.15 }}"><br> Cuaderno y Libros (10%): <input type="text" name="campo5_B3" value="{{ i.16 }}"><br> <br> <br>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
+            <i class="material-icons right">send</i>
+          </button>
     </form>
-    {% endfor %}
-        {% endif %}
-        {% if num == '4' %}
-        <h3> Bimestre 4 </h3>
-        {% for i in materia %}
+    {% endfor %} {% endif %} {% if num == '4' %}
+    <h3> Bimestre 4 </h3>
+    {% for i in materia %}
     <form action="/guardar/calificacion/Bimestre_4/{{ i.22 }}/{{ estudiante.0.0 }}/{{ materia.0.23 }}/{{ estudiante.0.5 }}" , method="POST">
-        <h3>Materia: {{ i.0 }}</h3>
-        Promedio Bimestre 4: {{ i.16 }} <br>
-        Examen (50%): <input type="text" name="campo1_B4" value="{{ i.17 }}"><br>
-        Tareas (15%): <input type="text" name="campo2_B4" value="{{ i.18 }}"><br>
-        Exposición (15%): <input type="text" name="campo3_B4" value="{{ i.19 }}"><br>
-        Asistencia / Participación en Clase (10%):  <input type="text" name="campo4_B4" value="{{ i.20 }}"><br>
-        Cuaderno y Libros (10%): <input type="text" name="campo5_B4" value="{{ i.21 }}"><br> <br> <br>
-        <button type="submit"> SAVE </button>
+        <h3 class="center">{{ i.0 }}</h3>
+        Promedio Bimestre 4: {{ i.16 }} <br> Examen (50%): <input type="text" name="campo1_B4" value="{{ i.17 }}"><br> Tareas (15%): <input type="text" name="campo2_B4" value="{{ i.18 }}"><br> Exposición (15%): <input type="text" name="campo3_B4" value="{{ i.19 }}"><br>        Asistencia / Participación en Clase (10%): <input type="text" name="campo4_B4" value="{{ i.20 }}"><br> Cuaderno y Libros (10%): <input type="text" name="campo5_B4" value="{{ i.21 }}"><br> <br> <br>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
+            <i class="material-icons right">send</i>
+          </button>
     </form>
-    {% endfor %}
-        {% endif %}
-    <a href="/editar/cambiar/calificaciones/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}">Bimestre 1 (Agosto Septiembre)</a>
-    <a href="/editar/cambiar/calificaciones/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}/2">Bimestre 2 (Noviembre - Diciembre)</a>
-    <a href="/editar/cambiar/calificaciones/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}/3">Bimestre 3 (Enero - Febrero)</a>
-    <a href="/editar/cambiar/calificaciones/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}/4">Bimestre 4 (Marzo - Abril)</a>
-    {% endif %}
+    {% endfor %} {% endif %}
     <br>
-    Ups! Parece que el alumno aun no está inscito, por favor inscribelo primero en las materias!
+    <a href="/editar/cambiar/calificaciones/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">class</i> Bimestre 1 (Agosto - Septiembre)</a>
+    <a href="/editar/cambiar/calificaciones/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}/2" class="waves-effect waves-light btn-large"><i class="material-icons left">class</i> Bimestre 2 (Noviembre - Diciembre)</a> <br> <br>
+    <a href="/editar/cambiar/calificaciones/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}/3" class="waves-effect waves-light btn-large"><i class="material-icons left">class</i> Bimestre 3 (Enero - Febrero)</a>
+    <a href="/editar/cambiar/calificaciones/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}/4" class="waves-effect waves-light btn-large"><i class="material-icons left">class</i> Bimestre 4 (Marzo - Abril)</a> {% endif %}
+    <br> Ups! Parece que el alumno aun no está inscito, por favor inscribelo primero en las materias!
     <br>
     <a href="/verAlumno/{{ estudiante.0.5 }}">Regresar</a>
-</body>
-
-</html>
+</div>
+{% endblock %}

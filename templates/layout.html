@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Inicio de MAterlize-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Fin de Materializw-->
+</head>
+
+<body>
+    <!--==========================================Inicio del Navbar =============================================-->
+    <nav class="#ffc400 amber accent-3">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Coneyotl - Piltzintli</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/salir">Cerrar Sesion</a></li>
+                <li><a href="/">Iniciar Sesion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!--==========================================Fin del Navbar =============================================-->
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for messages in messages %} {{ messages }} {% endfor %} {% endif %} {% endwith %} {% block content %} {% endblock %}
+    <!--==========================================Inicio del Footer =============================================-->
+    <footer class="page-footer #1565c0 blue darken-3">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Colegio Coneyotl - Piltzintli</h5>
+                    <p class="grey-text text-lighten-4">Página Oficial del Colegio Kinder y Primaria Coneyotl Piltzintli .</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Contáctenos</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="#!">Página en FB: Facebook </a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Página en Instagram: Instagram</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Tel: 58-44-22-25</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Correo electrónico: colegioconeyotl_73@yahoo.com.mx</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                © 2020 Copyright Text
+                <a class="grey-text text-lighten-4 right" href="#!"></a>
+            </div>
+        </div>
+    </footer>
+    <!--==========================================Fin del Footer =============================================-->
+    <!--Inicio de Bootstrap-->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!--Fin de Bootstrap-->
+
+    <!--Fin de Materializw-->
+</body>
+
+</html>

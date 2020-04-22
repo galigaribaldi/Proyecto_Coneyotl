@@ -1,35 +1,15 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
-    {% if estudiante %}
-    {{ estudiante }}
-    <h2>Datos del alumno {{ estudiante.0.2 }} {{estudiante.0.3}} {{estudiante.0.4}}</h2>
+{% extends "layout.html" %} {% block content %} {% if estudiante %}
+<div class="container">
+    <h2 class="center">Datos del alumn@ <br>{{ estudiante.0.2 }} {{estudiante.0.3}} {{estudiante.0.4}}</h2>
     <form action="/actualizardatos/alumno/{{ estudiante.0.0 }}" , method="POST">
         <!-- Datos del estudiante -->
-        Nombre Actual: <input type="text" name="nombre" value="{{ estudiante.0.2 }}"><br>
-        Apellido Paterno Actual: <input type="text" name="apellido_p" value="{{ estudiante.0.3 }}"><br>
-        Apellido Materno Actual: <input type="text" name="apellido_m" value="{{ estudiante.0.4 }}"><br>
-        Grado Actual: <input type="text" name="grado" value="{{ estudiante.0.5 }}"><br>
-        Edad Actual: <input type="text" name="edad" value="{{ estudiante.0.6 }}"><br>
-        Nombre Actual del Padre ó Tutor: <input type="text" name="nombre_tutor" value="{{ estudiante.0.7 }}"><br>
-        Teléfono de Casa Actual: <input type="text" name="telefono_casa" value="{{ estudiante.0.8 }}"><br>
-        Teléfono Celular Actual: <input type="text" name="telefono_celular" value="{{ estudiante.0.9 }}"><br>
-        Correo Electrónico: <input type="text" name="correo_electronico" value="{{ estudiante.0.10 }}"><br>
-        Estado Actual: <input type="text" name="estado" value="{{ estudiante.0.13 }}"><br>
-        <button type="submit"> Actualizar </button>
+        Nombre Actual: <input type="text" name="nombre" value="{{ estudiante.0.2 }}"><br> Apellido Paterno Actual: <input type="text" name="apellido_p" value="{{ estudiante.0.3 }}"><br> Apellido Materno Actual: <input type="text" name="apellido_m" value="{{ estudiante.0.4 }}"><br>        Grado Actual: <input type="text" name="grado" value="{{ estudiante.0.5 }}"><br> Edad Actual: <input type="text" name="edad" value="{{ estudiante.0.6 }}"><br> Nombre Actual del Padre ó Tutor: <input type="text" name="nombre_tutor" value="{{ estudiante.0.7 }}"><br>        Teléfono de Casa Actual: <input type="text" name="telefono_casa" value="{{ estudiante.0.8 }}"><br> Teléfono Celular Actual: <input type="text" name="telefono_celular" value="{{ estudiante.0.9 }}"><br> Correo Electrónico: <input type="text" name="correo_electronico"
+            value="{{ estudiante.0.10 }}"><br> Estado Actual: <input type="text" name="estado" value="{{ estudiante.0.13 }}"><br>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
+                <i class="material-icons right">send</i>
+              </button>
     </form>
-    {% else %}
-    Ups no Hay datos! intente con otro Alumno! <br>
-    {% endif %}
+    {% else %} Ups no Hay datos! intente con otro Alumno! <br> {% endif %}
     <a href="/admin">Regresar</a>
-</body>
-
-</html>
+</div>
+{% endblock %}

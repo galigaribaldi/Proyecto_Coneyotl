@@ -1,22 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Registro Profesores</title>
-</head>
-<body>
-    <!--REgistro de profesores por grado-->
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    {% for messages in messages %}
-    {{ messages }}
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
+{% extends "layout.html" %} {% block content %}
+<!--REgistro de profesores por grado-->
+{% with messages = get_flashed_messages() %} {% if messages %} {% for messages in messages %} {{ messages }} {% endfor %} {% endif %} {% endwith %}
+<div class="container">
     <h1>Registro Profesores</h1>
-    <h2>Profesor de Grado</h2>
+    <h2 class="center">Profesor de Grado</h2>
     <form action="/profesor_grado/agregar" , method="POST">
         <input type="text" name="profesor_ID" placeholder="Calve interna">
         <input type="text" name="CURP" placeholder="CURP">
@@ -29,10 +16,12 @@
         <input type="text" name="passwords" placeholder="Contraseña">
         <input type="text" name="estado" placeholder="Estado A, S, B">
         <input type="text" name="grado" placeholder="Grado Escolar que imparte">
-        <button type="submit"> SAVE </button>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
+            <i class="material-icons right">send</i>
+        </button>
     </form>
     <!--Formulario de profesor especialistA-->
-    <h2>Profesor Extracurricular</h2>
+    <h2 class="center">Profesor Extracurricular</h2>
     <form action="/profesor_especialista/agregar" , method="POST">
         <input type="text" name="profesor_ID" placeholder="Calve interna">
         <input type="text" name="CURP" placeholder="CURP">
@@ -46,8 +35,11 @@
         <input type="text" name="estado" placeholder="Estado A, S, B">
         <input type="text" name="grado" placeholder="Primaria o kinder">
         <input type="text" name="nom_materia" placeholder="Nombre de la MAteria">
-        <button type="submit"> SAVE </button>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
+            <i class="material-icons right">send</i>
+        </button>
     </form>
     <a href="/admin">Regresar</a>
-</body>
-</html>
+</div>
+
+{% endblock %}

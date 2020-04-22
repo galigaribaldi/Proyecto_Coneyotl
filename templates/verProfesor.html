@@ -1,83 +1,76 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Control de Profesores grado</title>
-</head>
-
-<body>
-    <h1>Control de Profesores </h1>
-    <h2>Profesor de Grado</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Clave</th>
-                <th>CURP</th>
-                <th>Nombre </th>
-                <th>Apellido Paterno </th>
-                <th>Apellido Materno </th>
-                <th>Edad </th>
-                <th>Telefono </th>
-                <th>Status </th>
-                <th>Grado </th>
-                <th>            Cambiar Status </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                {% for i in prof_g %}
-                <td>{{ i.0 }}</td>
-                <td>{{ i.1 }}</td>
-                <td>{{ i.2 }}</td>
-                <td>{{ i.3 }}</td>
-                <td>{{ i.4 }}</td>
-                <td>{{ i.5 }}</td>
-                <td>{{ i.6 }}</td>
-                <td>{{ i.7 }}</td>
-                <td>{{ i.9 }}</td>
-                <td><a href="/alta_prof_grado/{{ i.0 }}">Dar de Alta</a> <a href="/baja_prof_grado/{{ i.0 }}">Dar de Baja</a><a href="/suspender_prof_grado/{{ i.0 }}">Suspender</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <!--Control de profesores Especialistas-->
-    <h2>Profesores Especialistas </h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Clave</th>
-                <th>CURP</th>
-                <th>Nombre </th>
-                <th>Apellido Paterno </th>
-                <th>Apellido Materno </th>
-                <th>Edad </th>
-                <th>Telefono </th>
-                <th>Status </th>
-                <th>Grado </th>
-                <th>            Cambiar Status </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                {% for j in prof_e %}
-                <td>{{ j.0 }}</td>
-                <td>{{ j.1 }}</td>
-                <td>{{ j.2 }}</td>
-                <td>{{ j.3 }}</td>
-                <td>{{ j.4 }}</td>
-                <td>{{ j.5 }}</td>
-                <td>{{ j.6 }}</td>
-                <td>{{ j.7 }}</td>
-                <td>{{ j.9 }}</td>
-                <td><a href="/alta_prof_esp/{{ j.0 }}">Dar de Alta</a> <a href="/baja_prof_esp/{{ j.0 }}">Dar de Baja</a><a href="/suspender_prof_esp/{{ j.0 }}">Suspender</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a href="/admin">Regresar</a>
-</body>
-
-</html>
+{% extends "layout.html" %} {% block content %}
+<h1>Control de Profesores </h1>
+<h2>Profesor de Grado</h2>
+<table class="responsive-table highlight striped">
+    <thead>
+        <tr>
+            <th>Clave</th>
+            <th>CURP</th>
+            <th>Nombre </th>
+            <th>Apellido Paterno </th>
+            <th>Apellido Materno </th>
+            <th>Edad </th>
+            <th>Telefono </th>
+            <th>Status </th>
+            <th>Grado </th>
+            <th>Cambiar Status </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for i in prof_g %}
+            <td>{{ i.0 }}</td>
+            <td>{{ i.1 }}</td>
+            <td>{{ i.2 }}</td>
+            <td>{{ i.3 }}</td>
+            <td>{{ i.4 }}</td>
+            <td>{{ i.5 }}</td>
+            <td>{{ i.6 }}</td>
+            <td>{{ i.7 }}</td>
+            <td>{{ i.9 }}</td>
+            <td><a href="/alta_prof_grado/{{ i.0 }}" class="waves-effect waves-light btn-small blue">Alta</a>
+                <a href="/baja_prof_grado/{{ i.0 }}" class="waves-effect waves-light btn-small deep-orange">Baja</a>
+                <a href="/suspender_prof_grado/{{ i.0 }}" class="waves-effect waves-light btn-small yellow accent-4">Suspender</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!--Control de profesores Especialistas-->
+<h2>Profesores Especialistas </h2>
+<table class="responsive-table highlight striped">
+    <thead>
+        <tr>
+            <th>Clave</th>
+            <th>CURP</th>
+            <th>Nombre </th>
+            <th>Apellido Paterno </th>
+            <th>Apellido Materno </th>
+            <th>Edad </th>
+            <th>Telefono </th>
+            <th>Status </th>
+            <th>Grado </th>
+            <th> Cambiar Status </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for j in prof_e %}
+            <td>{{ j.0 }}</td>
+            <td>{{ j.1 }}</td>
+            <td>{{ j.2 }}</td>
+            <td>{{ j.3 }}</td>
+            <td>{{ j.4 }}</td>
+            <td>{{ j.5 }}</td>
+            <td>{{ j.6 }}</td>
+            <td>{{ j.7 }}</td>
+            <td>{{ j.9 }}</td>
+            <td><a href="/alta_prof_esp/{{ j.0 }}" class="waves-effect waves-light btn-small blue">Alta</a>
+                <a href="/baja_prof_esp/{{ j.0 }}" class="waves-effect waves-light btn-small deep-orange">Baja</a>
+                <a href="/suspender_prof_esp/{{ j.0 }}" class="waves-effect waves-light btn-small yellow accent-4">Suspender</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="/admin">Regresar</a> {% endblock %}

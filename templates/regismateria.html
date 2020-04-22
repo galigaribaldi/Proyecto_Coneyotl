@@ -1,31 +1,15 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Registrar materia</title>
-
-</head>
-
-<body>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    {% for messages in messages %}
-    {{ messages }}
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
+{% extends "layout.html" %} {% block content %} {% with messages = get_flashed_messages() %} {% if messages %} {% for messages in messages %} {{ messages }} {% endfor %} {% endif %} {% endwith %}
+<div class="container">
     <h1>Registro Materias</h1>
     <form action="/registroMateria" , method="POST">
         <input type="text" name="materia_ID" placeholder="Clave interna de la materia">
         <input type="text" name="nombre" placeholder="Nombre de la materia">
         <input type="text" name="estado" placeholder="Estado: A, B, S">
         <input type="text" name="grado" placeholder="Grado al cual va dirigida">
-        <button type="submit"> SAVE </button>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+            <i class="material-icons right">send</i>
+          </button>
     </form>
     <a href="/admin">Regresar</a>
-</body>
-
-</html>
+</div>
+{% endblock %}
