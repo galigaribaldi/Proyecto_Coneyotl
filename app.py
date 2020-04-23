@@ -1,7 +1,6 @@
 from flask import Flask
 from flask import render_template, request, flash
 from flask import redirect, url_for, session
-import os
 import models as coneccion
 #import models2 as inscripciones 
 #import sqlite3
@@ -9,8 +8,7 @@ import models as coneccion
 app = Flask(__name__)
 
 ### Settings
-#app.secret_key = 'secreto'
-app.config.from_object(os.environ['APP_SETTINGS'])
+app.secret_key = 'secreto'
 
 @app.route('/', methods = ['GET', 'POST']) 
 def index():
