@@ -928,4 +928,4 @@ def cambiar_calificacion_Bimestre4_esp(id_materia, id_estudiante, id_profesor, g
 #######################################################################################################3
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run()
