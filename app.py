@@ -7,7 +7,7 @@ import models as coneccion
 
 app = Flask(__name__)
 
-##### Settings
+# Settings Configuración del Secret Key
 app.secret_key = 'secreto'
 
 @app.route('/', methods = ['GET', 'POST']) 
