@@ -15,16 +15,18 @@
 
 <body>
     <!--==========================================Inicio del Navbar =============================================-->
-    <nav class="#ffc400 amber accent-3">
-        <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Coneyotl - Piltzintli</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="/salir">Cerrar Sesion</a></li>
-                <li><a href="/">Iniciar Sesion</a></li>
-            </ul>
-        </div>
-    </nav>
+    <div class="navbar-fixed">
+        <nav class="#ffc400 amber accent-3">
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">Coneyotl - Piltzintli</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="/salir">Cerrar Sesion</a></li>
+                    <li><a href="/">Iniciar Sesion</a></li>
+                </ul>
+            </div>
+        </nav>
 
+    </div>
     <!--==========================================Fin del Navbar =============================================-->
     {% with messages = get_flashed_messages() %} {% if messages %} {% for messages in messages %} {{ messages }} {% endfor %} {% endif %} {% endwith %} {% block content %} {% endblock %}
     <!--==========================================Inicio del Footer =============================================-->
@@ -38,7 +40,7 @@
                 <div class="col l4 offset-l2 s12">
                     <h5 class="white-text">Contáctenos</h5>
                     <ul>
-                        <li><a class="grey-text text-lighten-3" href="https://www.facebook.com/coneyotlpiltzintli.garibaldi">Página en FB: Facebook </a></li>
+                        <li><a class="grey-text text-lighten-3" href="https://www.facebook.com/coneyotlpiltzintli.garibaldi">Página en Facebook </a></li>
                         <li><a class="grey-text text-lighten-3">Correo electrónico: colegioconeyotl.plataforma@gmail.com</a></li>
                         <li><a class="grey-text text-lighten-3">Tel: 58-44-22-25</a></li>
                         <li><a class="grey-text text-lighten-3">Correo electrónico: colegioconeyotl_73@yahoo.com.mx</a></li>
@@ -48,7 +50,7 @@
         </div>
         <div class="footer-copyright">
             <div class="container">
-                © 2020 Copyright Text
+                © 2020 Copyright Colegio Coneyotl Piltzintli
                 <a class="grey-text text-lighten-4 right" href="#!"></a>
             </div>
         </div>

@@ -1,7 +1,9 @@
-{% extends "layout.html" %} {% block content %} {{ prof_esp }}
+{% extends "layout.html" %} {% block content %}
 <h1 class="center">Alumnos de {{ estu.4.5 }} </h1>
 {% if bandera %}
 <div class="container">
+
+    <a href="/avisos/{{ estu.0.5 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">book</i>Avisos de Actividades</a>
     <table class="responsive-table highlight striped">
         <thead>
             <tr>
@@ -24,61 +26,79 @@
     </table>
 </div>
 {% endif %} {% if bandera3 %}
-<table class="responsive-table highlight striped">
-    <thead>
-        <tr>
-            <th>Clave Alumno </th>
-            <th>Nombre </th>
-            <th>Apellido Paterno </th>
-            <th>Apellido Materno </th>
-            <th>Grado </th>
-            <th> Estado Actual </th>
-            <th> Datos Actuales </th>
-            <th> Calificaciones </th>
-            <th>Cambiar Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            {% for i in estu %}
-            <td>{{ i.0 }}</td>
-            <td>{{ i.2 }}</td>
-            <td>{{ i.3 }}</td>
-            <td>{{ i.4 }}</td>
-            <td>{{ i.5 }}</td>
-            <td>{{ i.13 }}</td>
+<div>
+    <table class="responsive-table highlight striped">
+        <thead>
+            <tr>
+                <th>Clave Alumno </th>
+                <th>Nombre </th>
+                <th>Apellido Paterno </th>
+                <th>Apellido Materno </th>
+                <th>Grado </th>
+                <th> Estado Actual </th>
+                <th> Datos Actuales </th>
+                <th> Calificaciones </th>
+                <th>Cambiar Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for i in estu %}
+                <td>{{ i.0 }}</td>
+                <td>{{ i.2 }}</td>
+                <td>{{ i.3 }}</td>
+                <td>{{ i.4 }}</td>
+                <td>{{ i.5 }}</td>
+                <td>{{ i.13 }}</td>
 
-            <td><a href="/editar/actualizar/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small">Cambiar Datos</a><br><br><a href="/verAlumnoDatos/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small">Ver Datos</a>
+                <td><a href="/editar/actualizar/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small">Cambiar Datos</a><br><br><a href="/verAlumnoDatos/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small">Ver Datos</a>
 
-                <td><a href="/editar/cambiar/calificaciones/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small">Cambiar Calificaciones</a><br><br>
-                    <a href="/editar/actualizar/calificaciones/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small">Ver calificaciones</a></td>
-                <td><a href="/baja/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small deep-orange">Baja</a><br>
-                    <a href="/alta/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small blue">Alta</a><br>
-                    <a href="/suspender/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small yellow accent-4">Suspender</a><br></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-<a href="/admin">Regresar</a> {% endif %} {% if bandera2 %} Materias ExtraCurriculares
-<table class="responsive-table highlight striped">
-    <thead>
-        <tr>
-            <th>Nombre </th>
-            <th>Apellido Paterno </th>
-            <th>Apellido Materno </th>
-            <th> Calificaciones </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            {% for i in estu %}
-            <td>{{ i.2 }}</td>
-            <td>{{ i.3 }}</td>
-            <td>{{ i.4 }}</td>
-            <td><a href="/editar/cambiar/calificaciones/{{ i.0 }}/{{ i.5 }}/{{ prof_esp }}">Cambiar Calificaciones</a> <a href="/editar/actualizar/calificaciones/{{ i.0 }}/{{ i.5 }}/{{ prof_esp }}">Ver calificaciones</a> </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+                    <td><a href="/editar/cambiar/calificaciones/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small">Cambiar Calificaciones</a><br><br>
+                        <a href="/editar/actualizar/calificaciones/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small">Ver calificaciones</a></td>
+                    <td><a href="/baja/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small deep-orange">Baja</a><br>
+                        <a href="/alta/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small blue">Alta</a><br>
+                        <a href="/suspender/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small yellow accent-4">Suspender</a><br></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="center">
+        <a href="/admin" class="waves-effect waves-light btn-large"><i class="material-icons left">mood_bad</i>Regresar</a>
+    </div>
+
+</div>
+{% endif %} {% if bandera2 %}
+<div class="container">
+    <h2 class="center"> Materias ExtraCurriculares</h2>
+
+    <a href="/avisos/{{ estu.0.5 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">book</i>Avisos de Actividades</a>
+    <table class="responsive-table highlight striped">
+        <thead>
+            <tr>
+                <th>Nombre </th>
+                <th>Apellido Paterno </th>
+                <th>Apellido Materno </th>
+                <th> Calificaciones </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for i in estu %}
+                <td>{{ i.2 }}</td>
+                <td>{{ i.3 }}</td>
+                <td>{{ i.4 }}</td>
+                <td>
+                    <a href="/editar/cambiar/calificaciones/{{ i.0 }}/{{ i.5 }}/{{ prof_esp }}" class="waves-effect waves-light btn-small"><i class="material-icons left">border_color</i>Cambiar Calificaciones</a>
+                    <a href="/editar/actualizar/calificaciones/{{ i.0 }}/{{ i.5 }}/{{ prof_esp }}" class="waves-effect waves-light btn-small"><i class="material-icons left">face</i>Ver Calificaciones</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endif %}
-<br><a href="/salir">Salir</a> {% endblock %}
+<br>
+<div class="center">
+    <a href="/salir" class="waves-effect waves-light btn-large"><i class="material-icons left">mood_bad</i>Salir</a>
+    <br> <br>
+</div> {% endblock %}

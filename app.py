@@ -47,7 +47,18 @@ def index():
                     session['username'] = 'profesor_especialista'
                     print(ids3)
                     print(ids3[0][0])
-                    return render_template('profesor_especialista.html', prof_esp=ids3[0][0])
+                    grado = coneccion.consulta_grado_esp(ids3[0][0])
+                    if grado[0][0] =='PRIMARIA':
+                        print(grado[0][0])
+                        return render_template('profesor_especialista.html', prof_esp=ids3[0][0], bandera=1)
+                    if grado[0][0] =='KINDER-PRIMARIA':
+                        print(grado[0][0])
+                        return render_template('profesor_especialista.html', prof_esp=ids3[0][0], bandera=1, bandera2=1)
+                    if grado[0][0] == 'KINDER':
+                        print(grado[0][0])
+                        return render_template('profesor_especialista.html', prof_esp=ids3[0][0], bandera2=1)
+
+                    
             ##Administracion        
             if correo_electronico =='19174536' and curp =='19174536':
                 session['username'] = 'ADMINISTRADOR'
@@ -417,6 +428,7 @@ def registrar_profesor_esp():
 def actualizar_datos_alumno(ids):
     if "username" in session and session["username"] =='ADMINISTRADOR':    
         if request.method == 'POST':
+            curp = request.form['curp']
             nombre = request.form['nombre']
             apellido_pat = request.form['apellido_p']
             apellido_mat = request.form['apellido_m']
@@ -428,7 +440,7 @@ def actualizar_datos_alumno(ids):
             correo_electronico = request.form['correo_electronico']
             estado = request.form['estado']
             #try:
-            coneccion.actualizar_alumno(nombre, apellido_pat, apellido_mat, grado, edad, nombre_tutor, telefono_casa, telefono_celular, correo_electronico, estado, ids)
+            coneccion.actualizar_alumno(curp,nombre, apellido_pat, apellido_mat, grado, edad, nombre_tutor, telefono_casa, telefono_celular, correo_electronico, estado, ids)
             flash("Se Actualizaron los datos correctamente!")
             return redirect(url_for('administrador'))
             #except:
@@ -926,6 +938,10 @@ def cambiar_calificacion_Bimestre4_esp(id_materia, id_estudiante, id_profesor, g
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
 #######################################################################################################3
-
+##Correos
+@app.route("/correos")
+def correos():
+    return render_template("correos.html")
+################3
 if __name__ == '__main__':
     app.run()

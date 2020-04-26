@@ -262,10 +262,10 @@ def inscripcion_estudiante_ID(grado, e_ID):
     cursor.close()
     conexion.close()
 
-def actualizar_alumno(nombre, apellido_pat, apellido_mat, grado, edad, nombre_tutor, telefono_casa, telefono_celular, correo_electronico, estado, ids):
+def actualizar_alumno(curp, nombre, apellido_pat, apellido_mat, grado, edad, nombre_tutor, telefono_casa, telefono_celular, correo_electronico, estado, ids):
     conexion = psycopg2.connect(host="ec2-50-17-21-170.compute-1.amazonaws.com", database="db9pd7bh097pvr", user="mvzzsegcgfupbg", password="650e81eb2870925608e3c46c2fc091376808de83ba8e02de24a8e4375e09b6b0")
     cursor = conexion.cursor()
-    cursor.execute("UPDATE estudiante SET nombre = %s, apellido_pat = %s, apellido_mat = %s, grado = %s, edad = %s, nombre_tutor = %s, telefono_casa = %s, telefono_celular = %s, correo_electronico = %s, estado = %s WHERE estudiante_ID = %s",(nombre, apellido_pat, apellido_mat, grado, edad, nombre_tutor, telefono_casa, telefono_celular, correo_electronico, estado, ids))
+    cursor.execute("UPDATE estudiante SET curp = %s,nombre = %s, apellido_pat = %s, apellido_mat = %s, grado = %s, edad = %s, nombre_tutor = %s, telefono_casa = %s, telefono_celular = %s, correo_electronico = %s, estado = %s WHERE estudiante_ID = %s",(curp, nombre, apellido_pat, apellido_mat, grado, edad, nombre_tutor, telefono_casa, telefono_celular, correo_electronico, estado, ids))
     conexion.commit()
     cursor.close()
     conexion.close()
@@ -578,6 +578,15 @@ def consulta_estudiantes_id5(correo, curp):
     conexion = psycopg2.connect(host="ec2-50-17-21-170.compute-1.amazonaws.com", database="db9pd7bh097pvr", user="mvzzsegcgfupbg", password="650e81eb2870925608e3c46c2fc091376808de83ba8e02de24a8e4375e09b6b0")
     cursor = conexion.cursor()
     cursor.execute("SELECT estudiante_id, grado from estudiante WHERE correo_electronico=%s AND CURP=%s", (correo, curp))
+    datos = cursor.fetchall()
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return datos
+def consulta_grado_esp(ids):
+    conexion = psycopg2.connect(host="ec2-50-17-21-170.compute-1.amazonaws.com", database="db9pd7bh097pvr", user="mvzzsegcgfupbg", password="650e81eb2870925608e3c46c2fc091376808de83ba8e02de24a8e4375e09b6b0")
+    cursor = conexion.cursor()
+    cursor.execute("SELECT grado from profesor_especialista WHERE profesor_id=%s ", (ids,))
     datos = cursor.fetchall()
     conexion.commit()
     cursor.close()
