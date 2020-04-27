@@ -1,10 +1,58 @@
 {% extends "layout.html" %} {% block content %}
 <div class="container">
     <h2 class="center"> Enviar correos </h2>
-
     <div class="row">
-        <form class="col s12">
+        <form action="correos/Enviar" class="col s12">
+            <!-- Dropdown Trigger -->
+            <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Opciones de Mandar Correo</a>
+            <!-- Dropdown Structure -->
+            <ul id='dropdown1' class='dropdown-content'>
+                <li><a href="/Correos/1">Enviar Correo a una Dirección Personalizada</a></li>
+                <li class="divider" tabindex="-1"></li>
+                <li><a href="/correos"><label>
+                    <input type="checkbox" />
+                    <span>Enviar a Todo K1</span>
+                </label></a></li>
+                <li><a href="/correos"><label>
+                    <input type="checkbox" />
+                    <span>Enviar a Todo K2</span>
+                </label></a></li>
+                <li><a href="/correos"><label>
+                    <input type="checkbox" />
+                    <span>Enviar a Todo K3</span>
+                </label></a></li>
+                <li><a href="/correos"><label>
+                    <input type="checkbox" />
+                    <span>Enviar a Todo 1°</span>
+                </label></a></li>
+                <li><a href="/correos"><label>
+                    <input type="checkbox" />
+                    <span>Enviar a Todo 2°</span>
+                </label></a></li>
+                <li><a href="/correos"><label>
+                    <input type="checkbox" />
+                    <span>Enviar a Todo 3°</span>
+                </label></a></li>
+                <li><a href="/correos"><label>
+                    <input type="checkbox" />
+                    <span>Enviar a Todo K1</span>
+                </label></a></li>
+                <li><a href="/correos"><label>
+                    <input type="checkbox" />
+                    <span>Enviar a Todo 4°</span>
+                </label></a></li>
+                <li><a href="/correos"><label>
+                    <input type="checkbox" />
+                    <span>Enviar a Todo 5°</span>
+                </label></a></li>
+                <li><a href="/correos"><label>
+                    <input type="checkbox" />
+                    <span>Enviar a Todo 6°</span>
+                </label></a></li>
+            </ul>
+            <br>
             <div class="row">
+                {% if opcion1 %}
                 <div class="input-field col s6">
                     <i class="material-icons prefix">account_circle</i>
                     <input id="icon_prefix" type="text" class="validate">
@@ -15,34 +63,30 @@
                     <input id="icon_telephone" type="text">
                     <label for="icon_telephone">Asunto</label>
                 </div>
-
-                <!-- Dropdown Trigger -->
-                <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Drop Me!</a>
-
-                <!-- Dropdown Structure -->
-                <ul id='dropdown1' class='dropdown-content'>
-                    <li><a href="#!">one</a></li>
-                    <li><a href="#!">two</a></li>
-                    <li class="divider" tabindex="-1"></li>
-                    <li><a href="#!">three</a></li>
-                    <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
-                    <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
-                </ul>
-
+                {% endif %}
             </div>
-        </form>
-    </div>
-    <div class="row">
-        <form class="col s12">
             <div class="row">
-                <div class="input-field col s12">
-                    <textarea id="textarea1" class="materialize-textarea"></textarea>
-                    <label for="textarea1">Cuerpo del correo</label>
-                </div>
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">mode_edit</i>
+                            <textarea id="textarea1" class="materialize-textarea"></textarea>
+                            <label for="textarea1">Cuerpo del correo</label>
+                        </div>
+                    </div>
+                </form>
             </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
+                <i class="material-icons right">send</i>
+              </button>
         </form>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.dropdown-trigger');
+            var instances = M.Dropdown.init(elems);
+        });
+    </script>
 
-    document.addEventListener('DOMContentLoaded', function() { var elems = document.querySelectorAll('.dropdown-trigger'); var instances = M.Dropdown.init(elems, options); }); // Or with jQuery $('.dropdown-trigger').dropdown();
 </div>
 {% endblock %}

@@ -942,6 +942,10 @@ def cambiar_calificacion_Bimestre4_esp(id_materia, id_estudiante, id_profesor, g
 @app.route("/correos")
 def correos():
     return render_template("correos.html")
+#@app.route("/correos/Enviar")
+@app.route("/Correos/1")
+def correos_1():
+    return render_template("correos.html", opcion1=1)
 ################3
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
