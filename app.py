@@ -1,10 +1,12 @@
 from flask import Flask
 from flask import render_template, request, flash
 from flask import redirect, url_for, session
+###Coneccion a la base
 import models as coneccion
-#import models2 as inscripciones 
-#import sqlite3
-
+##Generador de correos
+import correo as enviar
+#Generador de imagenes
+import generador_img as img
 app = Flask(__name__)
 
 # Settings Configuración del Secret Key
@@ -946,6 +948,147 @@ def correos():
 @app.route("/Correos/1")
 def correos_1():
     return render_template("correos.html", opcion1=1)
+
+@app.route("/correos/Enviar", methods=['POST'])
+def enviar_correos():
+    if request.method == 'POST':
+        direccion = request.form['correo_destinatario']
+        asunto = request.form['asunto']
+        cuerpo = request.form['cuerpo']
+        opcion = request.form['opcion']
+        #### Obtenemos el grado
+        grado = request.form['grado']
+        ###Correo individual
+        if grado =='000':
+            if opcion == '0':
+                enviar.enviar_correo(direccion,cuerpo, asunto)
+            if opcion == '1':
+                img.generar_imagen(direccion,'', '', cuerpo)
+                enviar.enviar_correo_img(direccion, asunto)
+            if opcion == '2':
+                img.generar_imagen(direccion,'', '', cuerpo)
+                enviar.enviar_correo_img(direccion, asunto)
+        ###Correos para niños###############################################33                
+        ##Correos para kinder 1
+        if grado =='001':
+            lista = coneccion.correos_estudiante('K1')
+            if opcion == '0':
+                enviar.enviar_correo(direccion,cuerpo, asunto)
+            if opcion == '1':
+                for i in lista:
+                    img.generar_imagen(i[0],i[1],i[2], cuerpo)
+                    enviar.enviar_correo_img('galigaribaldi0@gmail.com', asunto)
+            if opcion == '2':
+                img.generar_imagen(direccion,'', '', cuerpo)
+                #enviar.enviar_correo_img(direccion, asunto)
+            for i in lista:
+                print(i)
+                #enviar.enviar_correo(i[4],cuerpo, asunto)
+        ##Correos para kinder 2
+        if grado == '002':
+            lista = coneccion.correos_estudiante('K2')
+            for i in lista:
+                print(i)
+                #enviar.enviar_correo(i[4],cuerpo, asunto)
+        ##Correos para kinder 3
+        if grado == '003':
+            lista = coneccion.correos_estudiante('K3')
+            for i in lista:
+                print(i)
+                #enviar.enviar_correo(i[4],cuerpo, asunto)
+        ##Correos para Primero de Primaria
+        if grado == '1':
+            lista = coneccion.correos_estudiante('1ro')
+            for i in lista:
+                print(i)
+                #enviar.enviar_correo(i[4],cuerpo, asunto)
+        ##Correos para Segundo de Primaria
+        if grado == '2':
+            lista = coneccion.correos_estudiante('2do')
+            for i in lista:
+                print(i)
+                #enviar.enviar_correo(i[4],cuerpo, asunto)
+        ##Correos para Tercero de Primaria
+        if grado == '3':
+            lista = coneccion.correos_estudiante('3ro')
+            for i in lista:
+                print(i)
+                #enviar.enviar_correo(i[4],cuerpo, asunto)
+        ##Correos para Cuarto de Primaria
+        if grado == '4':
+            lista = coneccion.correos_estudiante('4to')
+            for i in lista:
+                print(i)
+                #enviar.enviar_correo(i[4],cuerpo, asunto)
+        ##Correos para quinto de Primaria
+        if grado == '5':
+            lista = coneccion.correos_estudiante('5to')
+            for i in lista:
+                print(i[4])
+                #enviar.enviar_correo(i[4],cuerpo, asunto)
+        ##Correos para sexto de Primaria
+        if grado == '6':
+            lista = coneccion.correos_estudiante('6to')
+            for i in lista:
+                print(i)
+                #enviar.enviar_correo(i[4],cuerpo, asunto)
+        ###Correos para toda la escuela
+        if grado =='1021':
+            lista=[]
+            lista.append(coneccion.correos_estudiante('K1'))
+            lista.append(coneccion.correos_estudiante('K2'))
+            lista.append(coneccion.correos_estudiante('K3'))
+            lista.append(coneccion.correos_estudiante('1ro'))
+            lista.append(coneccion.correos_estudiante('2do'))
+            lista.append(coneccion.correos_estudiante('3ro'))
+            lista.append(coneccion.correos_estudiante('4to'))
+            lista.append(coneccion.correos_estudiante('5to'))
+            lista.append(coneccion.correos_estudiante('6to'))
+            i=0
+            for i in lista:
+                print(i)
+            return str(lista)
+        ###Correos para toda Primaria
+        if grado =='1022':
+            lista=[]
+            lista.append(coneccion.correos_estudiante('1ro'))
+            lista.append(coneccion.correos_estudiante('2do'))
+            lista.append(coneccion.correos_estudiante('3ro'))
+            lista.append(coneccion.correos_estudiante('4to'))
+            lista.append(coneccion.correos_estudiante('5to'))
+            lista.append(coneccion.correos_estudiante('6to'))
+            i=0
+            for i in lista:
+                print(i)
+            return str(lista)
+        ###Correos para todo Kinder
+        if grado =='1023':
+            lista=[]
+            lista.append(coneccion.correos_estudiante('K1'))
+            lista.append(coneccion.correos_estudiante('K2'))
+            lista.append(coneccion.correos_estudiante('K3'))
+            i=0
+            for i in lista:
+                print(i)
+            return str(lista)
+        if grado =='100':
+            lista = coneccion.correos_profesor_grado()
+            i=0
+            for i in lista:
+                print(i)
+            return str(lista)
+        if grado =='1000':
+            lista = coneccion.correos_prof_especialista()
+            i=0
+            for i in lista:
+                print(i)
+            return str(lista)
+        #try:
+        print(grado)
+        return "Enviado "
+        #except:
+        #return "No se pudo"
+        #return(str(direccion))
 ################3
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

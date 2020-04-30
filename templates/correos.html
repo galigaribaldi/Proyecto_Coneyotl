@@ -1,92 +1,90 @@
 {% extends "layout.html" %} {% block content %}
 <div class="container">
-    <h2 class="center"> Enviar correos </h2>
+    <h2 class="center"> Enviar correos Alumnos</h2>
     <div class="row">
-        <form action="correos/Enviar" class="col s12">
-            <!-- Dropdown Trigger -->
-            <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Opciones de Mandar Correo</a>
-            <!-- Dropdown Structure -->
-            <ul id='dropdown1' class='dropdown-content'>
-                <li><a href="/Correos/1">Enviar Correo a una Dirección Personalizada</a></li>
-                <li class="divider" tabindex="-1"></li>
-                <li><a href="/correos"><label>
-                    <input type="checkbox" />
-                    <span>Enviar a Todo K1</span>
-                </label></a></li>
-                <li><a href="/correos"><label>
-                    <input type="checkbox" />
-                    <span>Enviar a Todo K2</span>
-                </label></a></li>
-                <li><a href="/correos"><label>
-                    <input type="checkbox" />
-                    <span>Enviar a Todo K3</span>
-                </label></a></li>
-                <li><a href="/correos"><label>
-                    <input type="checkbox" />
-                    <span>Enviar a Todo 1°</span>
-                </label></a></li>
-                <li><a href="/correos"><label>
-                    <input type="checkbox" />
-                    <span>Enviar a Todo 2°</span>
-                </label></a></li>
-                <li><a href="/correos"><label>
-                    <input type="checkbox" />
-                    <span>Enviar a Todo 3°</span>
-                </label></a></li>
-                <li><a href="/correos"><label>
-                    <input type="checkbox" />
-                    <span>Enviar a Todo K1</span>
-                </label></a></li>
-                <li><a href="/correos"><label>
-                    <input type="checkbox" />
-                    <span>Enviar a Todo 4°</span>
-                </label></a></li>
-                <li><a href="/correos"><label>
-                    <input type="checkbox" />
-                    <span>Enviar a Todo 5°</span>
-                </label></a></li>
-                <li><a href="/correos"><label>
-                    <input type="checkbox" />
-                    <span>Enviar a Todo 6°</span>
-                </label></a></li>
-            </ul>
-            <br>
-            <div class="row">
-                {% if opcion1 %}
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">account_circle</i>
-                    <input id="icon_prefix" type="text" class="validate">
-                    <label for="icon_prefix">Correo Destinatario</label>
-                </div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">announcement</i>
-                    <input id="icon_telephone" type="text">
-                    <label for="icon_telephone">Asunto</label>
-                </div>
-                {% endif %}
+        <form action="/correos/Enviar" class="col s12" , method="POST">
+            <div class="input-field col s12">
+                <select name="grado">
+                  <optgroup label="Individual">
+                    <option value="000">Correo individual</option>
+                  </optgroup>
+                  <optgroup label="Kinder">
+                    <option value="001">Kinder 1</option>
+                    <option value="002">Kinder 2</option>
+                    <option value="003">Kinder 3</option>
+                  </optgroup>
+                  <optgroup label="Primaria">
+                    <option value="1">1° Primaria</option>
+                    <option value="2">2° Primaria</option>
+                    <option value="3">3° Primaria</option>
+                    <option value="4">4° Primaria</option>
+                    <option value="5">5° Primaria</option>
+                    <option value="6">6° Primaria</option>
+                  </optgroup>
+                  <optgroup label="ALL">
+                    <option value="1021">Toda la escuela</option>
+                    <option value="1022">Toda Primaria</option>
+                    <option value="1023">Todo Kinder</option>
+                  </optgroup>
+                </select>
+                <label>Optgroups</label>
             </div>
-            <div class="row">
-                <form class="col s12">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">mode_edit</i>
-                            <textarea id="textarea1" class="materialize-textarea"></textarea>
-                            <label for="textarea1">Cuerpo del correo</label>
-                        </div>
-                    </div>
-                </form>
+            <div class="input-field col s12">
+                <select name="opcion">
+                <optgroup label="Nada">
+                  <option value="0">No Crear nada</option>
+                </optgroup>
+                <optgroup label="Adjuntar">
+                  <option value="1">Adjuntar Aviso</option>
+                  <option value="2">Adjuntar reporte</option>
+              </select>
+                <label>Optgroups</label>
             </div>
+            Correo Destinatario: <input type="text" name="correo_destinatario"> Asunto: <input type="text" name="asunto"> Cuerpo del Correo:<input type="text" name="cuerpo">
             <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
                 <i class="material-icons right">send</i>
               </button>
         </form>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('.dropdown-trigger');
-            var instances = M.Dropdown.init(elems);
-        });
-    </script>
-
 </div>
+<!--Profesores-->
+<div class="container">
+    <h2 class="center"> Enviar correos Profesores</h2>
+    <div class="row">
+        <form action="/correos/Enviar" class="col s12" , method="POST">
+            <div class="input-field col s12">
+                <select name="grado">
+                  <optgroup label="Grado">
+                    <option value="100">Todos los grados de Primaria y Kinder</option>
+                  </optgroup>
+                  <optgroup label="Especialistas">
+                    <option value="1000">Todos los Especialistas</option>
+                  </optgroup>
+                </select>
+                <label>Optgroups</label>
+            </div>
+            <div class="input-field col s12">
+                <select name="opcion">
+              <optgroup label="Nada">
+                <option value="0">No Crear nada</option>
+              </optgroup>
+              <optgroup label="Adjuntar">
+                <option value="1">Adjuntar Aviso</option>
+                <option value="2">Adjuntar reporte</option>
+            </select>
+                <label>Optgroups</label>
+            </div>
+            Correo Destinatario: <input type="text" name="correo_destinatario"> Asunto: <input type="text" name="asunto"> Cuerpo del Correo:<input type="text" name="cuerpo">
+            <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
+                <i class="material-icons right">send</i>
+              </button>
+        </form>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
+    });
+</script>
 {% endblock %}
