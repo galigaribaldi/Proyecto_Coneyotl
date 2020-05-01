@@ -30,7 +30,7 @@ def enviar_correo(correo_destinatario, cuerpo2, asunto2):
     try:
         sesion_smtp.sendmail(remitente, destinatarios, texto)
     except:
-        print("No se Pudo enviar el Correo a:", nombre)
+        print("No se Pudo enviar el Correo a:")
     # Cerramos la conexión
     sesion_smtp.quit()
 
@@ -75,6 +75,6 @@ def enviar_correo_img(correo_destinatario, asunto):
     try:
         sesion_smtp.sendmail(remitente, destinatarios, texto)
     except:
-        print("No se Pudo enviar el Correo a:", nombre)
+        print("No se Pudo enviar el Correo a:")
     # Cerramos la conexión
     sesion_smtp.quit()
