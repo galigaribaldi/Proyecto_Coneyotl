@@ -5,9 +5,9 @@ def generar_imagen(nombre, apellido_p, apellido_m,mensaje):
     img=Image.open("plantilla.jpeg")
     draw = ImageDraw.Draw(img)
     ###Definir la uente
-    font = ImageFont.truetype('LiberationSerif-Bold.ttf', 50)
-    font2= ImageFont.truetype('LiberationSerif-Bold.ttf', 35)
-    font3= ImageFont.truetype('LiberationSerif-Bold.ttf', 30)
+    font = ImageFont.truetype('/env/lib/python3.7/site-packages/PIL/LiberationSerif-Bold.ttf', 50) #ImageFont.load_default()
+    font2= ImageFont.truetype('/env/lib/python3.7/site-packages/PIL/LiberationSerif-Bold.ttf', 35) #ImageFont.load_default()
+    font3= ImageFont.truetype('/env/lib/python3.7/site-packages/PIL/LiberationSerif-Bold.ttf', 30) #ImageFont.load_default()
     ###Definir la posición en la cual se escribe
     cadena = "Holasadsadadasdasdasdsadasdadasdasdasdadadsaddasdsdasdadasdsadsadasdasdasdsads12"
     pie = "Este es un mensaje generado automáticamente por coneyotl.herokuapp.com"
@@ -38,3 +38,4 @@ def generar_imagen(nombre, apellido_p, apellido_m,mensaje):
     draw.text((30,880), pie2, fill="white", font=font3)
     #img.show()
     img.save('nuevo.png')
+generar_imagen('', '', '','')
