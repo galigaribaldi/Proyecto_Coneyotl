@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template, request, flash
 from flask import redirect, url_for, session
+import os
 ###Coneccion a la base
 import models as coneccion
 ##Generador de correos
@@ -10,7 +11,8 @@ import generador_img as img
 app = Flask(__name__)
 
 # Settings Configuración del Secret Key
-app.secret_key = 'secreto'
+secret_key = os.environ.get('SECRET_KEY')
+app.secret_key = secret_key
 
 @app.route('/', methods = ['GET', 'POST']) 
 def index():

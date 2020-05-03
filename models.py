@@ -1,9 +1,22 @@
 import psycopg2
+import expresiones as obtener
+import os
 ###Credenciales
-host="ec2-3-91-139-25.compute-1.amazonaws.com"
-database ="dcq1o3a8ob5fui"
-user = "uwjoynmevlwpzh"
-password = "0e2f84f218647781199a3390b1c1710d42d544569e8e65b39d1ff436ae0cdf61"
+##Obtener datos desde la DATABASE URL
+DATABASE_URL=os.environ.get('DATABASE_URL')
+if DATABASE_URL == None:
+    print("Variable de entorno no definida!")
+    exit()
+du =str(DATABASE_URL)
+print("DATABASE_URL: ", du)
+host =obtener.gethost(du)
+print("HOST: ", host)
+database =obtener.getdbname(du)
+print("DATABASE: ", database)
+user =obtener.getuser(du)
+print("User: ", user)
+password =obtener.getpass(du)
+print("Password: ", password)
 ###Trae todos los datos correspondientes a los estudiants
 def consulta_estudiantes(grado):
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
