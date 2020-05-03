@@ -1,6 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 import time
-def generar_imagen(nombre, apellido_p, apellido_m,mensaje):
+def generar_imagen(nombre, apellido_p, apellido_m,mensaje, curp, correo):
     ##Abrir Imagen - Plantilla
     img=Image.open("static/img/plantilla.jpeg")
     draw = ImageDraw.Draw(img)
@@ -8,6 +8,7 @@ def generar_imagen(nombre, apellido_p, apellido_m,mensaje):
     font = ImageFont.truetype("static/fonts/LiberationSerif-Bold2.ttf",45)#('/app/.heroku/python/lib/python3.7/site-packages/PIL/LiberationSerif-Bold.ttf', 50) #ImageFont.load_default()
     font2= ImageFont.truetype("static/fonts/LiberationSerif-Bold2.ttf",35)#('/app/.heroku/python/lib/python3.7/site-packages/PIL/LiberationSerif-Bold.ttf', 35) #ImageFont.load_default()
     font3= ImageFont.truetype('static/fonts/LiberationSerif-Bold2.ttf',30)#('/app/.heroku/python/lib/python3.7/site-packages/PIL/LiberationSerif-Bold.ttf', 30) #ImageFont.load_default()
+    font4= ImageFont.truetype('static/fonts/LiberationSerif-Bold2.ttf',30)#('/app/.heroku/python/lib/python3.7/site-packages/PIL/LiberationSerif-Bold.ttf', 30) #ImageFont.load_default()
     ###Definir la posición en la cual se escribe
     cadena = "Holasadsadadasdasdasdsadasdadasdasdasdadadsaddasdsdasdadasdsadsadasdasdasdsads12"
     pie = "Este es un mensaje generado automáticamente por coneyotl.herokuapp.com"
@@ -18,6 +19,8 @@ def generar_imagen(nombre, apellido_p, apellido_m,mensaje):
     ###Encabezado
     draw.text((70,190), encabezado, fill="white", font=font)
     draw.text((70,250), formatoFecha, fill="white", font=font)
+    draw.text((70,290), curp, fill="white", font=font4)
+    draw.text((70,330), correo, fill="white", font=font4)
     tam = 380
     ###Mensaje
     if len(mensaje) <= 60:
@@ -38,4 +41,4 @@ def generar_imagen(nombre, apellido_p, apellido_m,mensaje):
     draw.text((30,880), pie2, fill="white", font=font3)
     #img.show()
     img.save('nuevo.png')
-#generar_imagen('Hol','','','asdasdsadasdasdasdasdasdsa')
+#generar_imagen('Hol','','','asdasdsadasdasdasdasdasdsa','Curp', 'Correo')
