@@ -8,6 +8,8 @@ import models as coneccion
 import correo as enviar
 #Generador de imagenes
 import generador_img as img
+##Generador de Espera
+import req as espera
 app = Flask(__name__)
 
 # Settings Configuración del Secret Key
@@ -954,6 +956,7 @@ def correos_1():
 @app.route("/correos/Enviar", methods=['POST'])
 def enviar_correos():
     if request.method == 'POST':
+        espera.espera_10()
         direccion = request.form['correo_destinatario']
         asunto = request.form['asunto']
         cuerpo = request.form['cuerpo']
@@ -968,235 +971,293 @@ def enviar_correos():
                 img.generar_imagen(direccion,'', '', cuerpo,'', direccion)
                 enviar.enviar_correo_img(direccion, asunto)
         ###Correos para niños###############################################33                
-        ##Correos para kinder 1
-        if grado =='001':
-            lista = coneccion.correos_estudiante('K1')
-            if opcion == '0':
-                enviar.enviar_correo(direccion,cuerpo, asunto)
-            if opcion == '1':
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-        ##Correos para kinder 2
-        if grado == '002':
-            if opcion == '0':
-                enviar.enviar_correo(direccion,cuerpo, asunto)
-            if opcion == '1':
+        try:
+            ##Correos para kinder 1
+            if grado =='001':
                 lista = coneccion.correos_estudiante('K1')
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-        ##Correos para kinder 3
-        if grado == '003':
-            lista = coneccion.correos_estudiante('K3')
-            if opcion == '0':
-                enviar.enviar_correo(direccion,cuerpo, asunto)
-            if opcion == '1':
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-        ##Correos para Primero de Primaria
-        if grado == '1':
-            lista = coneccion.correos_estudiante('1ro')
-            if opcion == '0':
-                enviar.enviar_correo(direccion,cuerpo, asunto)
-            if opcion == '1':
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-        ##Correos para Segundo de Primaria
-        if grado == '2':
-            if opcion == '0':
-                enviar.enviar_correo(direccion,cuerpo, asunto)
-            if opcion == '1':
-                lista = coneccion.correos_estudiante('2do')
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-        ##Correos para Tercero de Primaria
-        if grado == '3':
-            if opcion == '0':
-                enviar.enviar_correo(direccion,cuerpo, asunto)
-            if opcion == '1':
-                lista = coneccion.correos_estudiante('3ro')
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-        ##Correos para Cuarto de Primaria
-        if grado == '4':
-            if opcion == '0':
-                enviar.enviar_correo(direccion,cuerpo, asunto)
-            if opcion == '1':
-                lista = coneccion.correos_estudiante('4to')
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-        ##Correos para quinto de Primaria
-        if grado == '5':
-            if opcion == '0':
-                enviar.enviar_correo(direccion,cuerpo, asunto)
-            if opcion == '1':
-                lista = coneccion.correos_estudiante('5to')
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-        ##Correos para sexto de Primaria
-        if grado == '6':
-            if opcion == '0':
-                enviar.enviar_correo(direccion,cuerpo, asunto)
-            if opcion == '1':
-                lista = coneccion.correos_estudiante('6to')
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-        ###Correos para toda la escuela
-        if grado =='1021':
-            if opcion == '0':
-                enviar.enviar_correo(direccion,cuerpo, asunto)
-            if opcion == '1':
-                lista=[]
-                lista.append(coneccion.correos_estudiante('K1'))
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-                lista=[]            
-                lista.append(coneccion.correos_estudiante('K2'))
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-                lista=[]            
-                lista.append(coneccion.correos_estudiante('K3'))
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-                lista=[]
-                lista.append(coneccion.correos_estudiante('1ro'))
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-                lista=[]
-                lista.append(coneccion.correos_estudiante('2do'))
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-                lista=[]
-                lista.append(coneccion.correos_estudiante('3ro'))
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-                lista=[]
-                lista.append(coneccion.correos_estudiante('4to'))
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-                lista=[]
-                lista.append(coneccion.correos_estudiante('5to'))
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-                lista=[]
-                lista.append(coneccion.correos_estudiante('6to'))
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-                lista=[]
-        ###Correos para toda Primaria
-        if grado =='1022':
-            if opcion == '0':
-                enviar.enviar_correo(direccion,cuerpo, asunto)
-            if opcion == '1':
-                lista=[]
-                lista.append(coneccion.correos_estudiante('1ro'))
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-                lista=[]
-                lista.append(coneccion.correos_estudiante('2do'))
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-                lista=[]            
-                lista.append(coneccion.correos_estudiante('3ro'))
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-                lista=[]            
-                lista.append(coneccion.correos_estudiante('4to'))
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-                lista=[]            
-                lista.append(coneccion.correos_estudiante('5to'))
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-                lista=[]
-                lista.append(coneccion.correos_estudiante('6to'))
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-                lista=[]
-        ###Correos para todo Kinder
-        if grado =='1023':
-            if opcion == '0':
-                enviar.enviar_correo(direccion,cuerpo, asunto)
-            if opcion == '1':            
-                lista=[]
-                lista.append(coneccion.correos_estudiante('K1'))
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-                lista=[]                
-                lista.append(coneccion.correos_estudiante('K2'))
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-                lista=[]
-                lista.append(coneccion.correos_estudiante('K3'))
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-                lista=[]
-        ##Profesores Grado Primaria y Kinder
-        if grado =='100':
-            if opcion == '0':
-                enviar.enviar_correo(direccion,cuerpo, asunto)
-            if opcion == '1':
-                lista = coneccion.correos_profesor_grado()
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-        if grado =='1000':
-            if opcion == '0':
-                enviar.enviar_correo(direccion,cuerpo, asunto)
-            if opcion == '1':
-                lista = coneccion.correos_prof_especialista()
-                i=0
-                for i in lista:
-                    img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
-                    enviar.enviar_correo_img(i[4], asunto)
-        #try:
-        flash("Mensaje Enviado")
-        return redirect(url_for("correos"))
+                if opcion == '0':
+                    enviar.enviar_correo(direccion,cuerpo, asunto)
+                if opcion == '1':
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        enviar.enviar_correo_img(i[4], asunto)
+            ##Correos para kinder 2
+            if grado == '002':
+                if opcion == '0':
+                    enviar.enviar_correo(direccion,cuerpo, asunto)
+                if opcion == '1':
+                    lista = coneccion.correos_estudiante('K1')
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        enviar.enviar_correo_img(i[4], asunto)
+            ##Correos para kinder 3
+            if grado == '003':
+                lista = coneccion.correos_estudiante('K3')
+                if opcion == '0':
+                    enviar.enviar_correo(direccion,cuerpo, asunto)
+                if opcion == '1':
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        enviar.enviar_correo_img(i[4], asunto)
+            ##Correos para Primero de Primaria
+            if grado == '1':
+                lista = coneccion.correos_estudiante('1ro')
+                if opcion == '0':
+                    enviar.enviar_correo(direccion,cuerpo, asunto)
+                if opcion == '1':
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        enviar.enviar_correo_img(i[4], asunto)
+            ##Correos para Segundo de Primaria
+            if grado == '2':
+                if opcion == '0':
+                    enviar.enviar_correo(direccion,cuerpo, asunto)
+                if opcion == '1':
+                    lista = coneccion.correos_estudiante('2do')
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        try:
+                            enviar.enviar_correo_img(i[4], asunto)
+                        except:
+                            enviar.enviar_correo_img(i[4], asunto)
+            ##Correos para Tercero de Primaria
+            if grado == '3':
+                if opcion == '0':
+                    enviar.enviar_correo(direccion,cuerpo, asunto)
+                if opcion == '1':
+                    lista = coneccion.correos_estudiante('3ro')
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        try:
+                            enviar.enviar_correo_img(i[4], asunto)
+                        except:
+                            enviar.enviar_correo_img(i[4], asunto)
+            ##Correos para Cuarto de Primaria
+            if grado == '4':
+                if opcion == '0':
+                    enviar.enviar_correo(direccion,cuerpo, asunto)
+                if opcion == '1':
+                    lista = coneccion.correos_estudiante('4to')
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        try:
+                            enviar.enviar_correo_img(i[4], asunto)
+                        except:
+                            enviar.enviar_correo_img(i[4], asunto)
+            ##Correos para quinto de Primaria
+            if grado == '5':
+                if opcion == '0':
+                    enviar.enviar_correo(direccion,cuerpo, asunto)
+                if opcion == '1':
+                    lista = coneccion.correos_estudiante('5to')
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        try:
+                            enviar.enviar_correo_img(i[4], asunto)
+                        except:
+                            enviar.enviar_correo_img(i[4], asunto)
+            ##Correos para sexto de Primaria
+            if grado == '6':
+                if opcion == '0':
+                    enviar.enviar_correo(direccion,cuerpo, asunto)
+                if opcion == '1':
+                    lista = coneccion.correos_estudiante('6to')
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        try:
+                            enviar.enviar_correo_img(i[4], asunto)
+                        except:
+                            enviar.enviar_correo_img(i[4], asunto)
+            ###Correos para toda la escuela
+            if grado =='1021':
+                if opcion == '0':
+                    enviar.enviar_correo(direccion,cuerpo, asunto)
+                if opcion == '1':
+                    lista=[]
+                    lista.append(coneccion.correos_estudiante('K1'))
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        try:
+                            enviar.enviar_correo_img(i[4], asunto)
+                        except:
+                            enviar.enviar_correo_img(i[4], asunto)
+                    lista=[]            
+                    lista.append(coneccion.correos_estudiante('K2'))
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        try:
+                            enviar.enviar_correo_img(i[4], asunto)
+                        except:
+                            enviar.enviar_correo_img(i[4], asunto)
+                    lista=[]            
+                    lista.append(coneccion.correos_estudiante('K3'))
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        try:
+                            enviar.enviar_correo_img(i[4], asunto)
+                        except:
+                            enviar.enviar_correo_img(i[4], asunto)
+                    lista=[]
+                    lista.append(coneccion.correos_estudiante('1ro'))
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        try:
+                            enviar.enviar_correo_img(i[4], asunto)
+                        except:
+                            enviar.enviar_correo_img(i[4], asunto)
+                    lista=[]
+                    lista.append(coneccion.correos_estudiante('2do'))
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        try:
+                            enviar.enviar_correo_img(i[4], asunto)
+                        except:
+                            enviar.enviar_correo_img(i[4], asunto)
+                    lista=[]
+                    lista.append(coneccion.correos_estudiante('3ro'))
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        try:
+                            enviar.enviar_correo_img(i[4], asunto)
+                        except:
+                            enviar.enviar_correo_img(i[4], asunto)
+                    lista=[]
+                    lista.append(coneccion.correos_estudiante('4to'))
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        try:
+                            enviar.enviar_correo_img(i[4], asunto)
+                        except:
+                            enviar.enviar_correo_img(i[4], asunto)
+                    lista=[]
+                    lista.append(coneccion.correos_estudiante('5to'))
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        try:
+                            enviar.enviar_correo_img(i[4], asunto)
+                        except:
+                            enviar.enviar_correo_img(i[4], asunto)
+                    lista=[]
+                    lista.append(coneccion.correos_estudiante('6to'))
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        try:
+                            enviar.enviar_correo_img(i[4], asunto)
+                        except:
+                            enviar.enviar_correo_img(i[4], asunto)
+                    lista=[]
+            ###Correos para toda Primaria
+            if grado =='1022':
+                if opcion == '0':
+                    enviar.enviar_correo(direccion,cuerpo, asunto)
+                if opcion == '1':
+                    lista=[]
+                    lista.append(coneccion.correos_estudiante('1ro'))
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        enviar.enviar_correo_img(i[4], asunto)
+                    lista=[]
+                    lista.append(coneccion.correos_estudiante('2do'))
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        enviar.enviar_correo_img(i[4], asunto)
+                    lista=[]            
+                    lista.append(coneccion.correos_estudiante('3ro'))
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        enviar.enviar_correo_img(i[4], asunto)
+                    lista=[]            
+                    lista.append(coneccion.correos_estudiante('4to'))
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        enviar.enviar_correo_img(i[4], asunto)
+                    lista=[]            
+                    lista.append(coneccion.correos_estudiante('5to'))
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        enviar.enviar_correo_img(i[4], asunto)
+                    lista=[]
+                    lista.append(coneccion.correos_estudiante('6to'))
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        enviar.enviar_correo_img(i[4], asunto)
+                    lista=[]
+            ###Correos para todo Kinder
+            if grado =='1023':
+                if opcion == '0':
+                    enviar.enviar_correo(direccion,cuerpo, asunto)
+                if opcion == '1':            
+                    lista=[]
+                    lista.append(coneccion.correos_estudiante('K1'))
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        try:
+                            enviar.enviar_correo_img(i[4], asunto)
+                        except:
+                            enviar.enviar_correo_img(i[4], asunto)
+                    lista=[]                
+                    lista.append(coneccion.correos_estudiante('K2'))
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        try:
+                            enviar.enviar_correo_img(i[4], asunto)
+                        except:
+                            enviar.enviar_correo_img(i[4], asunto)
+                    lista=[]
+                    lista.append(coneccion.correos_estudiante('K3'))
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        try:
+                            enviar.enviar_correo_img(i[4], asunto)
+                        except:
+                            enviar.enviar_correo_img(i[4], asunto)
+                    lista=[]
+            ##Profesores Grado Primaria y Kinder
+            if grado =='100':
+                if opcion == '0':
+                    enviar.enviar_correo(direccion,cuerpo, asunto)
+                if opcion == '1':
+                    lista = coneccion.correos_profesor_grado()
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        try:
+                            enviar.enviar_correo_img(i[4], asunto)
+                        except:
+                            enviar.enviar_correo_img(i[4], asunto)
+            if grado =='1000':
+                if opcion == '0':
+                    enviar.enviar_correo(direccion,cuerpo, asunto)
+                if opcion == '1':
+                    lista = coneccion.correos_prof_especialista()
+                    i=0
+                    for i in lista:
+                        img.generar_imagen(i[0],i[1],i[2], cuerpo,i[3],i[4])
+                        enviar.enviar_correo_img(i[4], asunto)
+            #try:
+            flash("Mensaje Enviado")
+            return redirect(url_for("correos"))
+        except:
+            flash("Hubo un error, solo se enviaron: "+str(i)+" Correos")
+            return redirect(url_for("correos"))
         #except:
         #return "No se pudo"
         #return(str(direccion))
