@@ -19,7 +19,7 @@ def automatico_txt(grado, cuerpo, asunto):
         enviar.enviar_correo('galigaribaldi0@gmail.com',cuerpo ,asunto)    
 #######################################################################
 
-#########################Profesores######################################
+#########################Profesores#######################################
 ##Automatizacion de correos con imagenes a profesores de grado
 def automatico_prof_grado(cuerpo, asunto):
     lista = coneccion.correos_profesor_grado()
