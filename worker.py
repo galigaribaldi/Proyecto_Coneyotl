@@ -7,6 +7,7 @@ from rq.worker import HerokuWorker as Worker
 listen = ['high', 'default', 'low']
 
 redis_url = os.getenv('REDISTOGO_URL')
+print("El URL es:", redis_url)
 if not redis_url:
     raise RuntimeError('No hay variable')
 
