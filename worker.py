@@ -2,10 +2,11 @@ import os
 
 import redis
 from rq import Worker, Queue, Connection
+from urllib.parse import urlparse
 
 listen = ['high', 'default', 'low']
 
-redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
+redis_url = os.environ.get('REDISCLOUD_URL')
 
 print("Este es el URL:", redis_url)
 conn = redis.from_url(redis_url)
