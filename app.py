@@ -15,7 +15,7 @@ from rq import Queue
 from urllib.parse import urlparse
 url=urlparse(os.environ.get('REDISCLOUD_URL'))
 r = redis.Redis(host=url.hostname, port=url.port, password=url.password)
-#
+##
 #r = redis.Redis()
 q = Queue(connection=r)
 
