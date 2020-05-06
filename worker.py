@@ -12,7 +12,6 @@ print(redis_url)
 urllib.parse.uses_netloc.append("redis") 
 url = urllib.parse.urlparse(os.environ["REDISTOGO_URL"])
 conn = Redis(host=url.hostname, port=url.port, db=0, password=url.password)
-
 if __name__ == '__main__':
     with Connection(conn):
         worker = Worker(map(Queue, listen))
