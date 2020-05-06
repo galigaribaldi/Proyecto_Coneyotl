@@ -12,8 +12,11 @@ import generador_img as img
 import redis
 import automatizar as au
 from rq import Queue
-
-r = redis.Redis()
+from urllib.parse import urlparse
+url=urlparse(os.environ.get('REDISCLOUD_URL'))
+r = redis.Redis(host=url.hostname, port=url.port, password=url.password)
+#
+#r = redis.Redis()
 q = Queue(connection=r)
 
 app = Flask(__name__)
