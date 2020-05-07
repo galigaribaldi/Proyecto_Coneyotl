@@ -37,7 +37,7 @@ def automatico_prof_grado_txt(cuerpo, asunto):
     for i in lista:
         print("Mensaje enviado")
         #enviar.enviar_correo('galigaribaldi0@gmail.com',cuerpo ,asunto)    
-        enviar.enviar_correo_img(i[4],cuerpo ,asunto)
+        enviar.enviar_correo(i[4],cuerpo ,asunto)
 
 ##Automatizacion de Correos con imahenes a profesores Especialistas
 def automatico_prof_especialistas(cuerpo, asunto):

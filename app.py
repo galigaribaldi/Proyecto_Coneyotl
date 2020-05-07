@@ -1086,15 +1086,15 @@ def enviar_correos():
         ##Profesores Grado Primaria y Kinder
         if grado =='100':
             if opcion == '0':
-                job = q.enqueue(automatico_prof_grado_txt, 'Cuerpo', 'Asunto')
+                job = q.enqueue(au.automatico_prof_grado_txt, cuerpo, asunto)
             if opcion == '1':
-                job = q.enqueue(automatico_prof_grado, 'Cuerpo', 'Asunto')
+                job = q.enqueue(au.automatico_prof_grado, cuerpo, asunto)
         ##Profesores especialsitas
         if grado =='1000':
             if opcion == '0':
-                job = q.enqueue(automatico_prof_especialistas_txt, 'Cuerpo', 'Asunto')
+                job = q.enqueue(au.automatico_prof_especialistas_txt, cuerpo, asunto)
             if opcion == '1':
-                job = q.enqueue(automatico_prof_especialistas, 'Cuerpo', 'Asunto')
+                job = q.enqueue(au.automatico_prof_especialistas, cuerpo, asunto)
         flash("Mensaje Enviado Por favor espere 3 minutos para enviar otro correo ")
         return redirect(url_for("correos"))
 ################3
