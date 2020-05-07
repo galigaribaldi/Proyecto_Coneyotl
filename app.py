@@ -1095,7 +1095,7 @@ def enviar_correos():
                 job = q.enqueue(automatico_prof_especialistas_txt, 'Cuerpo', 'Asunto')
             if opcion == '1':
                 job = q.enqueue(automatico_prof_especialistas, 'Cuerpo', 'Asunto')
-        flash("Mensaje Enviado Por favor espere 3 minutos para enviar otro correo "+str(job))
+        flash("Mensaje Enviado Por favor espere 3 minutos para enviar otro correo ")
         return redirect(url_for("correos"))
 ################3
 if __name__ == '__main__':

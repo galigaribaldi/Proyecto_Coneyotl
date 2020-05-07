@@ -27,7 +27,7 @@
                     <option value="1023">Todo Kinder</option>
                   </optgroup>
                 </select>
-                <label>Optgroups</label>
+                <label>Opciones de envío</label>
             </div>
             <div class="input-field col s12">
                 <select name="opcion">
@@ -37,10 +37,24 @@
                 <optgroup label="Con adjuntos">
                   <option value="1">Adjuntar Aviso</option>
               </select>
-                <label>Optgroups</label>
+                <label>Opciones de Adjuntar</label>
             </div>
-            Correo Destinatario: <input type="text" name="correo_destinatario"> Asunto: <input type="text" name="asunto"> Cuerpo del Correo:<input type="text" name="cuerpo">
-            <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
+            <div class="input-field col s6">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="icon_prefix" type="text" name="correo_destinatario" class="validate">
+                <label for="icon_prefix">Correo Destinatario</label>
+            </div>
+            <div class="input-field col s6">
+                <i class="material-icons prefix">email</i>
+                <input id="icon_email" type="text" name="asunto" class="validate">
+                <label for="icon_email">Asunto</label>
+            </div>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">create</i>
+                <input id="icon_create" type="text" name="cuerpo" class="validate" class="validate">
+                <label id="icon_create" for="icon_email">Cuerpo del Correo</label>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Enviar
                 <i class="material-icons right">send</i>
               </button>
         </form>
@@ -60,24 +74,35 @@
                     <option value="1000">Todos los Especialistas</option>
                   </optgroup>
                 </select>
-                <label>Optgroups</label>
+                <label>Opciones de envío</label>
             </div>
             <div class="input-field col s12">
                 <select name="opcion">
-              <optgroup label="Nada">
-                <option value="0">No Crear nada</option>
+              <optgroup label="Sin adjuntos">
+                <option value="0">Solo cuerpo de correo</option>
               </optgroup>
-              <optgroup label="Adjuntar">
+              <optgroup label="Con adjuntar">
                 <option value="1">Adjuntar Aviso</option>
-                <option value="2">Adjuntar reporte</option>
             </select>
-                <label>Optgroups</label>
+                <label>Opciones de Adjuntar</label>
             </div>
-            Correo Destinatario: <input type="text" name="correo_destinatario"> Asunto: <input type="text" name="asunto"> Cuerpo del Correo:<input type="text" name="cuerpo">
-            <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
+            <div class="input-field col s6">
+                <i class="material-icons prefix">email</i>
+                <input id="icon_email2" type="text" name="asunto" class="validate">
+                <label for="icon_email2">Asunto</label>
+            </div>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">create</i>
+                <input id="icon_create2" type="text" name="cuerpo" class="validate" class="validate">
+                <label id="icon_create2" for="icon_email">Cuerpo del Correo</label>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Enviar
                 <i class="material-icons right">send</i>
               </button>
         </form>
+    </div>
+    <div class="row">
+        <a href="/admin" class="waves-effect waves-light btn-large">Regresar</a>
     </div>
 </div>
 <script>
