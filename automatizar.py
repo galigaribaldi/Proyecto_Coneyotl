@@ -17,7 +17,7 @@ def automatico_txt(grado, cuerpo, asunto):
     lista = coneccion.correos_estudiante(grado)
     for i in lista:
         print("Mensaje enviado")
-        enviar.enviar_correo('galigaribaldi0@gmail.com',cuerpo ,asunto)
+        #enviar.enviar_correo('galigaribaldi0@gmail.com',cuerpo ,asunto)
         enviar.enviar_correo(i[4], cuerpo ,asunto)    
 #######################################################################
 
