@@ -27,6 +27,17 @@ CREATE TABLE materia(
 )
 ;
 
+CREATE TABLE tarea(
+  tarea_id SERIAL,
+  nombre_tarea character varying(90) NOT NULL,
+  grado character varying(5),
+  descripcion_encabezado character varying(90) NULL,
+  descripcion_cuerpo character varying(90),
+  link character varying(90),
+  CONSTRAINT tarea_id_pkey PRIMARY KEY (tarea_id)
+)
+;
+
 CREATE TABLE profesor_grado(
   profesor_id integer NOT NULL,
   curp character varying(100),

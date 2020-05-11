@@ -1,6 +1,7 @@
 import psycopg2
 import expresiones as obtener
 import os
+from datetime import date
 ###Credenciales
 ##Obtener datos desde la DATABASE URL
 DATABASE_URL=os.environ.get('DATABASE_URL')
@@ -632,6 +633,49 @@ def correos_prof_especialista():
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
     cursor = conexion.cursor()
     cursor.execute("SELECT nombre,apellido_pat, apellido_mat, curp, correo_electronico FROM profesor_especialista")
+    datos_prof_especialista = cursor.fetchall()
+    cursor.close()
+    conexion.close()
+    return datos_prof_especialista
+
+def insertar_tarea(nombre_tarea, grado, descripcion_encabezado, descripcion_cuerpo, link):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("INSERT INTO tarea(nombre_tarea, grado, descripcion_encabezado, descripcion_cuerpo, link, fecha_dejado) VALUES(%s, %s, %s, %s, %s, %s)",(nombre_tarea, grado, descripcion_encabezado, descripcion_cuerpo, link, str(date.today())))
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+
+def ejecuta():
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT * FROM estudiante")
+    conexion.commit()
+    cursor.close()
+    conexion.close()    
+
+def consulta_tarea(grado):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT * FROM tarea WHERE grado = %s ORDER BY nombre_tarea ASC", (grado,))
+    datos_tarea = cursor.fetchall()
+    cursor.close()
+    conexion.close()
+    return datos_tarea
+
+def obtener_datos_prof_grado(ids):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT nombre, apellido_pat, apellido_mat, grado FROM profesor_grado WHERE profesor_id=%s", (ids,))
+    datos_prof_grado = cursor.fetchall()
+    cursor.close()
+    conexion.close()
+    return datos_prof_grado
+
+def obtener_datos_prof_especialista(ids):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT nombre, apellido_pat, apellido_mat, grado FROM profesor_especialista WHERE profesor_id=%s", (ids,))
     datos_prof_especialista = cursor.fetchall()
     cursor.close()
     conexion.close()

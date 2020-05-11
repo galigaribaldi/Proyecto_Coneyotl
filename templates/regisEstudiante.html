@@ -2,20 +2,104 @@
 <div class="container">
     <h1 class="center">Registro Estudiante</h1>
     <form action="/alumno/agregar" , method="POST">
-        <input type="text" name="estudiante_ID" placeholder="Clave Interna">
-        <input type="text" name="curp" placeholder="CURP">
-        <input type="text" name="nombre" placeholder="Nombre">
-        <input type="text" name="apellido_pat" placeholder="Apellido Paterno">
-        <input type="text" name="apellido_mat" placeholder="Apellido Materno">
-        <input type="text" name="grado" placeholder="Grado Escolar">
-        <input type="text" name="edad" placeholder="Edad">
-        <input type="text" name="nombre_tutor" placeholder="Nombre del Tutor">
-        <input type="text" name="telefono_casa" placeholder="Telefono Casa">
-        <input type="text" name="telefono_celular" placeholder="Telefono Celular">
-        <input type="text" name="correo_electronico" placeholder="Correo Electronico">
-        <input type="text" name="passwords" placeholder="contraseña">
-        <input type="text" name="dia_registro" placeholder="Dia de Registro">
-        <input type="text" name="estado" placeholder="Estado A, S, B">
+        <div class="row">
+            <div class="input-field col s6">
+                <i class="material-icons prefix">contacts</i>
+                <input type="text" name="estudiante_ID" id="clave" class="validate">
+                <label for="clave">Clave Interna</label>
+            </div>
+            <div class="input-field col s6">
+                <i class="material-icons prefix">fingerprint</i>
+                <input type="text" name="curp" id="curp" class="validate">
+                <label for="curp">CURP</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field s12">
+                <i class="material-icons prefix">account_circle</i>
+                <input type="text" name="nombre" class="validate">
+                <label for="clave">Nombre</label>
+            </div>
+            <div class="input-field col s6">
+                <i class="material-icons prefix">account_circle</i>
+                <input type="text" name="apellido_pat" id="Apellido_Pat" class="validate">
+                <label for="Apellido_Pat">Apellido Paterno</label>
+            </div>
+            <div class="input-field col s6">
+                <i class="material-icons prefix">account_circle</i>
+                <input type="text" name="apellido_mat" id="Apellido_Mat" class="validate">
+                <label for="Apellido_Mat">Apellido Materno</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <select name="grado">
+                <optgroup label="Elegir Grado">
+                  <option value="K1">K1</option>
+                  <option value="K2">K2</option>
+                  <option value="K3">K3</option>
+                  <option value="1ro">1º Primaria</option>
+                  <option value="2do">2º Primaria</option>
+                  <option value="3ro">3º Primaria</option>
+                  <option value="4to">4º Primaria</option>
+                  <option value="5to">5º Primaria</option>
+                  <option value="6to">6º Primaria</option>
+                </optgroup>  
+                </select>
+                <label>Grado Escolar:</label>
+            </div>
+            <div class="input-field col s6">
+                <i class="material-icons prefix">accessibility</i>
+                <input type="text" name="edad" id="Edad" class="validate">
+                <label for="Edad">Edad</label>
+            </div>
+        </div>
+        <div class="input-field">
+            <i class="material-icons prefix">assignment_ind</i>
+            <input type="text" name="nombre_tutor" id="Nombre_Tutor" class="validate">
+            <label for="Nombre_Tutor">Nombre Tutor</label>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <i class="material-icons prefix">call_end</i>
+                <input type="text" name="telefono_casa" id="Telefono_Casa" class="validate">
+                <label for="Telefono_Casa">Telefono Casa</label>
+            </div>
+            <div class="input-field col s6">
+                <i class="material-icons prefix">call</i>
+                <input type="text" name="telefono_celular" id="Telefono_Cel" class="validate">
+                <label for="Telefono_Cel">Telefono Celular</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <i class="material-icons prefix">email</i>
+                <input type="text" name="correo_electronico" id="Correo_Elec" class="validate">
+                <label for="Correo_Elec">Correo Electronico</label>
+            </div>
+            <div class="input-field col s6">
+                <i class="material-icons prefix">fingerprint</i>
+                <input type="text" name="passwords" id="contra" class="validate">
+                <label id="contra">Contraseña</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <i class="material-icons prefix">date_range</i>
+                <input type="text" name="dia_registro" id="DiaRegis" , class="validate">
+                <label for="DiaRegis">DiaRegistro</label>
+            </div>
+            <div class="input-field col s6">
+                <select name="estado">
+                <optgroup label="Elegir Status">
+                  <option value="A">Activo</option>
+                  <option value="S">Suspendido</option>
+                  <option value="B">Dado de Baja</option>
+                </optgroup>  
+                </select>
+                <label>status:</label>
+            </div>
+        </div>
         <button class="btn waves-effect waves-light" type="submit" name="action">Submit
             <i class="material-icons right">send</i>
           </button>
@@ -23,4 +107,10 @@
 
     <a href="/admin">Regresar</a>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
+    });
+</script>
 {% endblock %}

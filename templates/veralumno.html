@@ -1,5 +1,14 @@
 {% extends "layout.html" %} {% block content %}
 <h1 class="center">Alumnos de {{ estu.4.5 }} </h1>
+{{ idp }}
+<br>
+<div class="container">
+    <div class="container center">
+        <a href="/tarea/{{ idp }}" class="waves-effect waves-light btn-large"><i class="material-icons left">border_color</i>Crear nueva Tarea</a>
+    </div>
+    <br>
+    <br>
+</div>
 {% if bandera %}
 <div class="container">
 
@@ -19,7 +28,8 @@
                 <td>{{ i.2 }}</td>
                 <td>{{ i.3 }}</td>
                 <td>{{ i.4 }}</td>
-                <td><a href="/editar/cambiar/calificaciones/{{ i.0 }}/{{ i.5 }}">Cambiar Calificaciones</a> <a href="/editar/actualizar/calificaciones/{{ i.0 }}/{{ i.5 }}">Ver calificaciones</a> </td>
+                <td><a href="/editar/cambiar/calificaciones/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">group</i>Cambiar Calificaciones</a> <a href="/editar/actualizar/calificaciones/{{ i.0 }}/{{ i.5 }}"
+                        class="waves-effect waves-light btn-large"><i class="material-icons left">group</i>Ver calificaciones</a></td>
             </tr>
             {% endfor %}
         </tbody>

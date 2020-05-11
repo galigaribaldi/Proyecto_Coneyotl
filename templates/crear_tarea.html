@@ -1,0 +1,86 @@
+{% extends "layout.html" %} {% block content %}
+<div class="container">
+    <br> {{ idp }}
+    <br><br>
+    <div class="container grey lighten-5 z-depth-1">
+        <form action="/verTareas/{{ idp }}" , method="POST">
+            <h3 class="center"> Tareas</h3>
+            <div class="row">
+                <div class="input-field col s6">
+                    <select name="nombre_materia">
+                    <optgroup label="Elegir Materia">
+                      <option value="Grado">Materia de Grado</option>
+                      <option value="Compu">Computación</option>
+                      <option value="Ingles">Inglés</option>
+                      <option value="Artes">Artes</option>
+                      <option value="Musica">Música</option>
+                      <option value="Tae">Tae-Kwon-Do</option>
+                    </optgroup>  
+                    </select>
+                    <label>Materia:</label>
+                </div>
+                <div class="input-field col s6">
+                    <select name="grado">
+                    <optgroup label="Elegir Grado">
+                      <option value="K1">K1</option>
+                      <option value="K2">K2</option>
+                      <option value="K3">K3</option>
+                      <option value="1ro">1º Primaria</option>
+                      <option value="2do">2º Primaria</option>
+                      <option value="3ro">3º Primaria</option>
+                      <option value="4to">4º Primaria</option>
+                      <option value="5to">5º Primaria</option>
+                      <option value="6to">6º Primaria</option>
+                    </optgroup>  
+                    </select>
+                    <label>Grado Escolar:</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">face</i>
+                    <input type="text" name="desc_enc" id="desc_enc" value="" class="validate">
+                    <label for="desc_enc">Encabezado</label>
+                </div>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">insert_link</i>
+                    <input type="text" name="link" id="link_d" value="">
+                    <label for="link_d">Link</label>
+                </div>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">description</i>
+                    <input type="text" name="desc_cuerpo" id="desc" value="" class="validate">
+                    <label for="desc">Descripción</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s6">
+                    <input class="btn waves-effect waves-light" type="submit" name="submit" value="Solo Guardar">
+                    <!--Solo guardar Tarea-->
+                    <!--<i class="material-icons right">send</i>-->
+                    <!--</button>-->
+                    <!--<input type="submit" name="submit_button" value="Do Something">-->
+                </div>
+                <div class="col s6">
+                    <!--<button class="btn waves-effect waves-light" type="submit" name="action" value="GN">Guardar y Notificar
+                        <i class="material-icons right">send</i>
+                    </button>-->
+                    <input class="btn waves-effect waves-light" type="submit" name="submit" value="Guardar y Notificar">
+                </div>
+            </div>
+        </form>
+        <br>
+    </div>
+
+    <br>
+    <br>
+    <br>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
+    });
+</script>
+{% endblock %}

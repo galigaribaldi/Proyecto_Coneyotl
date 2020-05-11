@@ -54,8 +54,8 @@ def index():
                     grado = coneccion.grado_id(ids2[0][0])
                     print("Grado: ", grado[0][0])
                     estudiantes = coneccion.consulta_estudiantes(grado[0][0])
-                    print(estudiantes)
-                    return render_template('veralumno.html', estu=estudiantes, bandera=1 )
+                    #print(estudiantes)
+                    return render_template('veralumno.html', estu=estudiantes, bandera=1, idp=ids2[0][0] )
             ##Profesor Especialista
             if ids3:
                 if type(ids3[0][0]) == int:
@@ -96,7 +96,9 @@ def logout():
 @app.route("/avisos/<grupo>")
 def avisos(grupo):
     print(type(grupo))
-    return render_template("avisos.html", grupo=grupo)
+    tarea = coneccion.consulta_tarea(grupo)
+    print(tarea)
+    return render_template("avisos.html", grupo=grupo, tarea=tarea)
 @app.route('/admin')
 def administrador():
     if "username" in session and session["username"] =='ADMINISTRADOR':
@@ -113,7 +115,9 @@ def administrador():
 def verAlumno(grupo):
     if "username" in session and session["username"] =='ADMINISTRADOR':
         estudiantes = coneccion.consulta_estudiantes(grupo)
-        return render_template('veralumno.html', estu=estudiantes, bandera3=1 )
+        prof=coneccion.consulta_prof_grado3(grupo)
+        idp=prof[0][0]
+        return render_template('veralumno.html', estu=estudiantes, bandera3=1,idp=idp)
 
     if "username" in session and session["username"] =='profesor_grado':
         estudiantes = coneccion.consulta_estudiantes(grupo)
@@ -126,8 +130,7 @@ def verAlumno(grupo):
 def verAlumno_es(grupo, id_profesor):
     if "username" in session and session["username"] =='profesor_especialista':
         estudiantes = coneccion.consulta_estudiantes(grupo)
-        print(estudiantes)
-        return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_profesor )
+        return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_profesor,idp=id_profesor )
     else:
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
@@ -1098,5 +1101,46 @@ def enviar_correos():
         flash("Mensaje Enviado Por favor espere 3 minutos para enviar otro correo ")
         return redirect(url_for("correos"))
 ################3
+
+@app.route("/tarea/<ids>")
+def tarea(ids):
+    print(ids)
+    return render_template("crear_tarea.html",idp=ids)
+
+@app.route("/verTareas/<ids>", methods = ['POST'])
+def verTareas(ids):
+    if request.method == 'POST':
+        if request.form['submit'] =='Solo Guardar':
+            print("Entro en solo guardar")
+            nombre_materia = request.form['nombre_materia']
+            grado = request.form['grado']
+            desc_enc = request.form['desc_enc']
+            desc_cuerpo = request.form['desc_cuerpo']
+            link = request.form['link']
+            coneccion.insertar_tarea(nombre_materia, grado, desc_enc, desc_cuerpo, link)
+            flash("La Tarea se guardó correctamente")
+            return render_template("crear_tarea.html", idp=ids)
+    
+        elif request.form['submit'] =='Guardar y Notificar':
+            dpe = coneccion.obtener_datos_prof_especialista(ids)
+            dpg = coneccion.obtener_datos_prof_grado(ids)
+            nombre_materia = request.form['nombre_materia']
+            grado = request.form['grado']
+            desc_enc = request.form['desc_enc']
+            desc_cuerpo = request.form['desc_cuerpo']
+            link = request.form['link']
+            if len(dpe) == 0:
+                df = dpg ## Profesor de grado
+            else:
+                df = dpe ## Profesor Especialista
+            cuerpo = "El profesor "+str(df[0][0])+" "+str(df[0][1])+" "+str(df[0][2]) + " ha actualizado una nueva tarea, por favor, visita la plataforma https://coneyotl.herokuapp.com para saber cual es"
+            asunto = "ACTUALIZACION de tareas grupo: "+str(df[0][3])
+            print(cuerpo)
+            print(asunto)
+            coneccion.insertar_tarea(nombre_materia, grado, desc_enc, desc_cuerpo, link)
+            job = q.enqueue(au.automatico_txt, str(df[0][3]), cuerpo, asunto)
+            flash("La Tarea se guardó correctamente y se notifico los cambios al grupo")
+            return render_template("crear_tarea.html", idp=ids)
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
