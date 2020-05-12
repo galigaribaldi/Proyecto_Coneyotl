@@ -121,7 +121,9 @@ def verAlumno(grupo):
 
     if "username" in session and session["username"] =='profesor_grado':
         estudiantes = coneccion.consulta_estudiantes(grupo)
-        return render_template('veralumno.html', estu=estudiantes, bandera=1 )
+        prof=coneccion.consulta_prof_grado3(grupo)
+        idp=prof[0][0]        
+        return render_template('veralumno.html', estu=estudiantes, bandera=1,idp=idp)
     else:
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
@@ -1102,24 +1104,42 @@ def enviar_correos():
         return redirect(url_for("correos"))
 ################3
 
-@app.route("/tarea/<ids>")
-def tarea(ids):
+@app.route("/tarea/<ids>/<grupo>", methods=['GET','POST'])
+def tarea(ids, grupo):
     print(ids)
-    return render_template("crear_tarea.html",idp=ids)
+    return render_template("crear_tarea.html",idp=ids, grupo=grupo, bandera=1)
 
-@app.route("/verTareas/<ids>", methods = ['POST'])
-def verTareas(ids):
+@app.route("/tarea_act/<ids>/<grupo>/<id_tarea>", methods=['GET','POST'])
+def tarea_act(ids, grupo,id_tarea):
+    if request.method == 'POST':
+        nombre_materia = request.form['nombre_materia']
+        grado = request.form['grado']
+        desc_enc = request.form['desc_enc']
+        desc_cuerpo = request.form['desc_cuerpo']
+        link = request.form['link']
+        link2 = request.form['link2']
+        coneccion.actualizar_tarea(nombre_materia, grado, desc_enc, desc_cuerpo, link, link2, id_tarea)
+        flash("La Tarea ha actualizado correctamente")
+        print(nombre_materia, grado, desc_enc, desc_cuerpo, link, link2)
+        return render_template("crear_tarea.html", idp=ids, grupo=grupo, bandera=1)    
+    else:
+        print(ids)
+        return render_template("crear_tarea.html",idp=ids, grupo=grupo, bandera=1)
+
+
+@app.route("/verTareas/<ids>/<grupo>", methods = ['POST'])
+def verTareas(ids, grupo):
     if request.method == 'POST':
         if request.form['submit'] =='Solo Guardar':
-            print("Entro en solo guardar")
             nombre_materia = request.form['nombre_materia']
             grado = request.form['grado']
             desc_enc = request.form['desc_enc']
             desc_cuerpo = request.form['desc_cuerpo']
             link = request.form['link']
-            coneccion.insertar_tarea(nombre_materia, grado, desc_enc, desc_cuerpo, link)
+            link2 = request.form['link2']
+            coneccion.insertar_tarea(nombre_materia, grado, desc_enc, desc_cuerpo, link, link2)
             flash("La Tarea se guardó correctamente")
-            return render_template("crear_tarea.html", idp=ids)
+            return render_template("crear_tarea.html", idp=ids, grupo=grupo, bandera=1)
     
         elif request.form['submit'] =='Guardar y Notificar':
             dpe = coneccion.obtener_datos_prof_especialista(ids)
@@ -1129,6 +1149,7 @@ def verTareas(ids):
             desc_enc = request.form['desc_enc']
             desc_cuerpo = request.form['desc_cuerpo']
             link = request.form['link']
+            link2 = request.form['link']
             if len(dpe) == 0:
                 df = dpg ## Profesor de grado
             else:
@@ -1137,10 +1158,30 @@ def verTareas(ids):
             asunto = "ACTUALIZACION de tareas grupo: "+str(df[0][3])
             print(cuerpo)
             print(asunto)
-            coneccion.insertar_tarea(nombre_materia, grado, desc_enc, desc_cuerpo, link)
+            coneccion.insertar_tarea(nombre_materia, grado, desc_enc, desc_cuerpo, link, link2)
             job = q.enqueue(au.automatico_txt, str(df[0][3]), cuerpo, asunto)
             flash("La Tarea se guardó correctamente y se notifico los cambios al grupo")
-            return render_template("crear_tarea.html", idp=ids)
+            return render_template("crear_tarea.html", idp=ids, grupo=grupo, bandera=1)
 
+@app.route("/visualizarTareas/<grupo>/<idp>")
+def visualizarTareas(grupo, idp):
+    tarea = coneccion.consulta_tarea(grupo)
+    return render_template("verTareas.html", tareas=tarea, idp=idp)
+
+@app.route("/cambiarTarea/<ids>/<grupo>/<idp>")
+def cambiarTarea(ids, grupo, idp):
+    tarea = coneccion.obtener_tarea_id(ids)
+    return render_template("crear_tarea.html", bandera2=1, grupo=grupo, tarea=tarea, idp=idp)
+
+@app.route("/eliminarTarea/<ids>")
+def eliminarTarea(ids):
+    grupo = coneccion.obtener_grupo_tarea(ids)
+    coneccion.eliminar_tarea(ids)
+    print(grupo)
+    tarea = coneccion.consulta_tarea(grupo[0])
+    print(tarea)
+    flash("La tarea fue borrada con éxito")
+    return render_template("avisos.html", grupo=grupo[0][0], tarea=tarea)
+    
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

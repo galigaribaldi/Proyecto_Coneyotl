@@ -1,0 +1,37 @@
+{% extends "layout.html" %} {% block content %}
+<h1 class="center">Ver Tareas {{ tareas.0.2 }}</h1>
+<div class="row">
+    <a href="/verAlumno/{{ tareas.0.2 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">assignment_ind</i>Inicio</a>
+</div>
+<table class="responsive-table highlight striped">
+    <thead>
+        <tr>
+            <th>Clave de la Tarea </th>
+            <th>Nombre de la Materia</th>
+            <th>Grado de la Materia</th>
+            <th>Encabezado de la Tarea</th>
+            <th>Descripción de la tarea</th>
+            <th>Link </th>
+            <th>Fecha de Subida</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for i in tareas %}
+            <td>{{ i.0 }}</td>
+            <td>{{ i.1 }}</td>
+            <td>{{ i.2 }}</td>
+            <td>{{ i.3 }}</td>
+            <td>{{ i.4 }}</td>
+            <td>{{ i.5 }}</td>
+            <td>{{ i.6 }}</td>
+            <td>
+                <a href="/cambiarTarea/{{ i.0 }}/{{ i.2 }}/{{ idp }}" class="waves-effect waves-light btn-small blue">Cambiar</a> <br> <br>
+                <a href="/eliminarTarea/{{ i.0 }}" class="waves-effect waves-light btn-small red">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br> {% endblock %}

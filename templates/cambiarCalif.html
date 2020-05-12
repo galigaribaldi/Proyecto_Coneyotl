@@ -1,7 +1,9 @@
 {% extends "layout.html" %} {% block content %}
 <div class="container">
     <h2 class="center">Calificaciones del alumno <br>{{ estudiante.0.2 }} {{estudiante.0.3}} {{estudiante.0.4}}</h2>
-    {% with messages = get_flashed_messages() %} {% if messages %} {% for messages in messages %} {{ messages }} {% endfor %} {% endif %} {% endwith %}
+    <div class="row">
+        <a href="/verAlumno/{{ estudiante.0.5 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">assignment_ind</i>Inicio</a>
+    </div>
     <!--Datos de la inscripcion de la materia-->
     {% if materia %} {% if num == '1' %}
     <h3> Bimestre 1 </h3>

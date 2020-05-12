@@ -1,126 +1,60 @@
 {% extends "layout.html" %} {% block content %}
 <title>Avisos del grupo {{ grupo }}</title>
-
 <div class="container">
     <h1 class="center">Avisos del Grupo de {{ grupo }}</h1>
-    {% for i in tarea %}
-    <!--Grado-->
-    {% if i.1=="Grado"%}
-    <div class="card blue accent-3">
-        <div class="card-image waves-effect waves-block waves-light">
-        </div>
-        <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4"> {{ i.3 }} {{ i.2 }} <i class="material-icons right">more_vert</i></span>
-            <p>
-                <a href={{ i.5 }} target="_blank" class="waves-effect waves-light btn-small">Link del Video en Youtube</a>
-            </p>
-        </div>
-        <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">{{ i.3 }}<i class="material-icons right">close</i></span>
-            <p> {{ i.4 }} </p>
-        </div>
-    </div>
-    {% endif %}
-    <!--Computacion-->
-    {% if i.1=="Compu"%}
-    <div class="card indigo accent-3">
-        <div class="card-image waves-effect waves-block waves-light">
-        </div>
-        <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">Computación {{ i.3 }} {{ i.2 }}<i class="material-icons right">more_vert</i></span>
-            <p>
-                <a href={{ i.5 }} target="_blank" class="waves-effect waves-light btn-small">Link al video en Yotube</a>
-            </p>
-        </div>
-        <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">{{ i.3 }} <i class="material-icons right">close</i></span>
-            <p> {{ i.4 }}
-            </p>
-        </div>
-    </div>
-    {% endif %}
-    <!--Ingles-->
-    {% if i.1=="Ingles"%}
-    <div class="card deep-purple accent-3">
-        <div class="card-image waves-effect waves-block waves-light">
-        </div>
-        <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">Inglés {{ i.3 }} {{ i.2 }}<i class="material-icons right">more_vert</i></span>
-            <p>
-                <a href={{ i.5 }} target="_blank" class="waves-effect waves-light btn-small">Link del video en Youtube</a>
-            </p>
-        </div>
-        <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">{{ i.3 }}<i class="material-icons right">close</i></span>
-            <p>{{ i.4 }}
-            </p>
-        </div>
-    </div>
-    {% endif %}
-    <!--Artes-->
-    {% if i.1=="Artes"%}
-    <div class="card green darken-3">
-        <div class="card-image waves-effect waves-block waves-light">
-        </div>
-        <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">Artes {{ i.3 }} {{ i.2 }}<i class="material-icons right">more_vert</i></span>
-            <p>
-                <a href={{ i.5 }} target="_blank" class="waves-effect waves-light btn-small">Link del video en Youtube</a>
-            </p>
-        </div>
-        <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">{{ i.3 }}<i class="material-icons right">close</i></span>
-            <p> {{ i.4 }}
-            </p>
-            <!--¡Las Clases no Paran! Con el fin de poder brindar un servicio a distancia,el Profesor Edgar Suárez ha puesto en marcha un video de Introducción a la Electrónica-->
-        </div>
-    </div>
-    {% endif %}
-    <!--Musica-->
-    {% if i.1=="Musica"%}
-    <div class="card lime darken-3 ">
-        <div class="card-image waves-effect waves-block waves-light ">
-        </div>
-        <div class="card-content ">
-            <span class="card-title activator grey-text text-darken-4 ">Música {{ i.3 }} {{ i.2 }}<i class="material-icons right ">more_vert</i></span>
-            <p>
-                <a href={{ i.5 }} target="_blank" class="waves-effect waves-light btn-small ">Link del video en Youtube</a>
-            </p>
-        </div>
-        <div class="card-reveal ">
-            <span class="card-title grey-text text-darken-4 ">{{ i.3 }}<i class="material-icons right ">close</i></span>
-            <p> {{ i.4 }}
-            </p>
-            <!--¡Las Clases no Paran! Con el fin de poder brindar un servicio a distancia,el Profesor Edgar Suárez ha puesto en marcha un video de Introducción a la Electrónica-->
-        </div>
-    </div>
-    {% endif %}
-    <!--TaeKwondo-->
-    {% if i.1=="Tae"%}
-    <div class="card lime orange accent-3">
-        <div class="card-image waves-effect waves-block waves-light">
-        </div>
-        <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">Tae Kwon Do {{ i.3 }} {{ i.2 }}<i class="material-icons right">more_vert</i></span>
-            <p>
-                <a href={{ i.4 }} target="_blank" target="_blank" class="waves-effect waves-light btn-small">Link del video en Youtube</a>
-            </p>
-        </div>
-        <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">{{ i.3 }}<i class="material-icons right">close</i></span>
-            <p> {{ i.4 }}
-            </p>
-            <!--¡Las Clases no Paran! Con el fin de poder brindar un servicio a distancia,el Profesor Edgar Suárez ha puesto en marcha un video de Introducción a la Electrónica-->
-        </div>
-    </div>
-    {% endif %}
-    <!---->
-    {% endfor %}
-</div>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.modal');
-        var instances = M.Modal.init(elems);
-    });
-</script>
-{% endblock %}
+    <div class="row">
+        {% for i in tarea %}
+        <div class="col s12 m6">
+            <!--Grado-->
+            {% if i.1=="Grado"%}
+            <div class="card blue accent-3">
+                {% endif %}
+                <!--Computacion-->
+                {% if i.1=="Compu"%}
+                <div class="card indigo accent-3">
+                    {% endif %}
+                    <!--Ingles-->
+                    {% if i.1=="Ingles"%}
+                    <div class="card deep-purple accent-3">
+                        {% endif %}
+                        <!--Artes-->
+                        {% if i.1=="Artes"%}
+                        <div class="card green darken-3">
+                            {% endif %}
+                            <!--Musica-->
+                            {% if i.1=="Musica"%}
+                            <div class="card lime darken-3 ">
+                                {% endif %}
+                                <!--TaeKwondo-->
+                                {% if i.1=="Tae"%}
+                                <div class="card lime orange accent-3">
+                                    {% endif %}
+                                    <!-- Modal Structure -->
+                                    <div id="{{ i.0 }}" class="modal modal-fixed-footer blue lighten-4">
+                                        <div class="modal-content">
+                                            <h4>{{ i.3 }} {{ i.2 }}</h4>
+                                            <p> {{ i.4 }} </p>
+                                        </div>
+                                        <div class="modal-footer blue lighten-4">
+                                            <a class="waves-effect waves-light btn-small blue lighten-1" href="{{ i.5 }}" target="_blank" class="modal-close waves-effect waves-green btn-flat">Link 1 (Video)</a>
+                                            <a class="waves-effect waves-light btn-small blue lighten-1" href="{{ i.7 }}" target="_blank" class="modal-close waves-effect waves-green btn-flat">Link 2 (Material)</a>
+                                            <a href="#!" class="modal-close waves-effect waves-green btn-flat waves-effect waves-light btn-small">¡OK!</a>
+                                        </div>
+                                    </div>
+                                    <div class="card-content white-text">
+                                        <span class="card-title"> {{ i.2 }} {{ i.1 }} </span>
+                                        <p> <a class="waves-effect waves-light btn modal-trigger" href="#{{ i.0 }}">{{ i.2 }} {{ i.3 }}</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var elems = document.querySelectorAll('.modal');
+                            var instances = M.Modal.init(elems);
+                        });
+                    </script>
+                    {% endblock %}

@@ -638,10 +638,18 @@ def correos_prof_especialista():
     conexion.close()
     return datos_prof_especialista
 
-def insertar_tarea(nombre_tarea, grado, descripcion_encabezado, descripcion_cuerpo, link):
+def insertar_tarea(nombre_tarea, grado, descripcion_encabezado, descripcion_cuerpo, link, link2):
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
     cursor = conexion.cursor()
-    cursor.execute("INSERT INTO tarea(nombre_tarea, grado, descripcion_encabezado, descripcion_cuerpo, link, fecha_dejado) VALUES(%s, %s, %s, %s, %s, %s)",(nombre_tarea, grado, descripcion_encabezado, descripcion_cuerpo, link, str(date.today())))
+    cursor.execute("INSERT INTO tarea(nombre_tarea, grado, descripcion_encabezado, descripcion_cuerpo, link, link2,fecha_dejado) VALUES(%s, %s, %s, %s, %s, %s, %s)",(nombre_tarea, grado, descripcion_encabezado, descripcion_cuerpo, link, link2,str(date.today())))
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+
+def actualizar_tarea(nombre_tarea, grado, descripcion_encabezado, descripcion_cuerpo, link, link2, ids):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("UPDATE tarea SET nombre_tarea=%s, grado=%s, descripcion_encabezado=%s, descripcion_cuerpo=%s, link=%s, link2=%s WHERE tarea_id=%s",(nombre_tarea, grado, descripcion_encabezado, descripcion_cuerpo, link, link2, ids))
     conexion.commit()
     cursor.close()
     conexion.close()
@@ -680,3 +688,29 @@ def obtener_datos_prof_especialista(ids):
     cursor.close()
     conexion.close()
     return datos_prof_especialista
+
+def eliminar_tarea(ids):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("DELETE FROM tarea WHERE tarea_id=%s", (ids,))
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+
+def obtener_grupo_tarea(ids):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT grado FROM tarea WHERE tarea_id =%s", (ids,))
+    grupo = cursor.fetchall()
+    cursor.close()
+    conexion.close()
+    return grupo
+
+def obtener_tarea_id(ids):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT * FROM tarea WHERE tarea_id =%s", (ids,))
+    tarea = cursor.fetchall()
+    cursor.close()
+    conexion.close()
+    return tarea

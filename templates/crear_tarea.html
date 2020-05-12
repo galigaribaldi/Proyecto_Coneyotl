@@ -1,10 +1,10 @@
-{% extends "layout.html" %} {% block content %}
+{% extends "layout.html" %} {% block content %} {% if bandera %}
 <div class="container">
-    <br> {{ idp }}
+    <br> {{ grupo }}
     <br><br>
     <div class="container grey lighten-5 z-depth-1">
-        <form action="/verTareas/{{ idp }}" , method="POST">
-            <h3 class="center"> Tareas</h3>
+        <form action="/verTareas/{{ idp }}/{{ grupo }}" , method="POST">
+            <h3 class="center"> Tareas {{ grupo }}</h3>
             <div class="row">
                 <div class="input-field col s6">
                     <select name="nombre_materia">
@@ -22,15 +22,7 @@
                 <div class="input-field col s6">
                     <select name="grado">
                     <optgroup label="Elegir Grado">
-                      <option value="K1">K1</option>
-                      <option value="K2">K2</option>
-                      <option value="K3">K3</option>
-                      <option value="1ro">1º Primaria</option>
-                      <option value="2do">2º Primaria</option>
-                      <option value="3ro">3º Primaria</option>
-                      <option value="4to">4º Primaria</option>
-                      <option value="5to">5º Primaria</option>
-                      <option value="6to">6º Primaria</option>
+                      <option value="{{ grupo }}">Grado Asignado</option>
                     </optgroup>  
                     </select>
                     <label>Grado Escolar:</label>
@@ -45,11 +37,17 @@
                 <div class="input-field col s6">
                     <i class="material-icons prefix">insert_link</i>
                     <input type="text" name="link" id="link_d" value="">
-                    <label for="link_d">Link</label>
+                    <label for="link_d">Link (Video)</label>
+                </div>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">insert_link</i>
+                    <input type="text" name="link2" id="link_d2" value="">
+                    <label for="link_d2">Link(Material)</label>
                 </div>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">description</i>
-                    <input type="text" name="desc_cuerpo" id="desc" value="" class="validate">
+                    <!--<input type="text" name="desc_cuerpo" id="desc" value="" class="validate">-->
+                    <textarea id="desc" name="desc_cuerpo" class="materialize-textarea"></textarea>
                     <label for="desc">Descripción</label>
                 </div>
             </div>
@@ -76,7 +74,56 @@
     <br>
     <br>
 </div>
-
+<div class="container">
+    <div class="row">
+        <div class="left">
+            <a href="/avisos/{{ grupo }}" class="waves-effect waves-light btn-large"><i class="material-icons left">book</i>Avisos {{ grupo }}</a>
+        </div>
+        <div class="center">
+            <a href="/visualizarTareas/{{ grupo }}/{{ idp }}" class="waves-effect waves-light btn-large"><i class="material-icons left">border_color</i>Ver Tareas</a>
+        </div>
+        <div class="right">
+            <a href="/verAlumno/{{ grupo }}" class="waves-effect waves-light btn-large"><i class="material-icons left">assignment_ind</i>Inicio</a>
+        </div>
+    </div>
+</div>
+{% endif %} {% if bandera2 %}
+<div class="container">
+    <h1 class="center">Modificar Tarea en {{ grupo }}</h1>
+    <form action="/tarea_act/{{ idp }}/{{ grupo }}/{{ tarea.0.0 }}" method="POST">
+        <div class="row">
+            <div class="col s6">
+                Nombre de la Materia: <input type="text" name="nombre_materia" value="{{ tarea.0.1 }}">
+            </div>
+            <div class="col s6">
+                Grado de la Materia: <input type="text" name="grado" value="{{ tarea.0.2 }}">
+            </div>
+            <div class="col s6">
+                Nombre de la tarea: <input type="text" name="desc_enc" value="{{ tarea.0.3 }}">
+            </div>
+            <div class="col s6">
+                Descripción de la Tarea: <input type="text" name="desc_cuerpo" value="{{ tarea.0.4 }}">
+            </div>
+            <div class="col s12">
+                Link (Preferentemente Video): <input type="text" name="link" value="{{ tarea.0.5 }}">
+            </div>
+            <div class="col s12">
+                Link2 (Preferentemente Material): <input type="text" name="link2" value="{{ tarea.0.7 }}">
+            </div>
+            <!--<div class="col s12">
+                Archivos: <input type="file" name="archivo" value="">
+            </div>
+            <br>-->
+        </div>
+        <div class="container">
+            <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </form>
+    <br>
+</div>
+{% endif %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('select');
