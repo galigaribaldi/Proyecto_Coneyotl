@@ -14,7 +14,7 @@
 </div>
 {% if bandera %}
 <div class="container">
-
+    <!--Profes de Grado-->
     <a href="/avisos/{{ estu.0.5 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">book</i>Avisos de Actividades</a>
     <table class="responsive-table highlight striped">
         <thead>
@@ -31,14 +31,15 @@
                 <td>{{ i.2 }}</td>
                 <td>{{ i.3 }}</td>
                 <td>{{ i.4 }}</td>
-                <td><a href="/editar/cambiar/calificaciones/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">group</i>Cambiar Calificaciones</a> <a href="/editar/actualizar/calificaciones/{{ i.0 }}/{{ i.5 }}"
-                        class="waves-effect waves-light btn-large"><i class="material-icons left">group</i>Ver calificaciones</a></td>
+                <td><a href="/editar/cambiar/calificaciones/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small"><i class="material-icons left">border_color</i>Cambiar Calificaciones</a> <a href="/editar/actualizar/calificaciones/{{ i.0 }}/{{ i.5 }}"
+                        class="waves-effect waves-light btn-small"><i class="material-icons left">face</i>Ver calificaciones</a></td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
 {% endif %} {% if bandera3 %}
+<!--Administracion-->
 <div>
     <table class="responsive-table highlight striped">
         <thead>
@@ -81,9 +82,10 @@
 
 </div>
 {% endif %} {% if bandera2 %}
+<!--ExtraCurriculares-->
 <div class="container">
     <h2 class="center"> Materias ExtraCurriculares</h2>
-
+    {{ prof_esp }} {{ idp }}
     <a href="/avisos/{{ estu.0.5 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">book</i>Avisos de Actividades</a>
     <table class="responsive-table highlight striped">
         <thead>

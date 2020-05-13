@@ -795,7 +795,8 @@ def cambiar_calificacion_Bimestre2(id_materia, id_estudiante, id_profesor, grado
                 return render_template('veralumno.html', estu=estudiantes, bandera=1)
             except:
                 flash('La materia no se pudo actualizar')
-                return redirect(url_for('administrador'))
+                estudiantes = coneccion.consulta_estudiantes(grado)
+                return render_template('veralumno.html', estu=estudiantes, bandera=1)
     else:
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
@@ -813,7 +814,8 @@ def cambiar_calificacion_Bimestre3(id_materia, id_estudiante, id_profesor, grado
             try:
                 coneccion.insertarcalificacion_Bimestre3(campo1_B3, campo2_B3, campo3_B3, campo4_B3, campo5_B3,promedio, id_estudiante, id_materia, id_profesor)
                 flash('La Calificacion se Actualizó correctamente')
-                return redirect(url_for('administrador'))
+                estudiantes = coneccion.consulta_estudiantes(grado)
+                return render_template('veralumno.html', estu=estudiantes, bandera=1)
             except:
                 flash('La materia no se pudo actualizar')
                 return redirect(url_for('administrador'))
@@ -829,10 +831,12 @@ def cambiar_calificacion_Bimestre3(id_materia, id_estudiante, id_profesor, grado
             try:
                 coneccion.insertarcalificacion_Bimestre3(campo1_B3, campo2_B3, campo3_B3, campo4_B3, campo5_B3,promedio, id_estudiante, id_materia, id_profesor)
                 flash('La Calificacion se Actualizó correctamente')
-                return redirect(url_for('administrador'))
+                estudiantes = coneccion.consulta_estudiantes(grado)
+                return render_template('veralumno.html', estu=estudiantes, bandera=1)
             except:
                 flash('La materia no se pudo actualizar')
-                return redirect(url_for('administrador'))
+                estudiantes = coneccion.consulta_estudiantes(grado)
+                return render_template('veralumno.html', estu=estudiantes, bandera=1)
     else:
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))    
@@ -850,10 +854,12 @@ def cambiar_calificacion_Bimestre4(id_materia, id_estudiante, id_profesor, grado
             try:
                 coneccion.insertarcalificacion_Bimestre4(campo1_B4, campo2_B4, campo3_B4, campo4_B4, campo5_B4,promedio, id_estudiante, id_materia, id_profesor)
                 flash('La Calificacion se Actualizó correctamente')
-                return redirect(url_for('administrador'))
+                estudiantes = coneccion.consulta_estudiantes(grado)
+                return render_template('veralumno.html', estu=estudiantes, bandera=1)
             except:
                 flash('La materia no se pudo actualizar')
-                return redirect(url_for('administrador'))
+                estudiantes = coneccion.consulta_estudiantes(grado)
+                return render_template('veralumno.html', estu=estudiantes, bandera=1)
 
     if "username" in session and session["username"] =='profesor_grado':
         if request.method == 'POST':
@@ -863,14 +869,15 @@ def cambiar_calificacion_Bimestre4(id_materia, id_estudiante, id_profesor, grado
             campo4_B4 = float(request.form['campo4_B4']) ## Asistencia
             campo5_B4 = float(request.form['campo5_B4']) ##Cuaderno
             promedio = float((campo1_B4)*.50) + ((campo2_B4)*.15) + ((campo3_B4)*.15) + ((campo4_B4)*.10) + ((campo5_B4)*.10)
-            try:
-                coneccion.insertarcalificacion_Bimestre4(campo1_B4, campo2_B4, campo3_B4, campo4_B4, campo5_B4,promedio, id_estudiante, id_materia, id_profesor)
-                flash('La Calificacion se Actualizó correctamente')
-                estudiantes = coneccion.consulta_estudiantes(grado)
-                return render_template('veralumno.html', estu=estudiantes, bandera=1)
-            except:
+            #try:
+            coneccion.insertarcalificacion_Bimestre4(campo1_B4, campo2_B4, campo3_B4, campo4_B4, campo5_B4,promedio, id_estudiante, id_materia, id_profesor)
+            flash('La Calificacion se Actualizó correctamente')
+            estudiantes = coneccion.consulta_estudiantes(grado)
+            return render_template('veralumno.html', estu=estudiantes, bandera=1)
+            """except:
                 flash('La materia no se pudo actualizar')
-                return redirect(url_for('administrador'))
+                estudiantes = coneccion.consulta_estudiantes(grado)
+                return render_template('veralumno.html', estu=estudiantes, bandera=1)"""
     else:
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
