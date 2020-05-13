@@ -72,8 +72,6 @@ def index():
                     if grado[0][0] == 'KINDER':
                         print(grado[0][0])
                         return render_template('profesor_especialista.html', prof_esp=ids3[0][0], bandera2=1)
-
-                    
             ##Administracion        
             if correo_electronico =='19174536' and curp =='19174536':
                 session['username'] = 'ADMINISTRADOR'
@@ -95,10 +93,15 @@ def logout():
 
 @app.route("/avisos/<grupo>")
 def avisos(grupo):
-    print(type(grupo))
-    tarea = coneccion.consulta_tarea(grupo)
-    print(tarea)
-    return render_template("avisos.html", grupo=grupo, tarea=tarea)
+    if "username" in session and session["username"] =='ADMINISTRADOR' or "username" in session and session["username"] =='profesor_grado' or "username" in session and session["username"] =='profesor_especialista' or "username" in session and session["username"] =='estudiante':
+        print(type(grupo))
+        tarea = coneccion.consulta_tarea(grupo)
+        print(tarea)
+        return render_template("avisos.html", grupo=grupo, tarea=tarea)
+    else:
+        flash("Inicia Sesion Primero")
+        return redirect(url_for("index"))
+
 @app.route('/admin')
 def administrador():
     if "username" in session and session["username"] =='ADMINISTRADOR':
@@ -556,6 +559,9 @@ def cambiar_calificacion1(e_ID,grado):
         grados = coneccion.clave(grado)
         clave_prof_g= coneccion.clave_prof_grado(grado)
         return render_template('cambiarCalif.html', estudiante=est, materia=m_inscrita, num='1', lista=grados, clave_prof_g=clave_prof_g, bandera=1)
+    else:
+        flash("Inicia Sesion Primero")
+        return redirect(url_for("index"))
 
 @app.route('/editar/cambiar/calificaciones/<e_ID>/<grado>/2')
 def cambiar_calificacion2(e_ID,grado):
@@ -873,6 +879,24 @@ def cambiar_calificacion_Bimestre4(id_materia, id_estudiante, id_profesor, grado
 ########################################################################################################
 @app.route('/guardar1/calificacion/Bimestre_1/<id_materia>/<id_estudiante>/<id_profesor>/<grado>/<id_esp>', methods = ['POST'])
 def cambiar_calificacion_Bimestre1_esp(id_materia, id_estudiante, id_profesor,grado,id_esp):
+    if "username" in session and session["username"] =='ADMINISTRADOR':
+        if request.method == 'POST':
+            campo1_B1 = float(request.form['campo1_B1']) ##Examenes
+            campo2_B1 = float(request.form['campo2_B1']) ## Tareas
+            campo3_B1 = float(request.form['campo3_B1']) ##Exposisicon
+            campo4_B1 = float(request.form['campo4_B1']) ## Asistencia
+            campo5_B1 = float(request.form['campo5_B1']) ##Cuaderno
+            promedio = (float(campo1_B1)*.50) + ((campo2_B1)*.15) + ((campo3_B1)*.15) + ((campo4_B1)*.10) + ((campo5_B1)*.10)
+            #try:
+            coneccion.insertarcalificacion_Bimestre1(campo1_B1,campo2_B1,campo3_B1, campo4_B1,campo5_B1 ,promedio, id_estudiante, id_materia, id_profesor)
+            flash('La Calificacion se Actualizó correctamente')
+            estudiantes = coneccion.consulta_estudiantes(grado)
+            return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_esp )
+            #except:
+            flash('La materia no se pudo actualizar')
+            return "Algo fallo"
+        else:
+            return render_template('index.html')        
     if "username" in session and session["username"] =='profesor_especialista':
         if request.method == 'POST':
             campo1_B1 = float(request.form['campo1_B1']) ##Examenes
@@ -898,7 +922,7 @@ def cambiar_calificacion_Bimestre1_esp(id_materia, id_estudiante, id_profesor,gr
 
 @app.route('/guardar/calificacion/Bimestre_2/<id_materia>/<id_estudiante>/<id_profesor>/<grado>/<id_esp>', methods = ['POST', 'GET'])
 def cambiar_calificacion_Bimestre2_esp(id_materia, id_estudiante, id_profesor, grado,id_esp):
-    if "username" in session and session["username"] =='profesor_especialista':    
+    if "username" in session and session["username"] =='ADMINISTRADOR':
         if request.method == 'POST':
             campo1_B2 = float(request.form['campo1_B2']) ##Examenes
             campo2_B2 = float(request.form['campo2_B2'])## Tareas
@@ -914,13 +938,30 @@ def cambiar_calificacion_Bimestre2_esp(id_materia, id_estudiante, id_profesor, g
             #except:
             flash('La materia no se pudo actualizar')
             return redirect(url_for('administrador'))
+                
+    if "username" in session and session["username"] =='profesor_especialista':    
+        if request.method == 'POST':
+            campo1_B2 = float(request.form['campo1_B2']) ##Examenes
+            campo2_B2 = float(request.form['campo2_B2'])## Tareas
+            campo3_B2 = float(request.form['campo3_B2']) ##Exposisicon
+            campo4_B2 = float(request.form['campo4_B2']) ## Asistencia
+            campo5_B2 = float(request.form['campo5_B2']) ##Cuaderno
+            promedio = (float((campo1_B2)*.50) + ((campo2_B2)*.15) + ((campo3_B2)*.15) + ((campo4_B2)*.10) + ((campo5_B2)*.10))
+            #try:
+            coneccion.insertarcalificacion_Bimestre2(campo1_B2, campo2_B2, campo3_B2, campo4_B2, campo5_B2,promedio, id_estudiante, id_materia, id_profesor)
+            flash('La Calificacion se Actualizó correctamente')
+            estudiantes = coneccion.consulta_estudiantes(grado)
+            return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_esp )
+            #except:
+            flash('La materia no se pudo actualizar')
+            return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_esp )
     else:
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
 
 @app.route('/guardar/calificacion/Bimestre_3/<id_materia>/<id_estudiante>/<id_profesor>/<grado>/<id_esp>', methods = ['POST'])
 def cambiar_calificacion_Bimestre3_esp(id_materia, id_estudiante, id_profesor, grado,id_esp):
-    if "username" in session and session["username"] =='profesor_especialista':
+    if "username" in session and session["username"] =='ADMINISTRADOR':
         if request.method == 'POST':
             campo1_B3 = float(request.form['campo1_B3']) ##Examenes
             campo2_B3 = float(request.form['campo2_B3']) ## Tareas
@@ -935,9 +976,41 @@ def cambiar_calificacion_Bimestre3_esp(id_materia, id_estudiante, id_profesor, g
             except:
                 flash('La materia no se pudo actualizar')
                 return redirect(url_for('administrador'))
+            
+    if "username" in session and session["username"] =='profesor_especialista':
+        if request.method == 'POST':
+            campo1_B3 = float(request.form['campo1_B3']) ##Examenes
+            campo2_B3 = float(request.form['campo2_B3']) ## Tareas
+            campo3_B3 = float(request.form['campo3_B3']) ##Exposisicon
+            campo4_B3 = float(request.form['campo4_B3']) ## Asistencia
+            campo5_B3 = float(request.form['campo5_B3']) ##Cuaderno
+            promedio = float((campo1_B3)*.50) + ((campo2_B3)*.15) + ((campo3_B3)*.15) + ((campo4_B3)*.10) + ((campo5_B3)*.10)
+            try:
+                coneccion.insertarcalificacion_Bimestre3(campo1_B3, campo2_B3, campo3_B3, campo4_B3, campo5_B3,promedio, id_estudiante, id_materia, id_profesor)
+                estudiantes = coneccion.consulta_estudiantes(grado)
+                return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_esp )
+            except:
+                flash('La materia no se pudo actualizar')
+                return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_esp )
 
 @app.route('/guardar/calificacion/Bimestre_4/<id_materia>/<id_estudiante>/<id_profesor>/<grado>/<id_esp>', methods = ['POST'])
 def cambiar_calificacion_Bimestre4_esp(id_materia, id_estudiante, id_profesor, grado,id_esp):
+    if "username" in session and session["username"] =='ADMINISTRADOR':
+        if request.method == 'POST':
+            campo1_B4 = float(request.form['campo1_B4']) ##Examenes
+            campo2_B4 = float(request.form['campo2_B4']) ## Tareas
+            campo3_B4 = float(request.form['campo3_B4']) ##Exposisicon
+            campo4_B4 = float(request.form['campo4_B4']) ## Asistencia
+            campo5_B4 = float(request.form['campo5_B4']) ##Cuaderno
+            promedio = float((campo1_B4)*.50) + ((campo2_B4)*.15) + ((campo3_B4)*.15) + ((campo4_B4)*.10) + ((campo5_B4)*.10)
+            try:
+                coneccion.insertarcalificacion_Bimestre4(campo1_B4, campo2_B4, campo3_B4, campo4_B4, campo5_B4,promedio, id_estudiante, id_materia, id_profesor)
+                flash('La Calificacion se Actualizó correctamente')
+                estudiantes = coneccion.consulta_estudiantes(grado)
+                return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_esp )
+            except:
+                flash('La materia no se pudo actualizar')
+                return redirect(url_for('administrador'))        
     if "username" in session and session["username"] =='profesor_especialista':
         if request.method == 'POST':
             campo1_B4 = float(request.form['campo1_B4']) ##Examenes
@@ -953,7 +1026,7 @@ def cambiar_calificacion_Bimestre4_esp(id_materia, id_estudiante, id_profesor, g
                 return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_esp )
             except:
                 flash('La materia no se pudo actualizar')
-                return redirect(url_for('administrador'))
+                return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_esp )
     else:
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
@@ -961,227 +1034,249 @@ def cambiar_calificacion_Bimestre4_esp(id_materia, id_estudiante, id_profesor, g
 ##Correos
 @app.route("/correos")
 def correos():
-    return render_template("correos.html")
+    if "username" in session and session["username"] =='ADMINISTRADOR':    
+        return render_template("correos.html")
 #@app.route("/correos/Enviar")
 @app.route("/Correos/1")
 def correos_1():
-    return render_template("correos.html", opcion1=1)
+    if "username" in session and session["username"] =='ADMINISTRADOR':        
+        return render_template("correos.html", opcion1=1)
 
 @app.route("/correos/Enviar", methods=['POST'])
 def enviar_correos():
-    if request.method == 'POST':
-        direccion = request.form['correo_destinatario']
-        asunto = request.form['asunto']
-        cuerpo = request.form['cuerpo']
-        opcion = request.form['opcion']
-        #### Obtenemos el grado
-        grado = request.form['grado']
-        ###Correo individual
-        if grado =='000':
-            if opcion == '0':
-                enviar.enviar_correo(direccion,cuerpo, asunto)
-            if opcion == '1':
-                img.generar_imagen(direccion,'', '', cuerpo,'', direccion)
-                enviar.enviar_correo_img(direccion, asunto)
-        ###Correos para niños###############################################33                
-    #try:
-        ##Correos para kinder 1
-        if grado =='001':
-            if opcion == '0':
-                job = q.enqueue(au.automatico_txt, 'K1', cuerpo, asunto)
-            if opcion == '1':
-                job = q.enqueue(au.automatico, 'K1', cuerpo, asunto)
-        ##Correos para kinder 2
-        if grado == '002':
-            if opcion == '0':
-                job = q.enqueue(au.automatico_txt, 'K2', cuerpo, asunto)
-            if opcion == '1':
-                job = q.enqueue(au.automatico, 'K2', cuerpo, asunto)
-        ##Correos para kinder 3
-        if grado == '003':
-            if opcion == '0':
-                job = q.enqueue(au.automatico_txt, 'K3', cuerpo, asunto)
-            if opcion == '1':
-                job = q.enqueue(au.automatico, 'K3', cuerpo, asunto)
-        ##Correos para Primero de Primaria
-        if grado == '1':
-            lista = coneccion.correos_estudiante('1ro')
-            if opcion == '0':
-                job = q.enqueue(au.automatico_txt, '1ro', cuerpo, asunto)
-            if opcion == '1':
-                job = q.enqueue(au.automatico, '1ro', cuerpo, asunto)
-        ##Correos para Segundo de Primaria
-        if grado == '2':
-            if opcion == '0':
-                job = q.enqueue(au.automatico_txt, '2do', cuerpo, asunto)
-            if opcion == '1':
-                job = q.enqueue(au.automatico, '2do', cuerpo, asunto)
-        ##Correos para Tercero de Primaria
-        if grado == '3':
-            if opcion == '0':
-                job = q.enqueue(au.automatico_txt, '3ro', cuerpo, asunto)
-            if opcion == '1':
-                job = q.enqueue(au.automatico, '3ro', cuerpo, asunto)
-        ##Correos para Cuarto de Primaria
-        if grado == '4':
-            if opcion == '0':
-                job = q.enqueue(au.automatico_txt, '4to', cuerpo, asunto)
-            if opcion == '1':
-                job = q.enqueue(au.automatico, '4to', cuerpo, asunto)
-        ##Correos para quinto de Primaria
-        if grado == '5':
-            if opcion == '0':
-                job = q.enqueue(au.automatico_txt, '5to', cuerpo, asunto)
-            if opcion == '1':
-                job = q.enqueue(au.automatico, '5to', cuerpo, asunto)
-        ##Correos para sexto de Primaria
-        if grado == '6':
-            if opcion == '0':
-                job = q.enqueue(au.automatico_txt, '6to', cuerpo, asunto)
-            if opcion == '1':
-                job = q.enqueue(au.automatico, '6to', cuerpo, asunto)
-        ###Correos para toda la escuela
-        if grado =='1021':
-            if opcion == '0':
-                job = q.enqueue(au.automatico_txt, 'K1', cuerpo, asunto)
-                job = q.enqueue(au.automatico_txt, 'K2', cuerpo, asunto)
-                job = q.enqueue(au.automatico_txt, 'K3', cuerpo, asunto)
-                job = q.enqueue(au.automatico_txt, '1ro', cuerpo, asunto)
-                job = q.enqueue(au.automatico_txt, '2do', cuerpo, asunto)
-                job = q.enqueue(au.automatico_txt, '3ro', cuerpo, asunto)
-                job = q.enqueue(au.automatico_txt, '4to', cuerpo, asunto)
-                job = q.enqueue(au.automatico_txt, '5to', cuerpo, asunto)
-                job = q.enqueue(au.automatico_txt, '6to', cuerpo, asunto)
-            if opcion == '1':
-                job = q.enqueue(au.automatico, 'K1', cuerpo, asunto)
-                job = q.enqueue(au.automatico, 'K2', cuerpo, asunto)
-                job = q.enqueue(au.automatico, 'K3', cuerpo, asunto)
-                job = q.enqueue(au.automatico, '1ro', cuerpo, asunto)
-                job = q.enqueue(au.automatico, '2do', cuerpo, asunto)
-                job = q.enqueue(au.automatico, '3ro', cuerpo, asunto)
-                job = q.enqueue(au.automatico, '4to', cuerpo, asunto)
-                job = q.enqueue(au.automatico, '5to', cuerpo, asunto)
-                job = q.enqueue(au.automatico, '6to', cuerpo, asunto)
-        ###Correos para toda Primaria
-        if grado =='1022':
-            if opcion == '0':
-                job = q.enqueue(au.automatico_txt, '1ro', cuerpo, asunto)
-                job = q.enqueue(au.automatico_txt, '2do', cuerpo, asunto)
-                job = q.enqueue(au.automatico_txt, '3ro', cuerpo, asunto)
-                job = q.enqueue(au.automatico_txt, '4to', cuerpo, asunto)
-                job = q.enqueue(au.automatico_txt, '5to', cuerpo, asunto)
-                job = q.enqueue(au.automatico_txt, '6to', cuerpo, asunto)
-            if opcion == '1':
-                job = q.enqueue(au.automatico, '1ro', cuerpo, asunto)
-                job = q.enqueue(au.automatico, '2do', cuerpo, asunto)
-                job = q.enqueue(au.automatico, '3ro', cuerpo, asunto)
-                job = q.enqueue(au.automatico, '4to', cuerpo, asunto)
-                job = q.enqueue(au.automatico, '5to', cuerpo, asunto)
-                job = q.enqueue(au.automatico, '6to', cuerpo, asunto)
-        ###Correos para todo Kinder
-        if grado =='1023':
-            if opcion == '0':
-                job = q.enqueue(au.automatico_txt, 'K1', cuerpo, asunto)
-                job = q.enqueue(au.automatico_txt, 'K2', cuerpo, asunto)
-                job = q.enqueue(au.automatico_txt, 'K3', cuerpo, asunto)
-            if opcion == '1':
-                job = q.enqueue(au.automatico, 'K1', cuerpo, asunto)
-                job = q.enqueue(au.automatico, 'K2', cuerpo, asunto)
-                job = q.enqueue(au.automatico, 'K3', cuerpo, asunto)
-        ##Profesores Grado Primaria y Kinder
-        if grado =='100':
-            if opcion == '0':
-                job = q.enqueue(au.automatico_prof_grado_txt, cuerpo, asunto)
-            if opcion == '1':
-                job = q.enqueue(au.automatico_prof_grado, cuerpo, asunto)
-        ##Profesores especialsitas
-        if grado =='1000':
-            if opcion == '0':
-                job = q.enqueue(au.automatico_prof_especialistas_txt, cuerpo, asunto)
-            if opcion == '1':
-                job = q.enqueue(au.automatico_prof_especialistas, cuerpo, asunto)
-        flash("Mensaje Enviado Por favor espere 3 minutos para enviar otro correo ")
-        return redirect(url_for("correos"))
+    if "username" in session and session["username"] =='ADMINISTRADOR':    
+        if request.method == 'POST':
+            direccion = request.form['correo_destinatario']
+            asunto = request.form['asunto']
+            cuerpo = request.form['cuerpo']
+            opcion = request.form['opcion']
+            #### Obtenemos el grado
+            grado = request.form['grado']
+            ###Correo individual
+            if grado =='000':
+                if opcion == '0':
+                    enviar.enviar_correo(direccion,cuerpo, asunto)
+                if opcion == '1':
+                    img.generar_imagen(direccion,'', '', cuerpo,'', direccion)
+                    enviar.enviar_correo_img(direccion, asunto)
+            ###Correos para niños###############################################33                
+        #try:
+            ##Correos para kinder 1
+            if grado =='001':
+                if opcion == '0':
+                    job = q.enqueue(au.automatico_txt, 'K1', cuerpo, asunto)
+                if opcion == '1':
+                    job = q.enqueue(au.automatico, 'K1', cuerpo, asunto)
+            ##Correos para kinder 2
+            if grado == '002':
+                if opcion == '0':
+                    job = q.enqueue(au.automatico_txt, 'K2', cuerpo, asunto)
+                if opcion == '1':
+                    job = q.enqueue(au.automatico, 'K2', cuerpo, asunto)
+            ##Correos para kinder 3
+            if grado == '003':
+                if opcion == '0':
+                    job = q.enqueue(au.automatico_txt, 'K3', cuerpo, asunto)
+                if opcion == '1':
+                    job = q.enqueue(au.automatico, 'K3', cuerpo, asunto)
+            ##Correos para Primero de Primaria
+            if grado == '1':
+                lista = coneccion.correos_estudiante('1ro')
+                if opcion == '0':
+                    job = q.enqueue(au.automatico_txt, '1ro', cuerpo, asunto)
+                if opcion == '1':
+                    job = q.enqueue(au.automatico, '1ro', cuerpo, asunto)
+            ##Correos para Segundo de Primaria
+            if grado == '2':
+                if opcion == '0':
+                    job = q.enqueue(au.automatico_txt, '2do', cuerpo, asunto)
+                if opcion == '1':
+                    job = q.enqueue(au.automatico, '2do', cuerpo, asunto)
+            ##Correos para Tercero de Primaria
+            if grado == '3':
+                if opcion == '0':
+                    job = q.enqueue(au.automatico_txt, '3ro', cuerpo, asunto)
+                if opcion == '1':
+                    job = q.enqueue(au.automatico, '3ro', cuerpo, asunto)
+            ##Correos para Cuarto de Primaria
+            if grado == '4':
+                if opcion == '0':
+                    job = q.enqueue(au.automatico_txt, '4to', cuerpo, asunto)
+                if opcion == '1':
+                    job = q.enqueue(au.automatico, '4to', cuerpo, asunto)
+            ##Correos para quinto de Primaria
+            if grado == '5':
+                if opcion == '0':
+                    job = q.enqueue(au.automatico_txt, '5to', cuerpo, asunto)
+                if opcion == '1':
+                    job = q.enqueue(au.automatico, '5to', cuerpo, asunto)
+            ##Correos para sexto de Primaria
+            if grado == '6':
+                if opcion == '0':
+                    job = q.enqueue(au.automatico_txt, '6to', cuerpo, asunto)
+                if opcion == '1':
+                    job = q.enqueue(au.automatico, '6to', cuerpo, asunto)
+            ###Correos para toda la escuela
+            if grado =='1021':
+                if opcion == '0':
+                    job = q.enqueue(au.automatico_txt, 'K1', cuerpo, asunto)
+                    job = q.enqueue(au.automatico_txt, 'K2', cuerpo, asunto)
+                    job = q.enqueue(au.automatico_txt, 'K3', cuerpo, asunto)
+                    job = q.enqueue(au.automatico_txt, '1ro', cuerpo, asunto)
+                    job = q.enqueue(au.automatico_txt, '2do', cuerpo, asunto)
+                    job = q.enqueue(au.automatico_txt, '3ro', cuerpo, asunto)
+                    job = q.enqueue(au.automatico_txt, '4to', cuerpo, asunto)
+                    job = q.enqueue(au.automatico_txt, '5to', cuerpo, asunto)
+                    job = q.enqueue(au.automatico_txt, '6to', cuerpo, asunto)
+                if opcion == '1':
+                    job = q.enqueue(au.automatico, 'K1', cuerpo, asunto)
+                    job = q.enqueue(au.automatico, 'K2', cuerpo, asunto)
+                    job = q.enqueue(au.automatico, 'K3', cuerpo, asunto)
+                    job = q.enqueue(au.automatico, '1ro', cuerpo, asunto)
+                    job = q.enqueue(au.automatico, '2do', cuerpo, asunto)
+                    job = q.enqueue(au.automatico, '3ro', cuerpo, asunto)
+                    job = q.enqueue(au.automatico, '4to', cuerpo, asunto)
+                    job = q.enqueue(au.automatico, '5to', cuerpo, asunto)
+                    job = q.enqueue(au.automatico, '6to', cuerpo, asunto)
+            ###Correos para toda Primaria
+            if grado =='1022':
+                if opcion == '0':
+                    job = q.enqueue(au.automatico_txt, '1ro', cuerpo, asunto)
+                    job = q.enqueue(au.automatico_txt, '2do', cuerpo, asunto)
+                    job = q.enqueue(au.automatico_txt, '3ro', cuerpo, asunto)
+                    job = q.enqueue(au.automatico_txt, '4to', cuerpo, asunto)
+                    job = q.enqueue(au.automatico_txt, '5to', cuerpo, asunto)
+                    job = q.enqueue(au.automatico_txt, '6to', cuerpo, asunto)
+                if opcion == '1':
+                    job = q.enqueue(au.automatico, '1ro', cuerpo, asunto)
+                    job = q.enqueue(au.automatico, '2do', cuerpo, asunto)
+                    job = q.enqueue(au.automatico, '3ro', cuerpo, asunto)
+                    job = q.enqueue(au.automatico, '4to', cuerpo, asunto)
+                    job = q.enqueue(au.automatico, '5to', cuerpo, asunto)
+                    job = q.enqueue(au.automatico, '6to', cuerpo, asunto)
+            ###Correos para todo Kinder
+            if grado =='1023':
+                if opcion == '0':
+                    job = q.enqueue(au.automatico_txt, 'K1', cuerpo, asunto)
+                    job = q.enqueue(au.automatico_txt, 'K2', cuerpo, asunto)
+                    job = q.enqueue(au.automatico_txt, 'K3', cuerpo, asunto)
+                if opcion == '1':
+                    job = q.enqueue(au.automatico, 'K1', cuerpo, asunto)
+                    job = q.enqueue(au.automatico, 'K2', cuerpo, asunto)
+                    job = q.enqueue(au.automatico, 'K3', cuerpo, asunto)
+            ##Profesores Grado Primaria y Kinder
+            if grado =='100':
+                if opcion == '0':
+                    job = q.enqueue(au.automatico_prof_grado_txt, cuerpo, asunto)
+                if opcion == '1':
+                    job = q.enqueue(au.automatico_prof_grado, cuerpo, asunto)
+            ##Profesores especialsitas
+            if grado =='1000':
+                if opcion == '0':
+                    job = q.enqueue(au.automatico_prof_especialistas_txt, cuerpo, asunto)
+                if opcion == '1':
+                    job = q.enqueue(au.automatico_prof_especialistas, cuerpo, asunto)
+            flash("Mensaje Enviado Por favor espere 3 minutos para enviar otro correo ")
+            return redirect(url_for("correos"))
 ################3
 
 @app.route("/tarea/<ids>/<grupo>", methods=['GET','POST'])
 def tarea(ids, grupo):
-    print(ids)
-    return render_template("crear_tarea.html",idp=ids, grupo=grupo, bandera=1)
-
-@app.route("/tarea_act/<ids>/<grupo>/<id_tarea>", methods=['GET','POST'])
-def tarea_act(ids, grupo,id_tarea):
-    if request.method == 'POST':
-        nombre_materia = request.form['nombre_materia']
-        grado = request.form['grado']
-        desc_enc = request.form['desc_enc']
-        desc_cuerpo = request.form['desc_cuerpo']
-        link = request.form['link']
-        link2 = request.form['link2']
-        coneccion.actualizar_tarea(nombre_materia, grado, desc_enc, desc_cuerpo, link, link2, id_tarea)
-        flash("La Tarea ha actualizado correctamente")
-        print(nombre_materia, grado, desc_enc, desc_cuerpo, link, link2)
-        return render_template("crear_tarea.html", idp=ids, grupo=grupo, bandera=1)    
-    else:
+    if "username" in session and session["username"] =='ADMINISTRADOR' or "username" in session and session["username"] =='profesor_grado' or "username" in session and session["username"] =='profesor_especialista':    
         print(ids)
         return render_template("crear_tarea.html",idp=ids, grupo=grupo, bandera=1)
 
-
-@app.route("/verTareas/<ids>/<grupo>", methods = ['POST'])
-def verTareas(ids, grupo):
-    if request.method == 'POST':
-        if request.form['submit'] =='Solo Guardar':
+@app.route("/tarea_act/<ids>/<grupo>/<id_tarea>", methods=['GET','POST'])
+def tarea_act(ids, grupo,id_tarea):
+    if "username" in session and session["username"] =='ADMINISTRADOR' or "username" in session and session["username"] =='profesor_grado' or "username" in session and session["username"] =='profesor_especialista':
+        if request.method == 'POST':
             nombre_materia = request.form['nombre_materia']
             grado = request.form['grado']
             desc_enc = request.form['desc_enc']
             desc_cuerpo = request.form['desc_cuerpo']
             link = request.form['link']
             link2 = request.form['link2']
-            coneccion.insertar_tarea(nombre_materia, grado, desc_enc, desc_cuerpo, link, link2)
-            flash("La Tarea se guardó correctamente")
-            return render_template("crear_tarea.html", idp=ids, grupo=grupo, bandera=1)
-    
-        elif request.form['submit'] =='Guardar y Notificar':
-            dpe = coneccion.obtener_datos_prof_especialista(ids)
-            dpg = coneccion.obtener_datos_prof_grado(ids)
-            nombre_materia = request.form['nombre_materia']
-            grado = request.form['grado']
-            desc_enc = request.form['desc_enc']
-            desc_cuerpo = request.form['desc_cuerpo']
-            link = request.form['link']
-            link2 = request.form['link']
-            if len(dpe) == 0:
-                df = dpg ## Profesor de grado
-            else:
-                df = dpe ## Profesor Especialista
-            cuerpo = "El profesor "+str(df[0][0])+" "+str(df[0][1])+" "+str(df[0][2]) + " ha actualizado una nueva tarea, por favor, visita la plataforma https://coneyotl.herokuapp.com para saber cual es"
-            asunto = "ACTUALIZACION de tareas grupo: "+str(df[0][3])
-            print(cuerpo)
-            print(asunto)
-            coneccion.insertar_tarea(nombre_materia, grado, desc_enc, desc_cuerpo, link, link2)
-            job = q.enqueue(au.automatico_txt, str(df[0][3]), cuerpo, asunto)
-            flash("La Tarea se guardó correctamente y se notifico los cambios al grupo")
-            return render_template("crear_tarea.html", idp=ids, grupo=grupo, bandera=1)
+            coneccion.actualizar_tarea(nombre_materia, grado, desc_enc, desc_cuerpo, link, link2, id_tarea)
+            flash("La Tarea ha actualizado correctamente")
+            print(nombre_materia, grado, desc_enc, desc_cuerpo, link, link2)
+            return render_template("crear_tarea.html", idp=ids, grupo=grupo, bandera=1)    
+        else:
+            print(ids)
+            return render_template("crear_tarea.html",idp=ids, grupo=grupo, bandera=1)
+    else:
+        flash("Inicia Sesion Primero")
+        return redirect(url_for("index"))
+        
+
+
+@app.route("/verTareas/<ids>/<grupo>", methods = ['POST'])
+def verTareas(ids, grupo):
+    if "username" in session and session["username"] =='ADMINISTRADOR' or "username" in session and session["username"] =='profesor_grado' or "username" in session and session["username"] =='profesor_especialista':
+        if request.method == 'POST':
+            if request.form['submit'] =='Solo Guardar':
+                nombre_materia = request.form['nombre_materia']
+                grado = request.form['grado']
+                desc_enc = request.form['desc_enc']
+                desc_cuerpo = request.form['desc_cuerpo']
+                link = request.form['link']
+                link2 = request.form['link2']
+                coneccion.insertar_tarea(nombre_materia, grado, desc_enc, desc_cuerpo, link, link2)
+                flash("La Tarea se guardó correctamente")
+                return render_template("crear_tarea.html", idp=ids, grupo=grupo, bandera=1)
+        
+            elif request.form['submit'] =='Guardar y Notificar':
+                dpe = coneccion.obtener_datos_prof_especialista(ids)
+                dpg = coneccion.obtener_datos_prof_grado(ids)
+                nombre_materia = request.form['nombre_materia']
+                grado = request.form['grado']
+                desc_enc = request.form['desc_enc']
+                desc_cuerpo = request.form['desc_cuerpo']
+                link = request.form['link']
+                link2 = request.form['link']
+                if len(dpe) == 0:
+                    df = dpg ## Profesor de grado
+                else:
+                    df = dpe ## Profesor Especialista
+                cuerpo = "El profesor "+str(df[0][0])+" "+str(df[0][1])+" "+str(df[0][2]) + " ha actualizado una nueva tarea, por favor, visita la plataforma https://coneyotl.herokuapp.com para saber cual es"
+                asunto = "ACTUALIZACION de tareas grupo: "+str(df[0][3])
+                print(cuerpo)
+                print(asunto)
+                coneccion.insertar_tarea(nombre_materia, grado, desc_enc, desc_cuerpo, link, link2)
+                job = q.enqueue(au.automatico_txt, str(df[0][3]), cuerpo, asunto)
+                flash("La Tarea se guardó correctamente y se notifico los cambios al grupo")
+                return render_template("crear_tarea.html", idp=ids, grupo=grupo, bandera=1)
 
 @app.route("/visualizarTareas/<grupo>/<idp>")
 def visualizarTareas(grupo, idp):
-    tarea = coneccion.consulta_tarea(grupo)
-    return render_template("verTareas.html", tareas=tarea, idp=idp)
+    if "username" in session and session["username"] =='ADMINISTRADOR' or "username" in session and session["username"] =='profesor_grado' or "username" in session and session["username"] =='profesor_especialista':
+        tarea = coneccion.consulta_tarea(grupo)
+        return render_template("verTareas.html", tareas=tarea, idp=idp)
+    else:
+        flash("Inicia Sesion Primero")
+        return redirect(url_for("index"))
 
 @app.route("/cambiarTarea/<ids>/<grupo>/<idp>")
 def cambiarTarea(ids, grupo, idp):
-    tarea = coneccion.obtener_tarea_id(ids)
-    return render_template("crear_tarea.html", bandera2=1, grupo=grupo, tarea=tarea, idp=idp)
+    if "username" in session and session["username"] =='ADMINISTRADOR' or "username" in session and session["username"] =='profesor_grado' or "username" in session and session["username"] =='profesor_especialista':
+        tarea = coneccion.obtener_tarea_id(ids)
+        return render_template("crear_tarea.html", bandera2=1, grupo=grupo, tarea=tarea, idp=idp)
+    else:
+        flash("Inicia Sesion Primero")
+        return redirect(url_for("index"))
 
 @app.route("/eliminarTarea/<ids>")
 def eliminarTarea(ids):
-    grupo = coneccion.obtener_grupo_tarea(ids)
-    coneccion.eliminar_tarea(ids)
-    print(grupo)
-    tarea = coneccion.consulta_tarea(grupo[0])
-    print(tarea)
-    flash("La tarea fue borrada con éxito")
-    return render_template("avisos.html", grupo=grupo[0][0], tarea=tarea)
+    if "username" in session and session["username"] =='ADMINISTRADOR' or "username" in session and session["username"] =='profesor_grado' or "username" in session and session["username"] =='profesor_especialista':
+        grupo = coneccion.obtener_grupo_tarea(ids)
+        coneccion.eliminar_tarea(ids)
+        print(grupo)
+        tarea = coneccion.consulta_tarea(grupo[0])
+        print(tarea)
+        flash("La tarea fue borrada con éxito")
+        return render_template("avisos.html", grupo=grupo[0][0], tarea=tarea)
+    else:
+        flash("Inicia Sesion Primero")
+        return redirect(url_for("index"))
     
 if __name__ == '__main__':
     app.run(debug=True)
