@@ -236,7 +236,7 @@ def alta_alumno(e_id,grado):
     if "username" in session and session["username"] =='ADMINISTRADOR':
         alta = coneccion.dar_alta_alumno(e_id)
         estudiantes = coneccion.consulta_estudiantes(grado)
-        return render_template('veralumno.html', estu=estudiantes )
+        return render_template('veralumno.html', estu=estudiantes ,bandera3=1)
     else:
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
@@ -246,7 +246,7 @@ def baja_alumno(e_id,grado):
     if "username" in session and session["username"] =='ADMINISTRADOR':
         baja = coneccion.dar_baja_alumno(e_id)
         estudiantes = coneccion.consulta_estudiantes(grado)
-        return render_template('veralumno.html', estu=estudiantes )
+        return render_template('veralumno.html', estu=estudiantes  ,bandera3=1)
     else:
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
@@ -256,7 +256,7 @@ def suspender_alumno(e_id,grado):
     if "username" in session and session["username"] =='ADMINISTRADOR':
         suspender = coneccion.suspender(e_id)
         estudiantes = coneccion.consulta_estudiantes(grado)
-        return render_template('veralumno.html', estu=estudiantes )
+        return render_template('veralumno.html', estu=estudiantes ,bandera3=1 )
     else:
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
@@ -299,7 +299,7 @@ def suspender_prof_grado(e_id):
 @app.route('/alta_prof_esp/<e_id>')
 def alta_prof_esp(e_id):
     if "username" in session and session["username"] =='ADMINISTRADOR':
-        alta = coneccion.dar_baja_profesor_es(e_id)
+        alta = coneccion.dar_alta_profesor_es(e_id)
         prof_grado = coneccion.consulta_prof_grado()
         prof_esp = coneccion.consulta_all_prof_esp()
         return render_template('verProfesor.html', prof_g=prof_grado, prof_e=prof_esp )

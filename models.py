@@ -23,7 +23,7 @@ print("Password: ", password)
 def consulta_estudiantes(grado):
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
     cursor = conexion.cursor()
-    cursor.execute("SELECT * FROM estudiante where grado= %s",(grado,))
+    cursor.execute("SELECT * FROM estudiante where grado= %s  ORDER BY apellido_pat ASC",(grado,))
     datos_estudiantes = cursor.fetchall()
     #print(datos_estudiantes)
     conexion.commit()
@@ -35,7 +35,7 @@ def consulta_estudiantes(grado):
 def consulta_all_prof_grado():
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
     cursor = conexion.cursor()
-    cursor.execute("SELECT * FROM profesor_grado")
+    cursor.execute("SELECT * FROM profesor_grado ORDER BY profesor_id ASC")
     datos_profesor_grado = cursor.fetchall()
     #print(datos_estudiantes)
     conexion.commit()
@@ -47,7 +47,7 @@ def consulta_all_prof_grado():
 def consulta_all_prof_esp():
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
     cursor = conexion.cursor()
-    cursor.execute("SELECT * FROM profesor_especialista")
+    cursor.execute("SELECT * FROM profesor_especialista ORDER BY profesor_id ASC")
     datos_profesor_especialista = cursor.fetchall()
     #print(datos_estudiantes)
     conexion.commit()
@@ -118,7 +118,7 @@ def consulta_inscrita2(est_id, prof_id,grado):
 def consulta_estudiantes_id(est_id, grado):
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
     cursor = conexion.cursor()
-    cursor.execute("SELECT * FROM estudiante where estudiante_ID=%s and grado=%s",(est_id,grado,))
+    cursor.execute("SELECT * FROM estudiante where estudiante_ID=%s and grado=%s ORDER BY apellido_pat ASC",(est_id,grado,))
     datos_estudiantes = cursor.fetchall()
     #print(datos_estudiantes)
     conexion.commit()
@@ -130,7 +130,7 @@ def consulta_estudiantes_id(est_id, grado):
 def consulta_prof_grado():
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
     cursor = conexion.cursor()
-    cursor.execute("SELECT * FROM profesor_grado")
+    cursor.execute("SELECT * FROM profesor_grado ORDER BY profesor_id ASC")
     datos_prof_grado = cursor.fetchall()
     print(datos_prof_grado)
     conexion.commit()
@@ -141,7 +141,7 @@ def consulta_prof_grado():
 def consulta_prof_especialista():
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
     cursor = conexion.cursor()
-    cursor.execute("SELECT * FROM profesor_especialista")
+    cursor.execute("SELECT * FROM profesor_especialista ORDER BY profesor_id ASC")
     datos_especialista = cursor.fetchall()
     print(datos_especialista)
     conexion.commit()
@@ -152,7 +152,7 @@ def consulta_prof_especialista():
 def consulta_prof_grado3(grado):
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
     cursor = conexion.cursor()
-    cursor.execute("SELECT * from profesor_grado where grado = %s", (grado,))
+    cursor.execute("SELECT * from profesor_grado where grado = %s  ORDER BY profesor_id ASC", (grado,))
     c = cursor.fetchall()
     conexion.commit()
     cursor.close()
