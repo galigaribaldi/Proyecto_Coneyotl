@@ -2,6 +2,7 @@ import psycopg2
 import expresiones as obtener
 import os
 from datetime import date
+import datetime
 ###Credenciales
 ##Obtener datos desde la DATABASE URL
 DATABASE_URL=os.environ.get('DATABASE_URL')
@@ -641,7 +642,7 @@ def correos_prof_especialista():
 def insertar_tarea(nombre_tarea, grado, descripcion_encabezado, descripcion_cuerpo, link, link2):
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
     cursor = conexion.cursor()
-    cursor.execute("INSERT INTO tarea(nombre_tarea, grado, descripcion_encabezado, descripcion_cuerpo, link, link2,fecha_dejado) VALUES(%s, %s, %s, %s, %s, %s, %s)",(nombre_tarea, grado, descripcion_encabezado, descripcion_cuerpo, link, link2,str(date.today())))
+    cursor.execute("INSERT INTO tarea(nombre_tarea, grado, descripcion_encabezado, descripcion_cuerpo, link, link2,fecha_dejado) VALUES(%s, %s, %s, %s, %s, %s, %s)",(nombre_tarea, grado, descripcion_encabezado, descripcion_cuerpo, link, link2,str(datetime.datetime.utcnow()- datetime.timedelta(hours=5))))
     conexion.commit()
     cursor.close()
     conexion.close()
@@ -714,3 +715,63 @@ def obtener_tarea_id(ids):
     cursor.close()
     conexion.close()
     return tarea
+#str(datetime.datetime.utcnow()- datetime.timedelta(hours=5)
+###Totales
+def ingresos_plataforma_estudiante(ids):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("UPDATE estudiante SET ingresos_pltaforma=1+(SELECT ingresos_pltaforma FROM estudiante WHERE estudiante_id=%s) WHERE estudiante_id=%s", (ids,ids))
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+
+def ingresos_plataforma_prof_grado(ids):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("UPDATE profesor_grado SET ingresos_pltaforma=1+(SELECT ingresos_pltaforma FROM profesor_grado WHERE profesor_id=%s) WHERE profesor_id=%s", (ids,ids))
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+
+def ingresos_plataforma_esp(ids):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("UPDATE profesor_especialista SET ingresos_pltaforma=1+(SELECT ingresos_pltaforma FROM profesor_especialista WHERE profesor_id=%s) WHERE profesor_id=%s", (ids,ids))
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+######################################Descriptivos##################################################
+###Estudiante
+def ingresos2_plataforma_estudiante(ids):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("INSERT INTO ingreso_plataforma_estudiante(estudiante_id, num_ing, fecha_ingreso) VALUES(%s, 1, %s)", (ids,str(datetime.datetime.utcnow()- datetime.timedelta(hours=5))))
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+###Profesor de grado
+def ingresos2_plataforma_profesor_grado(ids):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("INSERT INTO ingreso_plataforma_prof_g(profesor_id, num_ing, fecha_ingreso) VALUES(%s, 1, %s)", (ids,str(datetime.datetime.utcnow()- datetime.timedelta(hours=5))))
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+##Profesor Especialista
+def ingresos2_plataforma_profesor_especialista(ids):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("INSERT INTO ingreso_plataforma_prof_especialista(profesor_id, num_ing, fecha_ingreso) VALUES(%s, 1, %s)", (ids,str(datetime.datetime.utcnow()- datetime.timedelta(hours=5))))
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+
+###################Consultas ##################################
+def consulta_ingresos_est(ids):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT * FROM ingreso_plataforma_estudiante WHERE estudiante_id=%s",(ids,))
+    datos = cursor.fetchall()
+    cursor.close()
+    conexion.close()
+    return datos

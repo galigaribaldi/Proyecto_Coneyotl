@@ -157,3 +157,29 @@ CREATE TABLE inscripcion_especialista(
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 ;
+CREATE TABLE ingreso_plataforma_estudiante(
+	ingreso_plataforma_estudiante_id SERIAL PRIMARY KEY, 
+	estudiante_id INTEGER NOT NULL,
+	num_ing INTEGER NOT NULL,
+	fecha_ingreso character varying(90),
+	CONSTRAINT estudiante_id_fkey FOREIGN KEY(estudiante_id)
+	REFERENCES estudiante(estudiante_id)
+);
+
+CREATE TABLE ingreso_plataforma_prof_g(
+	ingreso_plataforma_prof_g_id SERIAL PRIMARY KEY, 
+	profesor_id INTEGER NOT NULL,
+	num_ing INTEGER NOT NULL,
+	fecha_ingreso character varying(90),
+	CONSTRAINT profesor_id_fkey FOREIGN KEY(profesor_id)
+	REFERENCES profesor_grado(profesor_id)
+);
+
+CREATE TABLE ingreso_plataforma_prof_especialista(
+	ingreso_plataforma_prof_e_id SERIAL PRIMARY KEY, 
+	profesor_id INTEGER NOT NULL,
+	num_ing INTEGER NOT NULL,
+	fecha_ingreso character varying(90),
+	CONSTRAINT profesor_id_fkey FOREIGN KEY(profesor_id)
+	REFERENCES profesor_especialista(profesor_id)
+);

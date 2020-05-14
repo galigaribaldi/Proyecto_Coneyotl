@@ -41,6 +41,8 @@ def index():
                     datos = coneccion.consulta_estudiantes_id5(correo_electronico, curp)
                     grado = datos[0][1]
                     e_ID=datos[0][0]
+                    coneccion.ingresos_plataforma_estudiante(e_ID)
+                    coneccion.ingresos2_plataforma_estudiante(e_ID)
                     session['username'] = 'estudiante'
                     p_id = coneccion.consulta_prof_grado2(grado)
                     m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
@@ -51,6 +53,8 @@ def index():
                 if type(ids2[0][0]) == int:
                     session['username'] = 'profesor_grado'
                     print("Id del profesor de grado: ",ids2[0][0])
+                    coneccion.ingresos2_plataforma_profesor_grado(ids2[0][0])
+                    coneccion.ingresos_plataforma_prof_grado(ids2[0][0])
                     grado = coneccion.grado_id(ids2[0][0])
                     print("Grado: ", grado[0][0])
                     estudiantes = coneccion.consulta_estudiantes(grado[0][0])
@@ -62,6 +66,8 @@ def index():
                     session['username'] = 'profesor_especialista'
                     print(ids3)
                     print(ids3[0][0])
+                    coneccion.ingresos_plataforma_esp(ids3[0][0])
+                    coneccion.ingresos2_plataforma_profesor_especialista(ids3[0][0])
                     grado = coneccion.consulta_grado_esp(ids3[0][0])
                     if grado[0][0] =='PRIMARIA':
                         print(grado[0][0])
@@ -172,7 +178,8 @@ def actualizar_calificacion_esp(e_ID,grado, id_profesor):
 def verAlumnoDatos(e_ID,grupo):
     if "username" in session and session["username"] =='ADMINISTRADOR':
         estudiantes = coneccion.consulta_estudiantes_id(e_ID,grupo)
-        return render_template('verDatos.html', estu=estudiantes )    
+        datos = coneccion.consulta_ingresos_est(e_ID)
+        return render_template('verDatos.html', estu=estudiantes, d=datos)
     else:
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
