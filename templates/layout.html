@@ -18,15 +18,23 @@
     <div class="navbar-fixed">
         <nav class="#ffc400 amber accent-3">
             <div class="nav-wrapper">
-                <a href="#" class="brand-logo">Coneyotl - Piltzintli</a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="/salir">Cerrar Sesion</a></li>
-                    <li><a href="/">Iniciar Sesion</a></li>
-                </ul>
+                <div class="container">
+                    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                    <a href="#" class="brand-logo"><img src="{{ url_for('static', filename='img/Logo2.PNG') }}" alt="TEXTO" width="58px" height="58px"></a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        {% block list %}
+                        <li><a href="/salir">Cerrar Sesion</a></li>
+                        {% endblock %}
+                    </ul>
+                </div>
             </div>
         </nav>
-
     </div>
+    {% block navbar %}
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="/salir">Cerrar Sesion</a></li>
+    </ul>
+    {% endblock %}
     <!--==========================================Fin del Navbar =============================================-->
     {% with messages = get_flashed_messages() %} {% if messages %} {% for messages in messages %} {{ messages }} {% endfor %} {% endif %} {% endwith %} {% block content %} {% endblock %}
     <!--==========================================Inicio del Footer =============================================-->
@@ -63,6 +71,12 @@
     <!--Fin de Bootstrap-->
 
     <!--Fin de Materializw-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems);
+        });
+    </script>
 </body>
 
 </html>

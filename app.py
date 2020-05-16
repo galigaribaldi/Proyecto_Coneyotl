@@ -69,15 +69,16 @@ def index():
                     coneccion.ingresos_plataforma_esp(ids3[0][0])
                     coneccion.ingresos2_plataforma_profesor_especialista(ids3[0][0])
                     grado = coneccion.consulta_grado_esp(ids3[0][0])
+                    datos = coneccion.consulta_prof_esp(ids3[0][0])
                     if grado[0][0] =='PRIMARIA':
                         print(grado[0][0])
-                        return render_template('profesor_especialista.html', prof_esp=ids3[0][0], bandera=1)
+                        return render_template('profesor_especialista.html', prof_esp=ids3[0][0], bandera=1, datos=datos)
                     if grado[0][0] =='KINDER-PRIMARIA':
                         print(grado[0][0])
-                        return render_template('profesor_especialista.html', prof_esp=ids3[0][0], bandera=1, bandera2=1)
+                        return render_template('profesor_especialista.html', prof_esp=ids3[0][0], bandera=1, bandera2=1, datos=datos)
                     if grado[0][0] == 'KINDER':
                         print(grado[0][0])
-                        return render_template('profesor_especialista.html', prof_esp=ids3[0][0], bandera2=1)
+                        return render_template('profesor_especialista.html', prof_esp=ids3[0][0], bandera2=1, datos=datos)
             ##Administracion        
             if correo_electronico =='19174536' and curp =='19174536':
                 session['username'] = 'ADMINISTRADOR'
@@ -91,6 +92,19 @@ def index():
     else:
         return render_template('index.html')
 
+@app.route("/inicio/<idp>")
+def inicio_esp(idp):
+    grado = coneccion.consulta_grado_esp(idp)
+    datos = coneccion.consulta_prof_esp(idp)
+    if grado[0][0] =='PRIMARIA':
+        print(grado[0][0])
+        return render_template('profesor_especialista.html', prof_esp=idp, bandera=1, datos=datos)
+    if grado[0][0] =='KINDER-PRIMARIA':
+        print(grado[0][0])
+        return render_template('profesor_especialista.html', prof_esp=idsp, bandera=1, bandera2=1, datos=datos)
+    if grado[0][0] == 'KINDER':
+        print(grado[0][0])
+        return render_template('profesor_especialista.html', prof_esp=idp, bandera2=1, datos=datos)
 
 @app.route("/salir")
 def logout():
@@ -169,7 +183,7 @@ def actualizar_calificacion_esp(e_ID,grado, id_profesor):
             materia_especial.append(m_inscrita[r])
         print(materia_especial)
         print(r)
-        return render_template('verCalifAlu.html', estudiante=est, materia=materia_especial, bandera1=1, prof_esp=id_profesor, b=1)
+        return render_template('verCalifAlu.html', estudiante=est, materia=materia_especial, bandera1=1, prof_esp=id_profesor, b=1, c=1)
     else:
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
@@ -218,7 +232,7 @@ def actualizar_calificacion(e_ID,grado):
         p_id = coneccion.consulta_prof_grado2(grado)
         m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
         est = coneccion.consulta_estudiantes_id(e_ID,grado)
-        return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera1=1 )
+        return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera1=1,d=1)
 
     if "username" in session and session["username"] =='profesor_especialista':
         p_id = coneccion.consulta_prof_grado2(grado)

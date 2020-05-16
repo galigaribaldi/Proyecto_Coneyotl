@@ -1,17 +1,19 @@
 {% extends "layout.html" %} {% block content %}
 <h1 class="center">Ver Tareas {{ tareas.0.2 }}</h1>
-<div class="row">
-    <a href="/verAlumno/{{ tareas.0.2 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">assignment_ind</i>Inicio</a>
-</div>
+{% block navbar %}
+<ul class="sidenav" id="mobile-demo">
+    {% block list %}
+    <li><a href="/verAlumno/{{ tareas.0.2 }}"><i class="material-icons left">assignment_ind</i>Inicio</a></li>
+    {% endblock %}
+</ul> {% endblock %}
 <table class="responsive-table highlight striped">
     <thead>
         <tr>
-            <th>Clave de la Tarea </th>
-            <th>Nombre de la Materia</th>
-            <th>Grado de la Materia</th>
-            <th>Encabezado de la Tarea</th>
-            <th>Descripción de la tarea</th>
-            <th>Link </th>
+            <th>Nombre</th>
+            <th>Grado</th>
+            <th>Encabezado</th>
+            <th>Descripción</th>
+            <th>Link</th>
             <th>Fecha de Subida</th>
             <th>Opciones</th>
         </tr>
@@ -19,7 +21,6 @@
     <tbody>
         <tr>
             {% for i in tareas %}
-            <td>{{ i.0 }}</td>
             <td>{{ i.1 }}</td>
             <td>{{ i.2 }}</td>
             <td>{{ i.3 }}</td>
@@ -34,4 +35,5 @@
         {% endfor %}
     </tbody>
 </table>
-<br> {% endblock %}
+<br>
+</div>{% endblock %}

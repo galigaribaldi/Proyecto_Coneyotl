@@ -1,22 +1,33 @@
 {% extends "layout.html" %} {% block content %} {% if materia %}
-<h2 class="center">Calificaciones del alumn@ <br>{{ estudiante.0.2 }} {{ estudiante.0.3 }} {{ estudiante.0.4 }}</h2>
+<h2 class="center">Calificaciones de<br>{{ estudiante.0.2 }} <br> {{ estudiante.0.3 }} {{ estudiante.0.4 }}</h2>
 <div class="container">
-    <a href="/avisos/{{ estudiante.0.5 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">book</i>Avisos de Actividades</a>
-    <a href="/verAlumno/{{ estudiante.0.5 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">assignment_ind</i>Inicio</a>
-</div>
-<div class="container">
-    <br> {% if bandera1 %}
+    {% block navbar %}
+    <ul class="sidenav" id="mobile-demo">
+        {% block list %} {% if bandera1 %}
+        <li><a href="/avisos/{{ estudiante.0.5 }}"><i class="material-icons left">book</i>Avisos de Actividades</a></li>
+        {% if d %}
+        <li><a href="/verAlumno/{{ estudiante.0.5 }}"><i class="material-icons left">assignment_ind</i>Inicio</a></li>
+        {% endif %} {% endif %} {% if bandera3 %}
+        <li><a href="/avisos/{{ estudiante.0.5 }}"><i class="material-icons left">book</i>Avisos de Actividades</a></li>
+        {% endif %} {% if c %}
+        <label> Extracurriculares</label>
+        <li> <a href="/inicio/{{ clave_prof_g }}"><i class="material-icons left">assignment_ind</i>Inicio</a></li>
+        {% endif %}
+        <li><a href="/salir">Salir</a> {% endblock %}</li>
+    </ul> {% endblock %}
+    <!--Profesor de Grado-->
+    {% if bandera1 %} <br>
     <!--Datos de la inscripcion de la materia-->
     <h2 class="center">Bimestre 1</h2>
     <table class="responsive-table highlight striped">
         <thead>
             <tr>
                 <th>Nombre de la Materia </th>
-                <th>Calificacion Bimestral 1 (Agosto - Septiembre - Octubre) </th>
+                <th>Promedio Bimestral 1</th>
                 <th>Examen <br> 50%</th>
                 <th>Tareas 15%</th>
                 <th>Exposición 15%</th>
-                <th>Asistencia/Participación en Clase 10%</th>
+                <th>Asistencia<br>Participación en Clase 10%</th>
                 <th>Cuaderno y Libros 10%</th>
                 <th>Promedio</th>
             </tr>
@@ -41,11 +52,11 @@
         <thead>
             <tr>
                 <th>Nombre de la Materia </th>
-                <th>Calificacion Bimestral 2 (Noviembre - Diciembre) </th>
+                <th>Promedio Bimestral 2</th>
                 <th>Examen 50%</th>
                 <th>Tareas 15%</th>
                 <th>Exposición 15%</th>
-                <th>Asistencia/Participación en Clase 10%</th>
+                <th>Asistencia<br>Participación en Clase 10%</th>
                 <th>Cuaderno y Libros 10%</th>
                 <th>Promedio</th>
             </tr>
@@ -65,17 +76,16 @@
             {% endfor %}
         </tbody>
     </table>
-
     <h2 class="center">Bimestre 3</h2>
     <table class="responsive-table highlight striped">
         <thead>
             <tr>
                 <th>Nombre de la Materia </th>
-                <th>Calificacion Bimestral 3 (Enero - Febrero) </th>
+                <th>Promedio Bimestral 3</th>
                 <th>Examen 50%</th>
                 <th>Tareas 15%</th>
                 <th>Exposición 15%</th>
-                <th>Asistencia/Participación en Clase 10%</th>
+                <th>Asistencia<br>Participación en Clase 10%</th>
                 <th>Cuaderno y Libros 10%</th>
                 <th>Promedio</th>
             </tr>
@@ -95,17 +105,16 @@
             {% endfor %}
         </tbody>
     </table>
-
     <h2 class="center">Bimestre 4</h2>
     <table class="responsive-table highlight striped">
         <thead>
             <tr>
                 <th>Nombre de la Materia </th>
-                <th>Calificacion Bimestral 4 (Marzo - Abril) </th>
+                <th>Promedio Bimestral 4</th>
                 <th>Examen 50%</th>
                 <th>Tareas 15%</th>
                 <th>Exposición 15%</th>
-                <th>Asistencia/Participación en Clase 10%</th>
+                <th>Asistencia<br>Participación en Clase 10%</th>
                 <th>Cuaderno y Libros 10%</th>
                 <th>Promedio</th>
             </tr>
@@ -132,19 +141,24 @@
     <h1>¡No hay Calificaciones!</h1>
     Contáctese con el maestro de grupo o con Adminsitración para poder dar de alta a este alumno
     <a href="/verAlumno/{{ estudiante.0.5 }}/{{ prof_esp }}">Regresar Especialista</a> {% else %}
-    <a href="/verAlumno/{{ estudiante.0.5 }}">Regresar</a> {% endif %} {% endif %} {% if not materia %} {% if bandera3 %}
+    <a href="/verAlumno/{{ estudiante.0.5 }}">Regresar</a> {% endif %} {% endif %}
+    <!--Estudiante-->
+    {% if not materia %} {% if bandera3 %}
+    <!--Estudiante sin calificaciones-->
     <h1>¡No hay Calificaciones!</h1>
-    Contáctese con el maestro de grupo o con Adminsitración para poder dar de alta a este alumno {% endif %} {% endif %} {% if materia %} {% if bandera3 %}
+    Contáctese con el maestro de grupo o con Adminsitración para poder dar de alta a este alumno {% endif %} {% endif %}
+    <!--Estudiante Con Calificaciones-->
+    {% if materia %} {% if bandera3 %}
     <h2 class="center">Bimestre 1</h2>
     <table class="responsive-table highlight striped">
         <thead>
             <tr>
                 <th>Nombre de la Materia </th>
-                <th>Calificacion Bimestral 1 (Agosto - Septiembre - Octubre) </th>
+                <th>Promedio Bimestre 1</th>
                 <th>Examen <br> 50%</th>
                 <th>Tareas 15%</th>
                 <th>Exposición 15%</th>
-                <th>Asistencia/Participación en Clase 10%</th>
+                <th>Asistencia<br>Participación en Clase 10%</th>
                 <th>Cuaderno y Libros 10%</th>
                 <th>Promedio</th>
             </tr>
@@ -169,11 +183,11 @@
         <thead>
             <tr>
                 <th>Nombre de la Materia </th>
-                <th>Calificacion Bimestral 2 (Noviembre - Diciembre) </th>
+                <th>Promedio Bimestre 2</th>
                 <th>Examen 50%</th>
                 <th>Tareas 15%</th>
                 <th>Exposición 15%</th>
-                <th>Asistencia/Participación en Clase 10%</th>
+                <th>Asistencia <br> Participación en Clase 10%</th>
                 <th>Cuaderno y Libros 10%</th>
                 <th>Promedio</th>
             </tr>
@@ -193,17 +207,16 @@
             {% endfor %}
         </tbody>
     </table>
-
     <h2 class="center">Bimestre 3</h2>
     <table class="responsive-table highlight striped">
         <thead>
             <tr>
                 <th>Nombre de la Materia </th>
-                <th>Calificacion Bimestral 3 (Enero - Febrero) </th>
+                <th>Promedio Bimestre 3</th>
                 <th>Examen 50%</th>
                 <th>Tareas 15%</th>
                 <th>Exposición 15%</th>
-                <th>Asistencia/Participación en Clase 10%</th>
+                <th>Asistencia <br> Participación en Clase 10%</th>
                 <th>Cuaderno y Libros 10%</th>
                 <th>Promedio</th>
             </tr>
@@ -223,17 +236,16 @@
             {% endfor %}
         </tbody>
     </table>
-
     <h2 class="center">Bimestre 4</h2>
     <table class="responsive-table highlight striped">
         <thead>
             <tr>
                 <th>Nombre de la Materia </th>
-                <th>Calificacion Bimestral 4 (Marzo - Abril) </th>
+                <th>Promedio Bimestre 4 </th>
                 <th>Examen 50%</th>
                 <th>Tareas 15%</th>
                 <th>Exposición 15%</th>
-                <th>Asistencia/Participación en Clase 10%</th>
+                <th>Asistencia <br> Participación en Clase 10%</th>
                 <th>Cuaderno y Libros 10%</th>
                 <th>Promedio</th>
             </tr>
@@ -253,6 +265,6 @@
             {% endfor %}
         </tbody>
     </table>
-    <a href="/salir">Salir</a> {% endif %} {% endif %}
+    {% endif %} {% endif %}
 </div>
 {% endblock %}

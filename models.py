@@ -43,6 +43,18 @@ def consulta_all_prof_grado():
     conexion.close()
     return datos_profesor_grado
 
+##Consulta profesor especialista por id
+def consulta_prof_esp(ids):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT * FROM profesor_especialista WHERE profesor_id=%s",(ids,))
+    datos_profesor_especialista = cursor.fetchall()
+    #print(datos_estudiantes)
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return datos_profesor_especialista
+
 ##Consulta profesor especialista
 def consulta_all_prof_esp():
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)

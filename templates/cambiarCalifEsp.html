@@ -1,6 +1,17 @@
 {% extends "layout.html" %} {% block content %}
 <div class="container">
-    <h2 class="center">Calificaciones del alumnos {{ estudiante.0.2 }} {{estudiante.0.3}} {{estudiante.0.4}}</h2>
+    {% block navbar %}
+    <ul class="sidenav" id="mobile-demo">
+        {% block list %}
+        <li><a href="/editar/cambiar/calificaciones/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}/{{ clave_prof_g }}"><i class="material-icons left">class</i> Bimestre 1 </a></li>
+        <li><a href="/editar/cambiar/calificaciones/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}/{{ clave_prof_g }}/2"><i class="material-icons left">class</i> Bimestre 2 </a></li>
+        <li><a href="/editar/cambiar/calificaciones/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}/{{ clave_prof_g }}/3"><i class="material-icons left">class</i> Bimestre 3 </a></li>
+        <li><a href="/editar/cambiar/calificaciones/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}/{{ clave_prof_g }}/4"><i class="material-icons left">class</i> Bimestre 4 </a></li>
+        <label>ExtraCurriculares</label>
+        <li> <a href="/inicio/{{ clave_prof_g }}"><i class="material-icons left">assignment_ind</i>Inicio</a></li>
+        {% endblock %}
+    </ul> {% endblock %}
+    <h2 class="center">Calificaciones de {{ estudiante.0.2 }} <br> {{estudiante.0.3}} {{estudiante.0.4}}</h2>
     <!--Datos de la inscripcion de la materia-->
     {% if materia %} {% if bandera %} {% if num == '1' %}
     <h3> Bimestre 1 </h3>
@@ -139,25 +150,6 @@
         </form>
         <br>
     </div>
-    {% endfor %} {% endif %}
-    <div class="row">
-        <br>
-        <div class="col s6">
-            <a href="/editar/cambiar/calificaciones/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}/{{ clave_prof_g }}" class="waves-effect waves-light btn"><i class="material-icons left">class</i> Bimestre 1 (Agosto - Septiembre)</a>
-        </div>
-        <br>
-        <div class="col s6">
-            <a href="/editar/cambiar/calificaciones/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}/{{ clave_prof_g }}/2" class="waves-effect waves-light btn"><i class="material-icons left">class</i> Bimestre 2 (Noviembre - Diciembre)</a>
-        </div>
-        <br>
-        <div class="col s6">
-            <a href="/editar/cambiar/calificaciones/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}/{{ clave_prof_g }}/3" class="waves-effect waves-light btn"><i class="material-icons left">class</i> Bimestre 3 (Enero - Febrero)</a>
-        </div>
-        <br>
-        <div class="col s6">
-            <a href="/editar/cambiar/calificaciones/{{ estudiante.0.0 }}/{{ estudiante.0.5 }}/{{ clave_prof_g }}/4" class="waves-effect waves-light btn"><i class="material-icons left">class</i> Bimestre 4 (Marzo - Abril)</a>
-        </div>
-    </div>
-    {% endif %} {% endif %}
+    {% endfor %} {% endif %} {% endif %} {% endif %}
 </div>
 {% endblock %}

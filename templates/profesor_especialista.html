@@ -1,55 +1,66 @@
 {% extends "layout.html" %} {% block content %} {% if bandera2 %}
 <div class="container">
-    <h1 class="center">Kinder</h1>
-    <div class="center">
-        <a href="/verAlumno/K1/{{ prof_esp }}" class="waves-effect waves-light btn-large btn-large"><i class="material-icons left">group</i>K1</a>
-        <a href="/verAlumno/K2/{{ prof_esp }}" class="waves-effect waves-light btn-large btn-large"><i class="material-icons left">group</i>K2</a>
-        <a href="/verAlumno/K3/{{ prof_esp }}" class="waves-effect waves-light btn-large btn-large"><i class="material-icons left">group</i>K3</a>
+    <h2 class="center">{{ datos.0.10 }} {{ datos.0.11 }} </h2>
+    <div class="row">
+        <div class="col s12 m5">
+            <div class="card-panel teal">
+                <span class="white-text">
+                    Profesor Especialista de {{ datos.0.10 }} de la materia de: {{ datos.0.11 }} <br>
+                    <br> Clave: {{ datos.0.0 }} <br>
+                    <br> CURP: {{ datos.0.1 }} <br>
+                    <br> Nombre: {{ datos.0.2 }} {{ datos.0.3 }} {{ datos.0.4 }} <br>
+                    <br> Edad: {{ datos.0.5 }} <br>
+                    <br> Número Telónico: {{ datos.0.6 }} <br>
+                    <br> Correo Electrónico: {{ datos.0.7 }} <br>
+                    <br> Número de Ingresos a Plataforma: {{ datos.0.12 }}
+            </span>
+            </div>
+        </div>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
 </div>
 {% endif %} {% if bandera %}
 <div class="container">
-    <h1 class="center">Primaria</h1>
+    <h2 class="center">{{ datos.0.10 }} {{ datos.0.11 }} </h2>
     <div class="row">
-        <div class="col s6">
-            <a href="/verAlumno/1ro/{{ prof_esp }}" class="waves-effect waves-light btn-large"><i class="material-icons left">group</i>1ro</a>
-            <a href="/verAlumno/2do/{{ prof_esp }}" class="waves-effect waves-light btn-large"><i class="material-icons left">group</i>2do</a>
-
-        </div>
-        <div class="col s6">
-            <a href="/verAlumno/3ro/{{ prof_esp }}" class="waves-effect waves-light btn-large"><i class="material-icons left">group</i>3ro</a>
-            <a href="/verAlumno/4to/{{ prof_esp }}" class="waves-effect waves-light btn-large"><i class="material-icons left">group</i>4to</a>
-            <br><br>
-        </div>
-        <div class="col s6">
-            <a href="/verAlumno/5to/{{ prof_esp }}" class="waves-effect waves-light btn-large"><i class="material-icons left">group</i>5to</a>
-        </div>
-        <div class="col s6">
-            <a href="/verAlumno/6to/{{ prof_esp }}" class="waves-effect waves-light btn-large"><i class="material-icons left">group</i>6to</a>
+        <div class="col s12 m5">
+            <div class="card-panel teal">
+                <span class="white-text">
+                    Profesor Especialista de {{ datos.0.10 }} de la materia de: {{ datos.0.11 }} <br>
+                    <br> Clave Interna: {{ datos.0.0 }} <br>
+                    <br> CURP: {{ datos.0.1 }} <br>
+                    <br> Nombre: {{ datos.0.2 }} {{ datos.0.3 }} {{ datos.0.4 }} <br>
+                    <br> Edad: {{ datos.0.5 }} <br>
+                    <br> Número Telónico: {{ datos.0.6 }} <br>
+                    <br> Correo Electrónico: {{ datos.0.7 }} <br>
+                    <br> Número de Ingresos a Plataforma: {{ datos.0.12 }}
+            </span>
+            </div>
         </div>
     </div>
 </div>
 {% endif %}
-<div class="container">
-    <br>
-    <br>
-    <a href="/salir" class="waves-effect waves-light btn">Salir</a> <br>
-    <br>
-</div>
+<!---->
+{% block navbar %}
+<ul class="sidenav" id="mobile-demo">
+    {% block list %}
+    <!--Kinder-->
+    {% if bandera2 %}
+    <label>Kinder</label>
+    <li><a href="/verAlumno/K1/{{ prof_esp }}"><i class="material-icons left">group</i>K1</a></li>
+    <li><a href="/verAlumno/K2/{{ prof_esp }}"><i class="material-icons left">group</i>K2</a></li>
+    <li> <a href="/verAlumno/K3/{{ prof_esp }}"><i class="material-icons left">group</i>K3</a></li>
+    {% endif %}
+    <!--Primaria-->
+    {% if bandera %}
+    <li><a href="/verAlumno/1ro/{{ prof_esp }}"><i class="material-icons left">group</i>1ro</a></li>
+    <li><a href="/verAlumno/2do/{{ prof_esp }}"><i class="material-icons left">group</i>2do</a></li>
+    <li><a href="/verAlumno/3ro/{{ prof_esp }}"><i class="material-icons left">group</i>3ro</a></li>
+    <li><a href="/verAlumno/4to/{{ prof_esp }}"><i class="material-icons left">group</i>4to</a></li>
+    <li><a href="/verAlumno/5to/{{ prof_esp }}"><i class="material-icons left">group</i>5to</a></li>
+    <li><a href="/verAlumno/6to/{{ prof_esp }}"><i class="material-icons left">group</i>6to</a> </li>
+    {% endif %}
+    <li><a href="/salir" class="waves-effect waves-light btn">Salir</a> <br></li>
+    {% endblock %}
+</ul> {% endblock %}
+<!---->
 {% endblock %}

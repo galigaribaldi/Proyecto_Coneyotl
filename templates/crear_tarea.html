@@ -1,7 +1,14 @@
 {% extends "layout.html" %} {% block content %} {% if bandera %}
 <div class="container">
-    <br> {{ grupo }}
-    <br><br>
+    <br>
+    <br><br> {% block navbar %}
+    <ul class="sidenav" id="mobile-demo">
+        {% block list %}
+        <li><a href="/avisos/{{ grupo }}"><i class="material-icons left">book</i>Avisos {{ grupo }}</a></li>
+        <li><a href="/visualizarTareas/{{ grupo }}/{{ idp }}"><i class="material-icons left">border_color</i>Ver Tareas</a></li>
+        <li><a href="/verAlumno/{{ grupo }}"><i class="material-icons left">assignment_ind</i>Inicio</a></li>
+        {% endblock %}
+    </ul> {% endblock %}
     <div class="container grey lighten-5 z-depth-1">
         <form action="/verTareas/{{ idp }}/{{ grupo }}" , method="POST">
             <h3 class="center"> Tareas {{ grupo }}</h3>
@@ -73,19 +80,6 @@
     <br>
     <br>
     <br>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="left">
-            <a href="/avisos/{{ grupo }}" class="waves-effect waves-light btn-large"><i class="material-icons left">book</i>Avisos {{ grupo }}</a>
-        </div>
-        <div class="center">
-            <a href="/visualizarTareas/{{ grupo }}/{{ idp }}" class="waves-effect waves-light btn-large"><i class="material-icons left">border_color</i>Ver Tareas</a>
-        </div>
-        <div class="right">
-            <a href="/verAlumno/{{ grupo }}" class="waves-effect waves-light btn-large"><i class="material-icons left">assignment_ind</i>Inicio</a>
-        </div>
-    </div>
 </div>
 {% endif %} {% if bandera2 %}
 <div class="container">
