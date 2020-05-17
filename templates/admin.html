@@ -1,77 +1,92 @@
 {% extends "layout.html" %} {% block navbar %}
 <ul class="sidenav" id="mobile-demo">
     <li><a href="/salir">Cerrar Sesion</a></li>
-    <li><a href="/salir">Cerrar Sesion</a></li>
-    <li><a href="/salir">Cerrar Sesion</a></li>
+    <li> <a class='dropdown-trigger' href='#' data-target='dropdown1'>Registro Nuevo <i class="material-icons">add_circle</i></a></li>
+    <li> <a class='dropdown-trigger' href='#' data-target='dropdown2'>Control de Alumnos <i class="material-icons">account_circle</i></a></li>
+    <li> <a class='dropdown-trigger' href='#' data-target='dropdown3'>Control de Profesores <i class="material-icons">contacts</i></a></li>
+    <li><a class='dropdown-trigger' href='#' data-target='dropdown4'>Opciones Avanzadas <i class="material-icons">enhanced_encryption</i></a></li>
 </ul> {% endblock %} {% block content %}
-
-<h1 class="center">Administración</h1>
-</div>
 <div class="container">
-    <h1 class="center"> Registrar </h1>
+    <h1 class="center">Administración</h1>
     <div class="row">
         <div class="col s12">
-            <a class="waves-effect waves-light btn-large" href="/alumno/registraralumno"><i class="material-icons left">local_library</i>Registrar Nuevo Alumnos</a>
-        </div>
-        <div class="col s6">
-            <br>
-            <a class="waves-effect waves-light btn-large" href="/profesor/registroprofesor"><i class="material-icons left">assignment_ind</i>Registrar Nuevo Profesor</a>
-        </div>
-        <div class="col s6">
-            <a class="waves-effect waves-light btn-large" href="/materia"><i class="material-icons left">class</i>Registrar Nueva Materia</a>
+            <div class="card-panel teal lighten-2">
+                <span class="white-text">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="card-panel blue">
+                                <br>En esta ventana se Pueden realizar cambios correspondientes a los Alumnos, profesores, materias y cuestiones adminsitrativas de la escuela<br>
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <div class="card-panel green">
+                                <h3 class="center">Registrar </h3> <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Registro Nuevo <i class="material-icons">add_circle</i> </a><br> <br>
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <div class="card-panel yellow">
+                                <h3 class="center">Ver Alumnos</h3><a class='dropdown-trigger btn' href='#' data-target='dropdown2'>Control de Alumnos <i class="material-icons">account_circle</i> </a> <br> <br>
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <div class="card-panel amber">
+                                <h3 class="center">Ver Profesores</h3><a class='dropdown-trigger btn' href='#' data-target='dropdown3'>Control de Profesores <i class="material-icons">contacts</i> </a><br> <br>
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <div class="card-panel cyan">
+                                <h3 class="center">Opciones</h3><a class='dropdown-trigger btn' href='#' data-target='dropdown4'>Opciones Avanzadas <i class="material-icons">enhanced_encryption</i></a><br> <br>
+                            </div>
+                        </div>
+                    </div>
+            </span>
+            </div>
         </div>
     </div>
 </div>
 
+<ul id='dropdown1' class='dropdown-content'>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/alumno/registraralumno"><i class="material-icons left">local_library</i>Alumno</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/profesor/registroprofesor"><i class="material-icons left">assignment_ind</i>Profesor</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/materia"><i class="material-icons left">class</i>Materia</a></li>
+</ul>
 
+<ul id='dropdown2' class='dropdown-content'>
+    <li class="divider" tabindex="-1"></li>
+    <li> <a href="/verAlumno/{{ g.0 }}"><i class="material-icons left">local_library</i>Kinder 1</a></li>
+    <li> <a href="/verAlumno/{{ g.1 }}"><i class="material-icons left">local_library</i>Kinder 2</a></li>
+    <li><a href="/verAlumno/{{ g.2 }}"><i class="material-icons left">local_library</i>Kinder 3</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/verAlumno/{{ g.3 }}"><i class="material-icons left">local_library</i>1° de Primaria</a></li>
+    <li><a href="/verAlumno/{{ g.4 }}"><i class="material-icons left">local_library</i>2° de Primaria</a></li>
+    <li><a href="/verAlumno/{{ g.5 }}"><i class="material-icons left">local_library</i>3° de Primaria</a></li>
+    <li><a href="/verAlumno/{{ g.6 }}"><i class="material-icons left">local_library</i>4° de Primaria</a></li>
+    <li><a href="/verAlumno/{{ g.7 }}"><i class="material-icons left">local_library</i>5° de Primaria</a></li>
+    <li><a href="/verAlumno/{{ g.8 }}"><i class="material-icons left">local_library</i>6° de Primaria</a></li>
+</ul>
 
-<!--Se recibe el numero del grado y accede a la base-->
-<div class="container">
-    <h2 class="center">Ver Alumnos Registrados</h2>
-    <div class="row">
-        <div class="col s12">
-            <a href="/verAlumno/{{ g.0 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>Kinder 1</a>
-            <a href="/verAlumno/{{ g.1 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>Kinder 2</a>
-            <a href="/verAlumno/{{ g.2 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>Kinder 3</a>
-            <a href="/verAlumno/{{ g.3 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>1° de Primaria</a>
+<ul id='dropdown3' class='dropdown-content'>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/verProfesor/1"><i class="material-icons left">group</i>Grupo</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/verProfesor/2"><i class="material-icons left">group_add</i>Extracurricular</a></li>
+</ul>
 
-        </div>
-        <div class="col s12">
-            <br>
-            <a href="/verAlumno/{{ g.5 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>3° de Primaria</a>
-            <a href="/verAlumno/{{ g.4 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>2° de Primaria</a>
-            <a href="/verAlumno/{{ g.6 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>4° de Primaria</a>
-            <a href="/verAlumno/{{ g.7 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>5° de Primaria</a>
-        </div>
-        <div class="col s12">
-            <br>
-            <a href="/verAlumno/{{ g.8 }}" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>6° de Primaria</a>
-        </div>
-    </div>
+<ul id='dropdown4' class='dropdown-content'>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/correos"><i class="material-icons left">mail</i>Enviar Correos</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="#"><i class="material-icons left">attach_money</i>Pagos</a></li>
+</ul>
+
 </div>
-
-
-
-<div class="container">
-    <h2 class="center">Ver profesores Registrados</h2>
-    <div class="row">
-        <div class="col s12">
-            <a href="/verProfesor" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>Ver Profesor</a>
-        </div>
-    </div>
-</div>
-<div class="container">
-    <h2 class="center"> Correos</h2>
-    <a href="/correos" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>Enviar Correos</a>
-</div>
-
-<div class="container">
-    <h2 class="center"> Nueva Tarea</h2>
-    <a href="/tarea" class="waves-effect waves-light btn-large"><i class="material-icons left">local_library</i>Nueva tarea</a>
-</div>
-
-
-<div>
-    <h2>Ver Pagos</h2>
-</div>
-<a href="/salir">Salir</a> {% endblock %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        var instances = M.Dropdown.init(elems);
+    });
+</script>
+{% endblock %}

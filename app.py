@@ -509,12 +509,18 @@ def actualizar_datos_alumno(ids):
         return redirect(url_for("index"))
 
 ##Vista de profesores
-@app.route('/verProfesor')
-def profesor():
+@app.route('/verProfesor/<opcion>')
+def profesor(opcion):
     if "username" in session and session["username"] =='ADMINISTRADOR':
         grado = coneccion.consulta_all_prof_grado()
         especialista = coneccion.consulta_all_prof_esp()
-        return render_template('verProfesor.html', prof_g = grado, prof_e = especialista)
+        opcion = int(opcion)
+        ##Profesores de Grado
+        if opcion==1:
+            return render_template('verProfesor.html', prof_g = grado, prof_e = especialista, opcion=opcion)
+        ##Profesores Extracurriculares
+        if opcion==2:
+            return render_template('verProfesor.html', prof_g = grado, prof_e = especialista, opcion=opcion)
     else:
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
