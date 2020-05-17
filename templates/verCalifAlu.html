@@ -1,5 +1,5 @@
 {% extends "layout.html" %} {% block content %} {% if materia %}
-<h2 class="center">Calificaciones de<br>{{ estudiante.0.2 }} <br> {{ estudiante.0.3 }} {{ estudiante.0.4 }}</h2>
+<h2 class="center">{{ estudiante.0.2 }} <br> {{ estudiante.0.3 }} {{ estudiante.0.4 }}</h2>
 <div class="container">
     {% block navbar %}
     <ul class="sidenav" id="mobile-demo">
@@ -9,7 +9,11 @@
         <li><a href="/verAlumno/{{ estudiante.0.5 }}"><i class="material-icons left">assignment_ind</i>Inicio</a></li>
         {% endif %} {% endif %} {% if bandera3 %}
         <li><a href="/avisos/{{ estudiante.0.5 }}"><i class="material-icons left">book</i>Avisos de Actividades</a></li>
-        {% endif %} {% if c %}
+        <li><a href="/inicio/{{ estudiante.0.10 }}/{{ estudiante.0.1 }}"><i class="material-icons left">folder_shared</i>Calificaciones</a></li>
+        {% endif %} {% if bandera4 %}
+        <li><a href="/avisos/{{ estudiante.0.5 }}"><i class="material-icons left">book</i>Avisos de Actividades</a></li>
+        <li><a href="/inicio/{{ estudiante.0.10 }}/{{ estudiante.0.1 }}"><i class="material-icons left">folder_shared</i>Calificaciones</a></li>
+        {% endif %}{% if c %}
         <label> Extracurriculares</label>
         <li> <a href="/inicio/{{ clave_prof_g }}"><i class="material-icons left">assignment_ind</i>Inicio</a></li>
         {% endif %}
@@ -149,6 +153,7 @@
     Contáctese con el maestro de grupo o con Adminsitración para poder dar de alta a este alumno {% endif %} {% endif %}
     <!--Estudiante Con Calificaciones-->
     {% if materia %} {% if bandera3 %}
+    <h3 class="center">Calificaciones</h3>
     <h2 class="center">Bimestre 1</h2>
     <table class="responsive-table highlight striped">
         <thead>
@@ -265,6 +270,28 @@
             {% endfor %}
         </tbody>
     </table>
-    {% endif %} {% endif %}
+    {% endif %} {% endif %} {% if materia %}{% if bandera4 %}
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <div class="card-panel teal">
+                    <span class="white-text">
+                    <h2 class="center">Información del Alumno</h2>
+                    <br>Clave Interna del Colegio: {{ estudiante.0.0 }} <br>
+                    <br>CURP: {{ estudiante.0.1 }}<br>
+                    <br> Nombre Completo: {{ estudiante.0.2 }} {{ estudiante.0.3 }} {{ estudiante.0.4 }} <br>
+                    <br> Grado: {{ estudiante.0.5 }} <br>
+                    <br> Edad: {{ estudiante.0.6 }} <br>
+                    <br> Nombre del tutor: {{ estudiante.0.7 }} <br>
+                    <br> Telefono de Casa: {{ estudiante.0.8 }} <br>
+                    <br> Telefono Celular: {{ estudiante.0.9 }} <br>
+                    <br> Correo: {{ estudiante.0.10 }} <br>
+                    <br> Número de Ingresos a Plataforma: {{ estudiante.0.14 }} <br>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}{% endif %}
 </div>
 {% endblock %}

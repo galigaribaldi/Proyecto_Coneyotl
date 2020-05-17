@@ -47,7 +47,7 @@ def index():
                     p_id = coneccion.consulta_prof_grado2(grado)
                     m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
                     est = coneccion.consulta_estudiantes_id(e_ID,grado)
-                    return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera3=1 )
+                    return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera4=1 )
             ##Profesor de Grado
             if ids2:
                 if type(ids2[0][0]) == int:
@@ -90,7 +90,19 @@ def index():
             flash("Hubo un error con los datos, intentalo nuevamente")
             return render_template('index.html')
     else:
+        #session.pop("username", None)
         return render_template('index.html')
+@app.route("/inicio/<correo_electronico>/<curp>")
+def inicio_est(correo_electronico, curp):
+    datos = coneccion.consulta_estudiantes_id5(correo_electronico, curp)
+    grado = datos[0][1]
+    e_ID=datos[0][0]
+    coneccion.ingresos_plataforma_estudiante(e_ID)
+    coneccion.ingresos2_plataforma_estudiante(e_ID)
+    p_id = coneccion.consulta_prof_grado2(grado)
+    m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
+    est = coneccion.consulta_estudiantes_id(e_ID,grado)
+    return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera3=1 )
 
 @app.route("/inicio/<idp>")
 def inicio_esp(idp):
@@ -1211,7 +1223,7 @@ def enviar_correos():
 @app.route("/tarea/<ids>/<grupo>", methods=['GET','POST'])
 def tarea(ids, grupo):
     if "username" in session and session["username"] =='ADMINISTRADOR' or "username" in session and session["username"] =='profesor_grado' or "username" in session and session["username"] =='profesor_especialista':    
-        print(ids)
+        #print(ids)
         return render_template("crear_tarea.html",idp=ids, grupo=grupo, bandera=1)
 
 @app.route("/tarea_act/<ids>/<grupo>/<id_tarea>", methods=['GET','POST'])
@@ -1226,10 +1238,10 @@ def tarea_act(ids, grupo,id_tarea):
             link2 = request.form['link2']
             coneccion.actualizar_tarea(nombre_materia, grado, desc_enc, desc_cuerpo, link, link2, id_tarea)
             flash("La Tarea ha actualizado correctamente")
-            print(nombre_materia, grado, desc_enc, desc_cuerpo, link, link2)
+            #print(nombre_materia, grado, desc_enc, desc_cuerpo, link, link2)
             return render_template("crear_tarea.html", idp=ids, grupo=grupo, bandera=1)    
         else:
-            print(ids)
+            #print(ids)
             return render_template("crear_tarea.html",idp=ids, grupo=grupo, bandera=1)
     else:
         flash("Inicia Sesion Primero")
@@ -1267,8 +1279,8 @@ def verTareas(ids, grupo):
                     df = dpe ## Profesor Especialista
                 cuerpo = "El profesor "+str(df[0][0])+" "+str(df[0][1])+" "+str(df[0][2]) + " ha actualizado una nueva tarea, por favor, visita la plataforma https://coneyotl.herokuapp.com para saber cual es"
                 asunto = "ACTUALIZACION de tareas grupo: "+str(df[0][3])
-                print(cuerpo)
-                print(asunto)
+                #print(cuerpo)
+                #print(asunto)
                 coneccion.insertar_tarea(nombre_materia, grado, desc_enc, desc_cuerpo, link, link2)
                 job = q.enqueue(au.automatico_txt, str(df[0][3]), cuerpo, asunto)
                 flash("La Tarea se guardó correctamente y se notifico los cambios al grupo")
@@ -1297,9 +1309,9 @@ def eliminarTarea(ids):
     if "username" in session and session["username"] =='ADMINISTRADOR' or "username" in session and session["username"] =='profesor_grado' or "username" in session and session["username"] =='profesor_especialista':
         grupo = coneccion.obtener_grupo_tarea(ids)
         coneccion.eliminar_tarea(ids)
-        print(grupo)
+        #print(grupo)
         tarea = coneccion.consulta_tarea(grupo[0])
-        print(tarea)
+        #print(tarea)
         flash("La tarea fue borrada con éxito")
         return render_template("avisos.html", grupo=grupo[0][0], tarea=tarea)
     else:
