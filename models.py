@@ -787,3 +787,28 @@ def consulta_ingresos_est(ids):
     cursor.close()
     conexion.close()
     return datos
+
+def consulta_colegiatura_grado(ids, grado):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT c.colegiatura_id, e.estudiante_id, e.nombre, e.apellido_pat, e.apellido_mat, e.grado, e.estado, c.monto,c.maximo, c.mes, c.status,c.ciclo FROM estudiante e JOIN colegiaturas c ON e.estudiante_id = c.estudiante_id WHERE e.estudiante_id=%s AND e.grado=%s",(ids,grado))
+    datos = cursor.fetchall()
+    cursor.close()
+    conexion.close()
+    return datos
+def consulta_colegiatura_all(ids):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT c.colegiatura_id, e.estudiante_id, e.nombre, e.apellido_pat, e.apellido_mat, e.grado, e.estado, c.monto,c.maximo, c.mes, c.status,c.ciclo FROM estudiante e JOIN colegiaturas c ON e.estudiante_id = c.estudiante_id WHERE e.estudiante_id=%s",(ids,))
+    datos = cursor.fetchall()
+    cursor.close()
+    conexion.close()
+    return datos
+
+def nueva_colegiatura(monto, total, mes, estatus):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("INSERT INTO colegiaturas(estudiante_id, monto, maximo, mes, estatus, fecha) VALUES(100191, 1000, 1000, 'ACTUAL', 'MAYO')")
+    conexion.commit()
+    cursor.close()
+    conexion.close()

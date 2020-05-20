@@ -38,3 +38,10 @@ CREATE OR REPLACE VIEW consulta5
     JOIN materia m ON m.materia_ID=ig.materia_ID
     where ig.estudiante_ID=16 and ig.profesor_ID=5 AND m.grado='6to';
 
+--Consulta para colegiaturas de alumnos
+--INSERT INTO pago_profesor_grado(profesor_id, monto,maximo, fecha, mes, quincena, status) VALUES(1,10000.00,10000.00,'FECHA','MES', '1', 'P');
+--ALTER TABLE colegiaturas ALTER COLUMN monto type NUMERIC(8,2);
+--commit
+--INSERT INTO colegiaturas(estudiante_id, monto,maximo, fecha, mes, status) VALUES(1011,10000.00,10000.00,'FECHA','MES', 'P');
+SELECT e.nombre, e.apellido_pat, c.monto,c.fecha,c.mes,c.status from colegiaturas c JOIN estudiante e ON e.estudiante_id=c.estudiante_id WHERE e.estudiante_id=1011;
+--SELECT * FROM colegiaturas;

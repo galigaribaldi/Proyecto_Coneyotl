@@ -54,6 +54,44 @@ CREATE TABLE profesor_grado(
   CONSTRAINT estado_ck CHECK (estado = ANY (ARRAY['A'::bpchar, 'S'::bpchar, 'B'::bpchar])
   )
 ;
+
+CREATE TABLE pago_profesor_grado(
+  pago_profesor_grado_id SERIAL PRIMARY KEY,
+  profesor_id INTEGER NOT NULL,
+  monto DECIMAL(8,8) DEFAULT 0,
+  maximo DECIMAL(8,8) DEFAULT 0,
+  fecha character varying(50),
+  mes character varying(50),
+  quincena character varying(100),
+  status character(2)CHECK (status='P' OR status='SP' OR status='A'),
+	CONSTRAINT profesor_id_fkey FOREIGN KEY(profesor_id)
+	REFERENCES profesor_grado(profesor_id)
+);
+CREATE TABLE pago_profesor_especialista(
+  pago_profesor_especiasialista_id SERIAL PRIMARY KEY,
+  profesor_id INTEGER NOT NULL,
+  monto NUMERIC(8,2) DEFAULT 0,
+  maximo NUMERIC(8,2) DEFAULT 0,
+  fecha character varying(50),
+  mes character varying(50),
+  quincena character varying(100),
+  status character(2)CHECK (status='P' OR status='SP' OR status='A'),
+	  CONSTRAINT profesor_id_fkey FOREIGN KEY(profesor_id)
+	REFERENCES profesor_especialista(profesor_id)
+);
+
+CREATE TABLE colegiaturas(
+  colegiatura_id serial PRIMARY KEY,
+  estudiante_id INTEGER NOT NULL,
+  monto DECIMAL(8,8) DEFAULT 0,
+  maximo DECIMAL(8,8) DEFAULT 0,
+  fecha character varying(50),
+  mes character varying(50),
+  status character(2)CHECK (status='P' OR status='SP' OR status='A'),
+	CONSTRAINT estudiante_id_fkey FOREIGN KEY(estudiante_id)
+	REFERENCES estudiante(estudiante_id)
+);
+
 CREATE TABLE profesor_especialista(
   profesor_id integer NOT NULL,
   curp character varying(100),

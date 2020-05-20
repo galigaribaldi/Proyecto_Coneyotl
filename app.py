@@ -146,6 +146,14 @@ def administrador():
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
 
+@app.route('/verAlumnoPago/<grupo>')
+def verAlumno_pago(grupo):
+    if "username" in session and session["username"] =='ADMINISTRADOR':
+        estudiantes = coneccion.consulta_estudiantes(grupo)
+        prof=coneccion.consulta_prof_grado3(grupo)
+        idp=prof[0][0]
+        return render_template('veralumno.html', estu=estudiantes, bandera4=1,idp=idp)
+
 @app.route('/verAlumno/<grupo>')
 def verAlumno(grupo):
     if "username" in session and session["username"] =='ADMINISTRADOR':
@@ -1323,6 +1331,28 @@ def eliminarTarea(ids):
     else:
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
+
+@app.route("/verPagos/<id_estudiante>/<grado>")
+def pagos(id_estudiante, grado):
+    if id_estudiante == "0x00100":
+        return render_template("pagos.html")
+    else:
+        datos = coneccion.consulta_colegiatura_grado(id_estudiante, grado)
+        return render_template("pagos.html", bandera2=1, datos=datos)
+
+@app.route("/PagoNuevo/<id_estudiante>/<grado>")
+def nuevo_pago(id_estudiante, grado):
+    datos = coneccion.consulta_estudiantes_id(id_estudiante, grado)
+    return render_template("nuevo_pago.html", grado=grado, id_estudiante=id_estudiante, datos = datos)
+
+@app.route("/registrarNuevoPago", methods=['GET','POST'])
+def nuevo_pago_n():
+    if request.method == 'POST':
+        monto = request.form['monto']
+        total = request.form['total']
+        mes = request.form['mes']
+        return str(monto) + str(total) + str(mes)
+    
     
 if __name__ == '__main__':
     app.run(debug=True)
