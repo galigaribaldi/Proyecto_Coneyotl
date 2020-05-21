@@ -31,9 +31,14 @@ def index():
         try:
             correo_electronico = str(request.form['correo_electronico'])
             curp = str(request.form['curp'])
+            print(correo_electronico)
+            print(curp)
             ids = coneccion.valida_loggin_est(curp, correo_electronico)
+            print(ids)
             ids2 = coneccion.valida_loggin_prof(curp, correo_electronico)
+            print(ids2)
             ids3 = coneccion.valida_loggin_prof_es(curp, correo_electronico)
+            print(ids3)
             ##Estudiante
             if ids:
                 if type(ids[0][0]) == int:
@@ -1342,15 +1347,21 @@ def pagos(id_estudiante, grado):
 
 @app.route("/PagoNuevo/<id_estudiante>/<grado>")
 def nuevo_pago(id_estudiante, grado):
-    datos = coneccion.consulta_estudiantes_id(id_estudiante, grado)
+    datos = coneccion.consulta_estudiasntes_id(id_estudiante, grado)
     return render_template("nuevo_pago.html", grado=grado, id_estudiante=id_estudiante, datos = datos)
 
-@app.route("/registrarNuevoPago", methods=['GET','POST'])
-def nuevo_pago_n():
+@app.route("/registrarNuevoPago/<id_estudiante>", methods=['GET','POST'])
+def nuevo_pago_n(id_estudiante):
     if request.method == 'POST':
         monto = request.form['monto']
         total = request.form['total']
         mes = request.form['mes']
+        if monto == total:
+            status = 'P'
+        if monto < total:
+            status = 'A'
+        if monto == 0 and total == 0:
+            status = 'SP'
         return str(monto) + str(total) + str(mes)
     
     
