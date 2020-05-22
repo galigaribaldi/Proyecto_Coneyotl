@@ -158,12 +158,12 @@ def verAlumno_pago(grupo):
         prof=coneccion.consulta_prof_grado3(grupo)
         idp=prof[0][0]
         return render_template('veralumno.html', estu=estudiantes, bandera4=1,idp=idp)
-@app.route('')
+"""@app.route('')
 def verProfesor_grado_Pago():
     pass
 @app.route('')
 def verProfesorEspPago():
-    pass
+    pass"""
 @app.route('/verAlumno/<grupo>')
 def verAlumno(grupo):
     if "username" in session and session["username"] =='ADMINISTRADOR':
@@ -1271,8 +1271,6 @@ def tarea_act(ids, grupo,id_tarea):
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
         
-
-
 @app.route("/verTareas/<ids>/<grupo>", methods = ['POST'])
 def verTareas(ids, grupo):
     if "username" in session and session["username"] =='ADMINISTRADOR' or "username" in session and session["username"] =='profesor_grado' or "username" in session and session["username"] =='profesor_especialista':
