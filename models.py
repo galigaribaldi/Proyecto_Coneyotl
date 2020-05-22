@@ -805,10 +805,33 @@ def consulta_colegiatura_all(ids):
     conexion.close()
     return datos
 
-def nueva_colegiatura(monto, total, mes, estatus):
+def nueva_colegiatura(estudiante_id,monto, total, mes, estatus):
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
     cursor = conexion.cursor()
-    cursor.execute("INSERT INTO colegiaturas(estudiante_id, monto, maximo, mes, estatus, fecha) VALUES(100191, 1000, 1000, 'ACTUAL', 'MAYO')")
+    cursor.execute("INSERT INTO colegiaturas(estudiante_id, monto, maximo, mes, status, fecha) VALUES(%s, %s, %s, %s, %s, %s)",(estudiante_id,monto,total,mes,estatus,str(datetime.datetime.utcnow()- datetime.timedelta(hours=5))))
     conexion.commit()
     cursor.close()
     conexion.close()
+
+def consulta_colegiatura_id(id_pago):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT * FROM colegiaturas WHERE colegiatura_id=%s",(id_pago,))
+    datos = cursor.fetchall()
+    cursor.close()
+    conexion.close()
+    return datos
+def actualizar_colegiatura(monto, maximo, mes, status, colegiatura_id):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("UPDATE colegiaturas SET monto=%s, maximo=%s, mes=%s, status=%s WHERE colegiatura_id=%s",(monto, maximo, mes, status, colegiatura_id))
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+def eliminar_pago(id_pago):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("DELETE FROM colegiaturas WHERE colegiatura_id=%s",(id_pago,))
+    conexion.commit()
+    cursor.close()
+    conexion.close()    

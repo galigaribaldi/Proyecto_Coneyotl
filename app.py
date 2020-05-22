@@ -158,7 +158,12 @@ def verAlumno_pago(grupo):
         prof=coneccion.consulta_prof_grado3(grupo)
         idp=prof[0][0]
         return render_template('veralumno.html', estu=estudiantes, bandera4=1,idp=idp)
-
+@app.route('')
+def verProfesor_grado_Pago():
+    pass
+@app.route('')
+def verProfesorEspPago():
+    pass
 @app.route('/verAlumno/<grupo>')
 def verAlumno(grupo):
     if "username" in session and session["username"] =='ADMINISTRADOR':
@@ -1347,8 +1352,8 @@ def pagos(id_estudiante, grado):
 
 @app.route("/PagoNuevo/<id_estudiante>/<grado>")
 def nuevo_pago(id_estudiante, grado):
-    datos = coneccion.consulta_estudiasntes_id(id_estudiante, grado)
-    return render_template("nuevo_pago.html", grado=grado, id_estudiante=id_estudiante, datos = datos)
+    datos = coneccion.consulta_estudiantes_id(id_estudiante, grado)
+    return render_template("nuevo_pago.html", grado=grado, id_estudiante=id_estudiante, datos = datos, bandera=1)
 
 @app.route("/registrarNuevoPago/<id_estudiante>", methods=['GET','POST'])
 def nuevo_pago_n(id_estudiante):
@@ -1362,8 +1367,41 @@ def nuevo_pago_n(id_estudiante):
             status = 'A'
         if monto == 0 and total == 0:
             status = 'SP'
-        return str(monto) + str(total) + str(mes)
+        coneccion.nueva_colegiatura(id_estudiante, monto,total,mes,status)
+        flash("Se ha Registrado su pago Correctamente")
+        return render_template("pagos.html")
     
+@app.route("/cambiarPago/<id_pago>/<grado>")
+def cambiarPago2(id_pago, grado):
+    datos_pago = coneccion.consulta_colegiatura_id(id_pago)
+    datos = coneccion.consulta_estudiantes_id(datos_pago[0][1], grado)
+    print(datos_pago)
+    print(datos)
+    return render_template("nuevo_pago.html", grado=grado, id_estudiante=datos_pago[0][1], datos=datos, bandera3=1, datos_pago=datos_pago)
+
+@app.route("/cambiarPago2/<id_pago>/<grado>", methods=['GET','POST'])
+def cambiarPagos3(id_pago, grado):
+    print(id_pago)
+    if request.method == 'POST':
+        monto = request.form['monto']
+        total = request.form['total']
+        mes = request.form['mes']
+        if monto == total or monto > total:
+            status = 'P'
+        if monto < total:
+            status = 'A'
+        if monto == 0 and total == 0:
+            status = 'SP'
+        print(mes)
+        coneccion.actualizar_colegiatura(monto,total,mes,status, id_pago)
+        flash("Se ha Actualizado el pago  Satisfactoriamente")
+        return render_template("pagos.html")
+
+@app.route("/eliminarPago/<id_pago>")
+def eliminarPago(id_pago):
+    coneccion.eliminar_pago(id_pago)
+    flash("Se elimino La colegiatura "+str(id_pago))
+    return render_template("pagos.html")
     
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,126 @@
+{% extends "layout.html" %} {% block navbar %}
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="/salir">Cerrar Sesion</a></li>
+    <li> <a class='dropdown-trigger' href='#' data-target='dropdown1'>Registro Nuevo <i class="material-icons">add_circle</i></a></li>
+    <li> <a class='dropdown-trigger' href='#' data-target='dropdown2'>Control de Alumnos <i class="material-icons">account_circle</i></a></li>
+    <li> <a class='dropdown-trigger' href='#' data-target='dropdown3'>Control de Profesores <i class="material-icons">contacts</i></a></li>
+    <li><a class='dropdown-trigger' href='#' data-target='dropdown4'>Opciones Avanzadas <i class="material-icons">enhanced_encryption</i></a></li>
+</ul> {% endblock %} {% block content %}
+<div class="container">
+    <h1 class="center">Pagos</h1>
+    <div class="row">
+        <div class="col s12">
+            <div class="card-panel teal lighten-2">
+                <span class="white-text">
+                    <div class="row">
+                        <div class="col s6">
+                            <div class="card-panel yellow">
+                                <h3 class="center">Alumnos</h3><a class='dropdown-trigger btn' href='#' data-target='dropdown2'><div class="col m13 hide-on-small-only">Control de Alumnos</div><i class="material-icons">account_circle</i> </a> <br> <br>
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <div class="card-panel amber">
+                                <h3 class="center">Profesores</h3><a class='dropdown-trigger btn' href='#' data-target='dropdown3'><div class="col m13 hide-on-small-only">Control de Profesores</div><i class="material-icons">contacts</i> </a><br> <br>
+                            </div>
+                        </div>
+                    </div>
+            </span>
+            </div>
+        </div>
+    </div>
+</div>
+{% if datos %} {% if bandera2 %}
+<div class="container">
+    <table class="responsive-table highlight striped">
+        <thead>
+            <tr>
+                <th>Clave Pago </th>
+                <th>Clave Alumno </th>
+                <th>Nombre </th>
+                <th>Grado </th>
+                <th>Estado Actual Alumno</th>
+                <th> Monto Abonado </th>
+                <th>Total</th>
+                <th>Mes de Pago</th>
+                <th>Status del Pago</th>
+                <th>Ciclo Escolar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for i in datos %}
+                <td>{{ i.0 }}</td>
+                <td>{{ i.1 }}</td>
+                <td>{{ i.2 }} {{ i.3 }} {{ i.4 }}</td>
+                <td>{{ i.5 }}</td>
+                <td>{{ i.6 }}</td>
+                <td>{{ i.7 }}</td>
+                <td>{{ i.8 }}</td>
+                <td>{{ i.9 }}</td>
+                <td>{{ i.10 }}</td>
+                <td>{{ i.11 }}</td>
+                <td><a href="/cambiarPago/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small">Cambiar</a><br><br>
+                    <a href="/eliminarPago/{{ i.0 }}" class="waves-effect waves-light btn-small">Eliminar</a><br><br>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <div class="center">
+        <a href="/admin" class="waves-effect waves-light btn-large"><i class="material-icons left">mood_bad</i>Regresar</a>
+    </div>
+    <br>
+</div>
+{% endif %} {% endif %} {% if not datos %}
+<div class="container">
+    <br><br>
+    <h4>No hay datos de colegiaturas</h4>
+    <br><br>
+    <div class="center">
+        <a href="/admin" class="waves-effect waves-light btn-large"><i class="material-icons left">mood_bad</i>Regresar</a>
+    </div>
+</div>
+{% endif %}
+<ul id='dropdown1' class='dropdown-content'>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/alumno/registraralumno"><i class="material-icons left">local_library</i>Alumno</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/profesor/registroprofesor"><i class="material-icons left">assignment_ind</i>Profesor</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/materia"><i class="material-icons left">class</i>Materia</a></li>
+</ul>
+
+<ul id='dropdown2' class='dropdown-content'>
+    <li class="divider" tabindex="-1"></li>
+    <li> <a href="/verAlumnoPago/K1"><i class="material-icons left">local_library</i>K1</a></li>
+    <li> <a href="/verAlumnoPago/K2"><i class="material-icons left">local_library</i>K2</a></li>
+    <li><a href="/verAlumnoPago/K3"><i class="material-icons left">local_library</i>K3</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/verAlumnoPago/1ro"><i class="material-icons left">local_library</i>1°</a></li>
+    <li><a href="/verAlumnoPago/2do"><i class="material-icons left">local_library</i>2°</a></li>
+    <li><a href="/verAlumnoPago/3ro"><i class="material-icons left">local_library</i>3°</a></li>
+    <li><a href="/verAlumnoPago/4to"><i class="material-icons left">local_library</i>4°</a></li>
+    <li><a href="/verAlumnoPago/5to"><i class="material-icons left">local_library</i>5°</a></li>
+    <li><a href="/verAlumnoPago/6to"><i class="material-icons left">local_library</i>6°</a></li>
+</ul>
+
+<ul id='dropdown3' class='dropdown-content'>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/verProfesor/1"><i class="material-icons left">group</i>Grupo</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/verProfesor/2"><i class="material-icons left">group_add</i>Extracurricular</a></li>
+</ul>
+
+<ul id='dropdown4' class='dropdown-content'>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/correos"><i class="material-icons left">mail</i>Enviar Correos</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/pagos"><i class="material-icons left">attach_money</i>Pagos</a></li>
+</ul>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        var instances = M.Dropdown.init(elems);
+    });
+</script>
+{% endblock %}
