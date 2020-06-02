@@ -885,12 +885,14 @@ def cambiar_calificacion_Bimestre3(id_materia, id_estudiante, id_profesor, grado
 
     if "username" in session and session["username"] =='profesor_grado':
         if request.method == 'POST':
-            campo1_B3 = float(request.form['campo1_B3']) ##Examenes
-            campo2_B3 = float(request.form['campo2_B3']) ## Tareas
-            campo3_B3 = float(request.form['campo3_B3']) ##Exposisicon
-            campo4_B3 = float(request.form['campo4_B3']) ## Asistencia
-            campo5_B3 = float(request.form['campo5_B3']) ##Cuaderno
-            promedio = float((campo1_B3)*.50) + ((campo2_B3)*.15) + ((campo3_B3)*.15) + ((campo4_B3)*.10) + ((campo5_B3)*.10)
+            campo1_B3 = float(request.form['campo1_B3']) ##Examenes 
+            campo2_B3 = float(request.form['campo2_B3']) ##Guia
+            campo3_B3 = float(request.form['campo3_B3']) ##Exposicion
+            campo4_B3 = 0
+            campo5_B3 = 0
+            #campo4_B3 = float(request.form['campo4_B3']) ## Asistencia
+            #campo5_B3 = float(request.form['campo5_B3']) ##Cuaderno
+            promedio = float( ((campo1_B3)*.50) + ((campo2_B3)*.25) + ((campo3_B3)*.25))
             try:
                 coneccion.insertarcalificacion_Bimestre3(campo1_B3, campo2_B3, campo3_B3, campo4_B3, campo5_B3,promedio, id_estudiante, id_materia, id_profesor)
                 flash('La Calificacion se Actualizó correctamente')
@@ -1418,4 +1420,4 @@ def eliminarPago(id_pago):
     return render_template("pagos.html")
     
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
