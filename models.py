@@ -536,7 +536,7 @@ def obtener_Rango(grado, nombre_materia, grado_profesor):
             if grado == "K2":
                 return 5
             if grado == "K3":
-                return 5
+                return 6
         if grado_profesor == "PRIMARIA":
             if grado == "1ro":
                 return 7
@@ -556,7 +556,7 @@ def obtener_Rango(grado, nombre_materia, grado_profesor):
             if grado == "K2":
                 return 5
             if grado == "K3":
-                return 5
+                return 6
             if grado == "1ro":
                 return 7
             if grado == "2do":
