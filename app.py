@@ -910,12 +910,14 @@ def cambiar_calificacion_Bimestre3(id_materia, id_estudiante, id_profesor, grado
 def cambiar_calificacion_Bimestre4(id_materia, id_estudiante, id_profesor, grado):
     if "username" in session and session["username"] =='ADMINISTRADOR':
         if request.method == 'POST':
-            campo1_B4 = float(request.form['campo1_B4']) ##Examenes
-            campo2_B4 = float(request.form['campo2_B4']) ## Tareas
-            campo3_B4 = float(request.form['campo3_B4']) ##Exposisicon
-            campo4_B4 = float(request.form['campo4_B4']) ## Asistencia
-            campo5_B4 = float(request.form['campo5_B4']) ##Cuaderno
-            promedio = float((campo1_B4)*.50) + ((campo2_B4)*.15) + ((campo3_B4)*.15) + ((campo4_B4)*.10) + ((campo5_B4)*.10)
+            campo1_B4 = float(request.form['campo1_B4']) ##carpeta 60%
+            campo2_B4 = float(request.form['campo2_B4']) ## Zoom 20%
+            campo3_B4 = float(request.form['campo3_B4']) ##Exposisicon/proyecto 20%
+            campo4_B4 = 0
+            campo5_B4 = 0
+            #campo4_B4 = float(request.form['campo4_B4']) ## Asistencia
+            #campo5_B4 = float(request.form['campo5_B4']) ##Cuaderno
+            promedio = float(((campo1_B4)*.60) + ((campo2_B4)*.20) + ((campo3_B4)*.20))
             try:
                 coneccion.insertarcalificacion_Bimestre4(campo1_B4, campo2_B4, campo3_B4, campo4_B4, campo5_B4,promedio, id_estudiante, id_materia, id_profesor)
                 flash('La Calificacion se Actualizó correctamente')
@@ -1042,7 +1044,7 @@ def cambiar_calificacion_Bimestre3_esp(id_materia, id_estudiante, id_profesor, g
             #campo5_B3 = float(request.form['campo5_B3']) ##Cuaderno
             campo4_B3 = 0
             campo5_B3 = 0
-            promedio = float(((campo1_B3)*.50) + ((campo2_B3)*.15) + ((campo3_B3)*.15) )
+            promedio = float(((campo1_B3)*.50) + ((campo2_B3)*.25) + ((campo3_B3)*.25) )
             try:
                 print(campo1_B3)
                 print(campo2_B3)
