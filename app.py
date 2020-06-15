@@ -107,7 +107,8 @@ def inicio_est(correo_electronico, curp):
     p_id = coneccion.consulta_prof_grado2(grado)
     m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
     est = coneccion.consulta_estudiantes_id(e_ID,grado)
-    return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera3=1 )
+    u = coneccion.consulta_promedio(e_ID, grado)
+    return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera3=1, promedios=u )
 
 @app.route("/inicio/<idp>")
 def inicio_esp(idp):
@@ -256,19 +257,22 @@ def actualizar_calificacion(e_ID,grado):
         p_id = coneccion.consulta_prof_grado2(grado)
         m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
         est = coneccion.consulta_estudiantes_id(e_ID,grado)
-        return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera1=1 )
+        u = coneccion.consulta_promedio(e_ID, grado)
+        return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera1=1, promedios=u)
 
     if "username" in session and session["username"] =='profesor_grado':
         p_id = coneccion.consulta_prof_grado2(grado)
         m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
         est = coneccion.consulta_estudiantes_id(e_ID,grado)
-        return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera1=1,d=1)
+        u = coneccion.consulta_promedio(e_ID, grado)
+        return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera1=1,d=1, promedios=u)
 
     if "username" in session and session["username"] =='profesor_especialista':
         p_id = coneccion.consulta_prof_grado2(grado)
         m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
         est = coneccion.consulta_estudiantes_id(e_ID,grado)
-        return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera2=1)
+        u = coneccion.consulta_promedio(e_ID, grado)
+        return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera2=1, promedios=u)
     else:
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
@@ -767,7 +771,10 @@ def cambiar_calificacion_Bimestre1(id_materia, id_estudiante, id_profesor,grado)
             campo5_B1 = float(request.form['campo5_B1']) ##Cuaderno
             promedio = (float(campo1_B1)*.50) + ((campo2_B1)*.15) + ((campo3_B1)*.15) + ((campo4_B1)*.10) + ((campo5_B1)*.10)
             try:
+                ##Actualizar calificaciones
                 coneccion.insertarcalificacion_Bimestre1(campo1_B1,campo2_B1,campo3_B1, campo4_B1,campo5_B1 ,promedio, id_estudiante, id_materia, id_profesor)
+                ##Actualizar promedios general y por bimestre
+                job = q.enqueue(coneccion.actualiza_promedios_All,id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado)))
                 flash('La Calificacion se Actualizó correctamente')
                 return redirect(url_for('administrador'))
             except:
@@ -786,6 +793,8 @@ def cambiar_calificacion_Bimestre1(id_materia, id_estudiante, id_profesor,grado)
             promedio = (float(campo1_B1)*.50) + ((campo2_B1)*.15) + ((campo3_B1)*.15) + ((campo4_B1)*.10) + ((campo5_B1)*.10)
             try:
                 coneccion.insertarcalificacion_Bimestre1(campo1_B1,campo2_B1,campo3_B1, campo4_B1,campo5_B1 ,promedio, id_estudiante, id_materia, id_profesor)
+                ##Actualizar promedios general y por bimestre
+                job = q.enqueue(coneccion.actualiza_promedios_All,id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado)))
                 flash('La Calificacion se Actualizó correctamente')
                 estudiantes = coneccion.consulta_estudiantes(grado)
                 return render_template('veralumno.html', estu=estudiantes, bandera=1)
@@ -804,8 +813,9 @@ def cambiar_calificacion_Bimestre1(id_materia, id_estudiante, id_profesor,grado)
             campo5_B1 = float(request.form['campo5_B1']) ##Cuaderno
             promedio = (float(campo1_B1)*.50) + ((campo2_B1)*.15) + ((campo3_B1)*.15) + ((campo4_B1)*.10) + ((campo5_B1)*.10)
             try:
-
                 coneccion.insertarcalificacion_Bimestre1(campo1_B1,campo2_B1,campo3_B1, campo4_B1,campo5_B1 ,promedio, id_estudiante, id_materia, id_profesor)
+                ##Actualizar promedios general y por bimestre
+                job = q.enqueue(coneccion.actualiza_promedios_All,id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado)))
                 flash('La Calificacion se Actualizó correctamente')
                 estudiantes = coneccion.consulta_estudiantes(grupo)
                 return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_profesor )
@@ -831,6 +841,8 @@ def cambiar_calificacion_Bimestre2(id_materia, id_estudiante, id_profesor, grado
             promedio = (float((campo1_B2)*.50) + ((campo2_B2)*.15) + ((campo3_B2)*.15) + ((campo4_B2)*.10) + ((campo5_B2)*.10))
             try:
                 coneccion.insertarcalificacion_Bimestre2(campo1_B2, campo2_B2, campo3_B2, campo4_B2, campo5_B2,promedio, id_estudiante, id_materia, id_profesor)
+                ##Actualizar promedios general y por bimestre
+                job = q.enqueue(coneccion.actualiza_promedios_All,id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado)))
                 flash('La Calificacion se Actualizó correctamente')
                 return redirect(url_for('administrador'))
             except:
@@ -847,6 +859,8 @@ def cambiar_calificacion_Bimestre2(id_materia, id_estudiante, id_profesor, grado
             promedio = (float((campo1_B2)*.50) + ((campo2_B2)*.15) + ((campo3_B2)*.15) + ((campo4_B2)*.10) + ((campo5_B2)*.10))
             try:
                 coneccion.insertarcalificacion_Bimestre2(campo1_B2, campo2_B2, campo3_B2, campo4_B2, campo5_B2,promedio, id_estudiante, id_materia, id_profesor)
+                ##Actualizar promedios general y por bimestre
+                job = q.enqueue(coneccion.actualiza_promedios_All,id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado)))
                 flash('La Calificacion se Actualizó correctamente')
                 estudiantes = coneccion.consulta_estudiantes(grado)
                 return render_template('veralumno.html', estu=estudiantes, bandera=1)
@@ -872,12 +886,10 @@ def cambiar_calificacion_Bimestre3(id_materia, id_estudiante, id_profesor, grado
             promedio = float( ((campo1_B3)*.50) + ((campo2_B3)*.25) + ((campo3_B3)*.25))
             try:
                 coneccion.insertarcalificacion_Bimestre3(campo1_B3, campo2_B3, campo3_B3, campo4_B3, campo5_B3,promedio, id_estudiante, id_materia, id_profesor)
+                ##Actualizar promedios general y por bimestre
+                job = q.enqueue(coneccion.actualiza_promedios_All,id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado)))                
                 flash('La Calificacion se Actualizó correctamente')
                 estudiantes = coneccion.consulta_estudiantes(grado)
-                print(campo1_B3)
-                print(campo2_B3)
-                print(campo3_B3)
-                print(promedio)
                 return render_template('veralumno.html', estu=estudiantes, bandera=1)
             except:
                 flash('La materia no se pudo actualizar')
@@ -895,6 +907,8 @@ def cambiar_calificacion_Bimestre3(id_materia, id_estudiante, id_profesor, grado
             promedio = float( ((campo1_B3)*.50) + ((campo2_B3)*.25) + ((campo3_B3)*.25))
             try:
                 coneccion.insertarcalificacion_Bimestre3(campo1_B3, campo2_B3, campo3_B3, campo4_B3, campo5_B3,promedio, id_estudiante, id_materia, id_profesor)
+                ##Actualizar promedios general y por bimestre
+                job = q.enqueue(coneccion.actualiza_promedios_All,id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado)))
                 flash('La Calificacion se Actualizó correctamente')
                 estudiantes = coneccion.consulta_estudiantes(grado)
                 return render_template('veralumno.html', estu=estudiantes, bandera=1)
@@ -920,6 +934,8 @@ def cambiar_calificacion_Bimestre4(id_materia, id_estudiante, id_profesor, grado
             promedio = float(((campo1_B4)*.60) + ((campo2_B4)*.20) + ((campo3_B4)*.20))
             try:
                 coneccion.insertarcalificacion_Bimestre4(campo1_B4, campo2_B4, campo3_B4, campo4_B4, campo5_B4,promedio, id_estudiante, id_materia, id_profesor)
+                ##Actualizar promedios general y por bimestre
+                job = q.enqueue(coneccion.actualiza_promedios_All,id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado)))
                 flash('La Calificacion se Actualizó correctamente')
                 estudiantes = coneccion.consulta_estudiantes(grado)
                 return render_template('veralumno.html', estu=estudiantes, bandera=1)
@@ -939,6 +955,8 @@ def cambiar_calificacion_Bimestre4(id_materia, id_estudiante, id_profesor, grado
             #campo5_B4 = float(request.form['campo5_B4']) ##Cuaderno
             promedio = float(((campo1_B4)*.60) + ((campo2_B4)*.20) + ((campo3_B4)*.20))
             coneccion.insertarcalificacion_Bimestre4(campo1_B4, campo2_B4, campo3_B4, campo4_B4, campo5_B4,promedio, id_estudiante, id_materia, id_profesor)
+            ##Actualizar promedios general y por bimestre
+            job = q.enqueue(coneccion.actualiza_promedios_All,id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado)))
             flash('La Calificacion se Actualizó correctamente')
             estudiantes = coneccion.consulta_estudiantes(grado)
             return render_template('veralumno.html', estu=estudiantes, bandera=1)
@@ -964,6 +982,8 @@ def cambiar_calificacion_Bimestre1_esp(id_materia, id_estudiante, id_profesor,gr
             promedio = (float(campo1_B1)*.50) + ((campo2_B1)*.15) + ((campo3_B1)*.15) + ((campo4_B1)*.10) + ((campo5_B1)*.10)
             #try:
             coneccion.insertarcalificacion_Bimestre1(campo1_B1,campo2_B1,campo3_B1, campo4_B1,campo5_B1 ,promedio, id_estudiante, id_materia, id_profesor)
+            ##Actualizar promedios general y por bimestre
+            job = q.enqueue(coneccion.actualiza_promedios_All,id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado)))
             flash('La Calificacion se Actualizó correctamente')
             estudiantes = coneccion.consulta_estudiantes(grado)
             return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_esp )
@@ -982,6 +1002,8 @@ def cambiar_calificacion_Bimestre1_esp(id_materia, id_estudiante, id_profesor,gr
             promedio = (float(campo1_B1)*.50) + ((campo2_B1)*.15) + ((campo3_B1)*.15) + ((campo4_B1)*.10) + ((campo5_B1)*.10)
             #try:
             coneccion.insertarcalificacion_Bimestre1(campo1_B1,campo2_B1,campo3_B1, campo4_B1,campo5_B1 ,promedio, id_estudiante, id_materia, id_profesor)
+            ##Actualizar promedios general y por bimestre
+            job = q.enqueue(coneccion.actualiza_promedios_All,id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado)))
             flash('La Calificacion se Actualizó correctamente')
             estudiantes = coneccion.consulta_estudiantes(grado)
             return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_esp )
@@ -1007,6 +1029,8 @@ def cambiar_calificacion_Bimestre2_esp(id_materia, id_estudiante, id_profesor, g
             promedio = (float((campo1_B2)*.50) + ((campo2_B2)*.15) + ((campo3_B2)*.15) + ((campo4_B2)*.10) + ((campo5_B2)*.10))
             #try:
             coneccion.insertarcalificacion_Bimestre2(campo1_B2, campo2_B2, campo3_B2, campo4_B2, campo5_B2,promedio, id_estudiante, id_materia, id_profesor)
+            ##Actualizar promedios general y por bimestre
+            job = q.enqueue(coneccion.actualiza_promedios_All,id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado)))
             flash('La Calificacion se Actualizó correctamente')
             estudiantes = coneccion.consulta_estudiantes(grado)
             return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_esp )
@@ -1024,6 +1048,8 @@ def cambiar_calificacion_Bimestre2_esp(id_materia, id_estudiante, id_profesor, g
             promedio = (float((campo1_B2)*.50) + ((campo2_B2)*.15) + ((campo3_B2)*.15) + ((campo4_B2)*.10) + ((campo5_B2)*.10))
             #try:
             coneccion.insertarcalificacion_Bimestre2(campo1_B2, campo2_B2, campo3_B2, campo4_B2, campo5_B2,promedio, id_estudiante, id_materia, id_profesor)
+            ##Actualizar promedios general y por bimestre
+            job = q.enqueue(coneccion.actualiza_promedios_All,id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado)))
             flash('La Calificacion se Actualizó correctamente')
             estudiantes = coneccion.consulta_estudiantes(grado)
             return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_esp )
@@ -1047,10 +1073,9 @@ def cambiar_calificacion_Bimestre3_esp(id_materia, id_estudiante, id_profesor, g
             campo5_B3 = 0
             promedio = float(((campo1_B3)*.50) + ((campo2_B3)*.25) + ((campo3_B3)*.25) )
             try:
-                print(campo1_B3)
-                print(campo2_B3)
-                print(promedio)
                 coneccion.insertarcalificacion_Bimestre3(campo1_B3, campo2_B3, campo3_B3, campo4_B3, campo5_B3,promedio, id_estudiante, id_materia, id_profesor)
+                ##Actualizar promedios general y por bimestre
+                job = q.enqueue(coneccion.actualiza_promedios_All,id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado)))
                 estudiantes = coneccion.consulta_estudiantes(grado)
                 return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_esp )
             except:
@@ -1068,9 +1093,8 @@ def cambiar_calificacion_Bimestre3_esp(id_materia, id_estudiante, id_profesor, g
             campo5_B3 = 0
             promedio = float(((campo1_B3)*.50) + ((campo2_B3)*.25) + ((campo3_B3)*.25) )
             try:
-                print(campo1_B3)
-                print(campo2_B3)
-                print(promedio)
+                ##Actualizar promedios general y por bimestre
+                job = q.enqueue(coneccion.actualiza_promedios_All,id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado)))                
                 coneccion.insertarcalificacion_Bimestre3(campo1_B3, campo2_B3, campo3_B3, campo4_B3, campo5_B3,promedio, id_estudiante, id_materia, id_profesor)
                 estudiantes = coneccion.consulta_estudiantes(grado)
                 return render_template('veralumno.html', estu=estudiantes, bandera2=1,prof_esp=id_esp )
@@ -1089,6 +1113,8 @@ def cambiar_calificacion_Bimestre4_esp(id_materia, id_estudiante, id_profesor, g
             campo5_B4 = 0 #float(request.form['campo5_B4']) ##Cuaderno
             promedio = float(((campo1_B4)*.60) + ((campo2_B4)*.20) + ((campo3_B4)*.20))
             try:
+                ##Actualizar promedios general y por bimestre
+                job = q.enqueue(coneccion.actualiza_promedios_All,id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado)))
                 coneccion.insertarcalificacion_Bimestre4(campo1_B4, campo2_B4, campo3_B4, campo4_B4, campo5_B4,promedio, id_estudiante, id_materia, id_profesor)
                 flash('La Calificacion se Actualizó correctamente')
                 estudiantes = coneccion.consulta_estudiantes(grado)
@@ -1105,6 +1131,8 @@ def cambiar_calificacion_Bimestre4_esp(id_materia, id_estudiante, id_profesor, g
             campo5_B4 = 0 #float(request.form['campo5_B4']) ##Cuaderno
             promedio = float(((campo1_B4)*.60) + ((campo2_B4)*.20) + ((campo3_B4)*.20))
             try:
+                ##Actualizar promedios general y por bimestre
+                job = q.enqueue(coneccion.actualiza_promedios_All,id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado)))
                 coneccion.insertarcalificacion_Bimestre4(campo1_B4, campo2_B4, campo3_B4, campo4_B4, campo5_B4,promedio, id_estudiante, id_materia, id_profesor)
                 flash('La Calificacion se Actualizó correctamente')
                 estudiantes = coneccion.consulta_estudiantes(grado)

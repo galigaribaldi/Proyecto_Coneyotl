@@ -674,10 +674,12 @@ def actualizar_tarea(nombre_tarea, grado, descripcion_encabezado, descripcion_cu
 def ejecuta():
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
     cursor = conexion.cursor()
-    cursor.execute("SELECT * FROM estudiante")
+    cursor.execute("SELECT estudiante_id, grado FROM estudiante")
+    datos_tarea = cursor.fetchall()
     conexion.commit()
     cursor.close()
-    conexion.close()    
+    conexion.close()
+    return datos_tarea
 
 def consulta_tarea(grado):
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
@@ -838,4 +840,133 @@ def eliminar_pago(id_pago):
     cursor.execute("DELETE FROM colegiaturas WHERE colegiatura_id=%s",(id_pago,))
     conexion.commit()
     cursor.close()
-    conexion.close()    
+    conexion.close()
+
+def promedio_b1(ids, grado):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT i.calificacion_b1 from inscripcion_grado i join estudiante e on e.estudiante_id=i.estudiante_id where i.estudiante_id=%s and e.grado=%s",(ids,grado))
+    datos_tarea = cursor.fetchall()
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return datos_tarea
+
+def promedio_b2(ids, grado):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT i.calificacion_b2 from inscripcion_grado i join estudiante e on e.estudiante_id=i.estudiante_id where i.estudiante_id=%s and e.grado=%s",(ids,grado))
+    datos_tarea = cursor.fetchall()
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return datos_tarea
+
+def promedio_b3(ids, grado):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT i.calificacion_b3 from inscripcion_grado i join estudiante e on e.estudiante_id=i.estudiante_id where i.estudiante_id=%s and e.grado=%s",(ids,grado))
+    datos_tarea = cursor.fetchall()
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return datos_tarea
+
+def promedio_b4(ids, grado):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT i.calificacion_b4 from inscripcion_grado i join estudiante e on e.estudiante_id=i.estudiante_id where i.estudiante_id=%s and e.grado=%s",(ids,grado))
+    datos_tarea = cursor.fetchall()
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return datos_tarea
+
+def promedio_total(ids, grado):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT ((i.calificacion_b1+i.calificacion_b2+i.calificacion_b3+i.calificacion_b4)/4) from inscripcion_grado i join estudiante e on e.estudiante_id=i.estudiante_id where i.estudiante_id=%s and e.grado=%s",(ids,grado))
+    datos_tarea = cursor.fetchall()
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return datos_tarea
+
+def promedio_Bimestral_4(ids, grado):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT i.calificacion_b1, i.calificacion_b2, i.calificacion_b3, i.calificacion_b4 from inscripcion_grado i join estudiante e on e.estudiante_id=i.estudiante_id where i.estudiante_id=%s and e.grado=%s",(ids,grado))
+    datos_tarea = cursor.fetchall()
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return datos_tarea
+
+def actualizar_promedio_b1(e_id, grado):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT ((i.calificacion_b1+i.calificacion_b2+i.calificacion_b3+i.calificacion_b4)/4) from inscripcion_grado i join estudiante e on e.estudiante_id=i.estudiante_id where i.estudiante_id=%s and e.grado=%s",(ids,grado))
+    datos_tarea = cursor.fetchall()
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return datos_tarea
+def registra_promedio(ide, grado):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("INSERT INTO promedio(estudiante_id, grado) VALUES(%s, %s)",(ide,grado))
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+####Actualiza Calificaciones
+def actualiza_promedio(ide, grado, opcion, calificacion):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    if opcion==1:
+        cursor.execute("UPDATE promedio SET promedio_b1=%s WHERE estudiante_id=%s AND grado=%s",(calificacion, ide, grado))
+        print("Actualizado B1")
+    if opcion==2:
+        cursor.execute("UPDATE promedio SET promedio_b2=%s WHERE estudiante_id=%s AND grado=%s",(calificacion, ide, grado))
+        print("Actualizado B2")        
+    if opcion==3:
+        cursor.execute("UPDATE promedio SET promedio_b3=%s WHERE estudiante_id=%s AND grado=%s",(calificacion, ide, grado))
+        print("Actualizado B3")
+    if opcion==4:
+        cursor.execute("UPDATE promedio SET promedio_b4=%s WHERE estudiante_id=%s AND grado=%s",(calificacion, ide, grado))
+        print("Actualizado B4")
+    if opcion==5:
+        cursor.execute("UPDATE promedio SET promedio_toal=%s WHERE estudiante_id=%s AND grado=%s",(calificacion, ide, grado))
+        print("Actualizado Total")
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+def actualiza_promedios_All(ide, grado, calificacion1, calificacion2, calificacion3, calificacion4, calificaciont):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("UPDATE promedio SET promedio_b1=%s, promedio_b2=%s, promedio_b3=%s, promedio_b4=%s, promedio_toal=%s WHERE estudiante_id=%s AND grado=%s",(calificacion1, calificacion2, calificacion3, calificacion4, calificaciont, ide, grado))
+    print(calificacion1)
+    print(calificacion2)
+    print(calificacion3)
+    print(calificacion4)
+    print(calificaciont)
+    print(ide, grado)
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    
+def sacar_promedio(b):
+    res = 0
+    contador = 0
+    for i in b:
+        res = i[0] + res
+        contador = contador+1
+    return (res)/contador
+def consulta_promedio(ide, grado):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT promedio_b1, promedio_b2, promedio_b3, promedio_b4, promedio_toal FROM promedio WHERE estudiante_id=%s AND grado=%s",(ide, grado))
+    datos_tarea = cursor.fetchall()
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return datos_tarea

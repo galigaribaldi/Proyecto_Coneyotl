@@ -212,7 +212,18 @@ CREATE TABLE ingreso_plataforma_prof_g(
 	CONSTRAINT profesor_id_fkey FOREIGN KEY(profesor_id)
 	REFERENCES profesor_grado(profesor_id)
 );
-
+CREATE TABLE promedio(
+  promedio_id SERIAL PRIMARY KEY,
+  estudiante_id INTEGER NOT NULL,
+  grado character varying(5),
+  promedio_b1 decimal(4,2) DEFAULT 0,
+  promedio_b2 decimal(4,2) DEFAULT 0,
+  promedio_b3 decimal(4,2) DEFAULT 0,
+  promedio_b4 decimal(4,2) DEFAULT 0,
+  promedio_toal decimal(4,2) DEFAULT 0,
+  CONSTRAINT estudiante_id_fkey FOREIGN KEY(estudiante_id)
+	REFERENCES estudiante(estudiante_id)
+);
 CREATE TABLE ingreso_plataforma_prof_especialista(
 	ingreso_plataforma_prof_e_id SERIAL PRIMARY KEY, 
 	profesor_id INTEGER NOT NULL,
