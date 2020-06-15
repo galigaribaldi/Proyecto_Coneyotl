@@ -1449,6 +1449,10 @@ def eliminarPago(id_pago):
     coneccion.eliminar_pago(id_pago)
     flash("Se elimino La colegiatura "+str(id_pago))
     return render_template("pagos.html")
+
+@app.route("/Encuestas")
+def encuesta():
+    return render_template("extra.html")
     
 if __name__ == '__main__':
     app.run(debug=True)
