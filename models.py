@@ -612,7 +612,7 @@ def obtener_Rango(grado, nombre_materia, grado_profesor):
 def consulta_estudiantes_id5(correo, curp):
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
     cursor = conexion.cursor()
-    cursor.execute("SELECT estudiante_id, grado from estudiante WHERE correo_electronico=%s AND CURP=%s", (correo, curp))
+    cursor.execute("SELECT estudiante_id, grado,estado from estudiante WHERE correo_electronico=%s AND CURP=%s", (correo, curp))
     datos = cursor.fetchall()
     conexion.commit()
     cursor.close()
@@ -965,6 +965,38 @@ def consulta_promedio(ide, grado):
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
     cursor = conexion.cursor()
     cursor.execute("SELECT promedio_b1, promedio_b2, promedio_b3, promedio_b4, promedio_toal FROM promedio WHERE estudiante_id=%s AND grado=%s",(ide, grado))
+    datos_tarea = cursor.fetchall()
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return datos_tarea
+####Obtener estado del estudiante
+def obtener_status_est(ide):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT estado from estudiante where estudiante_id=%s",(ide,))
+    datos_tarea = cursor.fetchall()
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return datos_tarea
+
+####Obtener estado del Profesor
+def obtener_status_prof(ide):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT estado from profesor_grado where profesor_id=%s",(ide,))
+    datos_tarea = cursor.fetchall()
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return datos_tarea
+
+####Obtener estado del Profesor_especialista
+def obtener_status_prof_esp(ide):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT estado from profesor_especialista where profesor_id=%s",(ide,))
     datos_tarea = cursor.fetchall()
     conexion.commit()
     cursor.close()

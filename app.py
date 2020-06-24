@@ -31,17 +31,27 @@ def index():
         try:
             correo_electronico = str(request.form['correo_electronico'])
             curp = str(request.form['curp'])
-            print(correo_electronico)
-            print(curp)
+            #print(correo_electronico)
+            #print(curp)
             ids = coneccion.valida_loggin_est(curp, correo_electronico)
-            print(ids)
+            #print(ids)
             ids2 = coneccion.valida_loggin_prof(curp, correo_electronico)
-            print(ids2)
+            #print(ids2)
             ids3 = coneccion.valida_loggin_prof_es(curp, correo_electronico)
-            print(ids3)
+            #print(ids3)
             ##Estudiante
             if ids:
                 if type(ids[0][0]) == int:
+                    ###Obtener el estado y restringirlo
+                    status = coneccion.obtener_status_est(ids[0][0])
+                    est = status[0][0]
+                    est = est.strip()
+                    if est == "B":
+                        flash("Tu cuenta se encuentra actualmente dada de Baja, contacte con Administración para solucionar esto")
+                        return render_template('index.html')
+                    if est == 'S':
+                        flash("Tu cuenta se encuentra actualmente suspendida, contacte con Administración para solucionar esto")
+                        return render_template('index.html')
                     ##Obtener el grado y el estudiante_id
                     datos = coneccion.consulta_estudiantes_id5(correo_electronico, curp)
                     grado = datos[0][1]
@@ -56,6 +66,15 @@ def index():
             ##Profesor de Grado
             if ids2:
                 if type(ids2[0][0]) == int:
+                    status = coneccion.obtener_status_prof(ids2[0][0])
+                    est = status[0][0]
+                    est = est.strip()
+                    if est == "B":
+                        flash("Tu cuenta se encuentra actualmente dada de Baja, contacte con Administración para solucionar esto")
+                        return render_template('index.html')
+                    if est == 'S':
+                        flash("Tu cuenta se encuentra actualmente suspendida, contacte con Administración para solucionar esto")
+                        return render_template('index.html')
                     session['username'] = 'profesor_grado'
                     print("Id del profesor de grado: ",ids2[0][0])
                     coneccion.ingresos2_plataforma_profesor_grado(ids2[0][0])
@@ -68,6 +87,15 @@ def index():
             ##Profesor Especialista
             if ids3:
                 if type(ids3[0][0]) == int:
+                    status = coneccion.obtener_status_prof_esp(ids3[0][0])
+                    est = status[0][0]
+                    est = est.strip()
+                    if est == "B":
+                        flash("Tu cuenta se encuentra actualmente dada de Baja, contacte con Administración para solucionar esto")
+                        return render_template('index.html')
+                    if est == 'S':
+                        flash("Tu cuenta se encuentra actualmente suspendida, contacte con Administración para solucionar esto")
+                        return render_template('index.html')                                   
                     session['username'] = 'profesor_especialista'
                     print(ids3)
                     print(ids3[0][0])
