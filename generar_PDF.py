@@ -10,9 +10,9 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
 
 def generar_nuevo_pdf(tupla):
-    doc = SimpleDocTemplate(tupla[0], pagesize=letter, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=18)
+    doc = SimpleDocTemplate("Datos"+str(tupla[0])+".pdf", pagesize=letter, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=18)
     Story = []
-    logotipo = "/img/logo.jpeg"
+    logotipo = "img/Logo2.png"
     formatoFecha = time.ctime()
     nombreCompleto = "Colegio Coneyotl - Piltzintli"
     partesDeDireccion = ["Calle Independencia sin Número", "San Pedro Atocpan - Milpa Alta, Código Postal 12200"]
@@ -50,5 +50,5 @@ def generar_nuevo_pdf(tupla):
     Story.append(Paragraph(texto, estilos["Normal"]))
     Story.append(Spacer(1, 12))
     doc.build(Story)
-
-generar_nuevo_pdf(('','','','',''))
+##Nombre, apellido_paterno, apellido_materno, Curp, Correoelectronico
+#generar_nuevo_pdf(('Nombre1','Nombre2','Nombre3','Nombre4','Nombre5'))

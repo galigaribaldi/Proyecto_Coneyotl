@@ -1481,6 +1481,51 @@ def eliminarPago(id_pago):
 @app.route("/Encuestas")
 def encuesta():
     return render_template("extra.html")
+
+@app.route("/enviar_pdf/profesor_grupo/<opcion>")
+def enviar_profesor_grado(opcion):
+    opcion = int(opcion)
+    print(type(opcion)); print(opcion)
+    #opcion para todos:
+    if opcion ==0:
+        job = q.enqueue(au.automatico_Correo_PDF_prof_grado, "PDF de datos")
+        flash("PDF enviado a todos los profesores")
+        return redirect(url_for('profesor', opcion=1))
+    else:
+        d = coneccion.consulta_prof_grado_ID(opcion)
+        job = q.enqueue(au.automatico_Correo_PDF_individual,d[0][0], d[0][1], d[0][2], d[0][3], d[0][4], "PDF de Datos")
+        flash("PDF enviado a "+str(d[0][0]))
+        return redirect(url_for('profesor', opcion=1))
+
+@app.route("/enviar_pdf/profesor_especialista/<opcion>")
+def enviar_profesor_especialista(opcion):
+    opcion = int(opcion)
+    print(type(opcion)); print(opcion)
+    #opcion para todos:
+    if opcion ==0:
+        job = q.enqueue(au.automatico_Correo_PDF_prof_especialistas , "PDF de datos")
+        flash("PDF enviado a todos los profesores Especialistas")
+        return redirect(url_for('profesor', opcion=2))
+    else:
+        d = coneccion.consulta_prof_esp(opcion)
+        job = q.enqueue(au.automatico_Correo_PDF_individual,d[0][2], d[0][3], d[0][4], d[0][1], d[0][7], "PDF de Datos")
+        flash("PDF enviado a "+str(d[0][2]))
+        return redirect(url_for('profesor', opcion=2))
+@app.route("/enviar_pdf/alumno/<opcion>/<grado>")
+def enviar_alumno_PDF(opcion,grado):
+    opcion = int(opcion)
+    print(type(opcion)); print(opcion)
+    #opcion para todos:
+    if opcion ==0:
+        job = q.enqueue(au.automatico_Correo_PDF_grado_kid , grado,"PDF de datos")
+        flash("PDF enviado a todos los niños del grado")
+        return redirect(url_for('verAlumno', grupo=grado))
+    else:
+        d = coneccion.consulta_estudiantes_id(opcion, grado)
+        job = q.enqueue(au.automatico_Correo_PDF_individual,d[0][2], d[0][3], d[0][4], d[0][1], d[0][10], "PDF de Datos")
+        print(d)
+        flash("PDF enviado a "+str(d[0][2]))
+        return redirect(url_for('verAlumno', grupo=grado))
     
 if __name__ == '__main__':
     app.run(debug=True)

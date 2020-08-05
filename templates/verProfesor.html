@@ -15,6 +15,7 @@
             <th>Grado</th>
             <th>Número de Loggins </th>
             <th>Cambiar Status </th>
+            <th>Enviar PDF</th>
         </tr>
     </thead>
     <tbody>
@@ -33,10 +34,15 @@
                 <a href="/baja_prof_grado/{{ i.0 }}" class="waves-effect waves-light btn-small deep-orange">Baja</a>
                 <a href="/suspender_prof_grado/{{ i.0 }}" class="waves-effect waves-light btn-small yellow accent-4">Suspender</a>
             </td>
+            <td><a href="/enviar_pdf/profesor_grupo/{{ i.0 }}" class="waves-effect waves-light btn-small indigo lighten-4">Enviar</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+<div class="container">
+    <a href="/enviar_pdf/profesor_grupo/000" class="waves-effect waves-light btn-small indigo lighten-4">Enviar PDF de información</a>
+</div>
 {% endif %} {% if opcion==2 %}
 <h2 class="center">Profesores Especialistas </h2>
 <table class="responsive-table highlight striped">
@@ -72,10 +78,15 @@
                 <a href="/baja_prof_esp/{{ j.0 }}" class="waves-effect waves-light btn-small deep-orange">Baja</a>
                 <a href="/suspender_prof_esp/{{ j.0 }}" class="waves-effect waves-light btn-small yellow accent-4">Suspender</a>
             </td>
+            <td><a href="/enviar_pdf/profesor_especialista/{{ j.0 }}" class="waves-effect waves-light btn-small indigo lighten-4">Enviar</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+<div class="container">
+    <a href="/enviar_pdf/profesor_especialista/000" class="waves-effect waves-light btn-small indigo lighten-4">Enviar PDF de información</a>
+</div>
 {% endif %}
 <!--Control de profesores Especialistas-->
 <a href="/admin">Regresar</a> {% endblock %}

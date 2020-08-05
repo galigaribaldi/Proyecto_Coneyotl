@@ -54,6 +54,7 @@
                 <th> Datos Actuales </th>
                 <th> Calificaciones </th>
                 <th>Cambiar Status</th>
+                <th>Enviar PDF informacion</th>
             </tr>
         </thead>
         <tbody>
@@ -74,12 +75,15 @@
                     <td><a href="/baja/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small deep-orange">Baja</a><br>
                         <a href="/alta/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small blue">Alta</a><br>
                         <a href="/suspender/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small yellow accent-4">Suspender</a><br></td>
+                    <td><a href="/enviar_pdf/alumno/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small indigo lighten-4">Enviar</a>
+                    </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
     <div class="center">
         <a href="/admin" class="waves-effect waves-light btn-large"><i class="material-icons left">mood_bad</i>Regresar</a>
+        <a href="/enviar_pdf/alumno/000/{{ estu.4.5 }}" class="waves-effect waves-light btn-small indigo lighten-4">Enviar</a>
     </div>
 
 </div>
