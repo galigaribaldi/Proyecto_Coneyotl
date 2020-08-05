@@ -23,7 +23,7 @@ def enviar_correo(correo_destinatario, cuerpo2, asunto2):
     # Ciframos la conexión
     sesion_smtp.starttls()
     # Iniciamos sesión en el servidor
-    sesion_smtp.login('coneyotl.plataforma@gmail.com','COLE1234')
+    sesion_smtp.login('coneyotl.plataforma@gmail.com','coneyotl123#')
     # Convertimos el objeto mensaje a texto
     texto = mensaje.as_string()
     # Enviamos el mensaje
