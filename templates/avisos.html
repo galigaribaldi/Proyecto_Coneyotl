@@ -3,7 +3,7 @@
 <div class="container">
     <h1 class="center">Avisos del Grupo de {{ grupo }}</h1>
     <div class="row">
-        {% for i in tarea %}
+        {% if tarea %} {% for i in tarea %}
         <div class="col s12 m6">
             <!--Grado-->
             <!--Exclusivo K2-->
@@ -55,11 +55,19 @@
                                 </div>
                                 {% endfor %}
                             </div>
+                            {% endif %} {% if not tareas %}
+                            <h3>No hay tareas disponibles</h3>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
                         </div>
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                                var elems = document.querySelectorAll('.modal');
-                                var instances = M.Modal.init(elems);
-                            });
-                        </script>
-                        {% endblock %}
+                        {% endif %}
+                    </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var elems = document.querySelectorAll('.modal');
+                            var instances = M.Modal.init(elems);
+                        });
+                    </script>
+                    {% endblock %}

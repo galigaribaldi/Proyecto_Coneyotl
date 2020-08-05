@@ -4,6 +4,8 @@ import models as coneccion
 ##promedio3 = coneccion.promedio_b3(1106,'5to')
 #promedio4 = coneccion.promedio_b4(1106,'5to')
 #promedio_t = coneccion.promedio_total(1106, '5to')
+import correo as correos
+
 def sacar1(b):
     res = 0
     contador = 0
@@ -55,4 +57,4 @@ def inscribe():
         else:
             coneccion.actualiza_promedios_All(id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado)))
         print("Actualizado")
-inscribe()
+#inscribe()

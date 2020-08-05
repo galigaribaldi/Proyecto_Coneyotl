@@ -162,7 +162,7 @@ def avisos(grupo):
     if "username" in session and session["username"] =='ADMINISTRADOR' or "username" in session and session["username"] =='profesor_grado' or "username" in session and session["username"] =='profesor_especialista' or "username" in session and session["username"] =='estudiante':
         print(type(grupo))
         tarea = coneccion.consulta_tarea(grupo)
-        print(tarea)
+        #print(tarea)
         return render_template("avisos.html", grupo=grupo, tarea=tarea)
     else:
         flash("Inicia Sesion Primero")
