@@ -73,7 +73,7 @@ def automatico_prof_especialistas_txt(cuerpo, asunto):
 def automatico_Correo_PDF_individual(Nombre, ap_pat, ap_mat,Curp,correo, asunto):
     PDF.generar_nuevo_pdf((Nombre, ap_pat, ap_mat,Curp,correo))
     #enviar.enviar_correo_PDF('galigaribaldi0@gmail.com', asunto, "Datos"+str(Nombre)+".pdf")
-    enviar.enviar_correo_PDF(i[4], asunto, "Datos"+str(i[0])+".pdf")
+    enviar.enviar_correo_PDF(correo, asunto, "Datos"+str(Nombre)+".pdf")
     print("PDF enviado")
     os.system('rm *.pdf')
 ###########
