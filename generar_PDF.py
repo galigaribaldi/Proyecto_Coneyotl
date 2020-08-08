@@ -15,7 +15,7 @@ def generar_nuevo_pdf(tupla):
     logotipo = "img/Logo2.png"
     formatoFecha = time.ctime()
     nombreCompleto = "Colegio Coneyotl - Piltzintli"
-    partesDeDireccion = ["Calle Independencia sin Número", "San Pedro Atocpan - Milpa Alta, Código Postal 12200"]
+    partesDeDireccion = [""]
     nombrePersona=str(tupla[0]+" "+tupla[1]+" "+tupla[2])
     imagen = Image(logotipo, 1 * inch, 1 * inch)
     Story.append(imagen)
@@ -34,21 +34,30 @@ def generar_nuevo_pdf(tupla):
         texto = 'Estimad@ %s:' % nombrePersona #.split()[0].strip()
         Story.append(Paragraph(texto, estilos["Normal"]))
         Story.append(Spacer(1, 12))
-        texto = "Con Motivo de la pandemia ocasionada por el Virus Covid-19, nos hemos dado la tarea de ofrecer materiales en línea. \
-            Por lo que ponemos a su disposición la siguiente Plataforma https://coneyotl.herokuapp.com/. En esta plataforma podrá consultar las calificaciones de su niñ@ y podrá ver las\
-            acctividades que cada profesor irá preparando semana con semana. Este Correo es personal, ya que se le darán los siguientes datos de ingreso \
-            Nombre del Padre o Tutor: %s %s %s. Claves de acceso = CURP: %s Correo Electronico %s." %tupla
+        texto = "Sea bienvenido a este ciclo escolar 2020 – 2021, por indicaciones de la SEP y la pandemia mundial <br /> \
+            ocasionada por el virus Covid-19 este año escolar será híbrido, por ello el colegio ofrecerá <br />\
+            materiales de apoyo educativo en línea en la siguiente plataforma: <br />\
+            <br />https://coneyotl.herokuapp.com . <br />\
+            <br />En esta plataforma podrá consultar las calificaciones de su hijo/a, así como ver y acceder a las <br />\
+            actividades que cada profesor preparará al inicio de cada semana. <br />\
+            Este correo es de uso personal, a continuación, se le darán los siguientes datos de ingreso: <br />\
+            <br />Nombre del Padre o Tutor: %s %s %s. <br />\
+            <br />Claves de acceso = CURP: %s <br />\
+            <br />Correo Electrónico: %s <br />\
+            <br />Le agradecemos su atención, compromiso y apoyo, le dejamos a su disposición el siguiente correo <br />\
+            para apoyo técnico: coneyotl.plataforma@gmail.com. <br />\
+            " %tupla
     Story.append(Paragraph(texto, estilos["Justify"]))
     Story.append(Spacer(1, 12))
-    texto = 'Le agradecemos su Atención y dejamos a su disposición el siguiente correo: '
-    Story.append(Paragraph(texto, estilos["Justify"]))
-    Story.append(Spacer(1, 12))
-    texto = 'coneyotl.plataforma@gmail.com, atte: Colegio Coneyotl Kinder y Primaria Coneyotl Piltzintli'
-    Story.append(Paragraph(texto, estilos["Normal"]))
-    Story.append(Spacer(1, 48))
-    texto = 'NOTA: La plataforma se actualizará cada domingo por la noche, actulizando las nuevas actividades de la semana.'
-    Story.append(Paragraph(texto, estilos["Normal"]))
-    Story.append(Spacer(1, 12))
+    #texto = 'Le agradecemos su Atención y dejamos a su disposición el siguiente correo: '
+    #Story.append(Paragraph(texto, estilos["Justify"]))
+    #Story.append(Spacer(1, 12))
+    #texto = 'coneyotl.plataforma@gmail.com, atte: Colegio Coneyotl Kinder y Primaria Coneyotl Piltzintli'
+    #Story.append(Paragraph(texto, estilos["Normal"]))
+    #Story.append(Spacer(1, 48))
+    #texto = 'NOTA: La plataforma se actualizará cada domingo por la noche, actulizando las nuevas actividades de la semana.'
+    #Story.append(Paragraph(texto, estilos["Normal"]))
+    #Story.append(Spacer(1, 12))
     doc.build(Story)
 ##Nombre, apellido_paterno, apellido_materno, Curp, Correoelectronico
-#generar_nuevo_pdf(('Nombre1','Nombre2','Nombre3','Nombre4','Nombre5'))
+generar_nuevo_pdf(('Nombre1','Nombre2','Nombre3','Nombre4','Nombre5'))
