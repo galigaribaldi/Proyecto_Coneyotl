@@ -2,3 +2,7 @@ __pycache__
 /env
 .DS_Store
 static/.DS_Store
+DB/.DS_Store
+DB/Respaldo_BaseConeyotl/.DS_Store
+.DS_Store
+variables.sh
