@@ -198,6 +198,8 @@ def verAlumno(grupo):
     if "username" in session and session["username"] =='ADMINISTRADOR':
         estudiantes = coneccion.consulta_estudiantes(grupo)
         prof=coneccion.consulta_prof_grado3(grupo)
+        if grupo =='B':
+            return render_template('test.html', estu=estudiantes, bandera3=1)    
         idp=prof[0][0]
         #print(estudiantes)
         return render_template('veralumno.html', estu=estudiantes, bandera3=1,idp=idp)
@@ -283,11 +285,21 @@ def actualizar_au(e_ID,grado):
 @app.route('/editar/actualizar/calificaciones/<e_ID>/<grado>')
 def actualizar_calificacion(e_ID,grado):
     if "username" in session and session["username"] =='ADMINISTRADOR':
-        p_id = coneccion.consulta_prof_grado2(grado)
+        try:
+            p_id = coneccion.consulta_prof_grado2(grado)
+        except:
+            grado = coneccion.consulta_prof_pasadas(e_ID)
+            grado=grado[0][0]
+            p_id =coneccion.consulta_prof_grado2(grado)
+            m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
+            est = coneccion.consulta_estudiantes_id(e_ID, 'B')
+            u = coneccion.consulta_promedio(e_ID, grado)
+            print(est)
+            return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera1=1, promedios=u)
         m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
         est = coneccion.consulta_estudiantes_id(e_ID, grado)
         u = coneccion.consulta_promedio(e_ID, grado)
-        #c = coneccion.comprobar_materias_grado(e_ID)
+        print(est)
         return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera1=1, promedios=u)
 
     if "username" in session and session["username"] =='profesor_grado':
@@ -358,6 +370,7 @@ def alta_alumno(e_id,grado):
 def baja_alumno(e_id,grado):
     if "username" in session and session["username"] =='ADMINISTRADOR':
         baja = coneccion.dar_baja_alumno(e_id)
+        coneccion.promover_grado(e_id, grado,'B')
         estudiantes = coneccion.consulta_estudiantes(grado)
         return render_template('veralumno.html', estu=estudiantes  ,bandera3=1)
     else:

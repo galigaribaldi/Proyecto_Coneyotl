@@ -225,7 +225,7 @@ def inscripcion_todos_estudiantes(grado):
 def dar_baja_alumno(ids):
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
     cursor = conexion.cursor()
-    cursor.execute("UPDATE estudiante SET estado = 'B' WHERE estudiante_ID = %s",(ids,))
+    cursor.execute("UPDATE estudiante SET estado = 'B', grado='B' WHERE estudiante_ID = %s",(ids,))
     conexion.commit()
     cursor.close()
     conexion.close()
@@ -1057,4 +1057,12 @@ def promover_grado(ids, grado,grado_nuevo):
     cursor.close()
     conexion.close() 
     
-#promover_grado(1106,'6to','E')
+def consulta_prof_pasadas(ids):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT grado from historico_grado where estudiante_id=%s",(ids,))
+    datos = cursor.fetchall()
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return datos

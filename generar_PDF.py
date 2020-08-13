@@ -60,4 +60,4 @@ def generar_nuevo_pdf(tupla):
     #Story.append(Spacer(1, 12))
     doc.build(Story)
 ##Nombre, apellido_paterno, apellido_materno, Curp, Correoelectronico
-generar_nuevo_pdf(('Nombre1','Nombre2','Nombre3','Nombre4','Nombre5'))
+#generar_nuevo_pdf(('Nombre1','Nombre2','Nombre3','Nombre4','Nombre5'))
