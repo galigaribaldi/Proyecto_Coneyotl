@@ -1040,12 +1040,6 @@ def promover_grado(ids, grado,grado_nuevo):
     cursor = conexion.cursor()
     cursor.execute("SELECT grados_pasados FROM estudiante WHERE estudiante_id=%s;",(ids,))
     datos = cursor.fetchall()
-    if grado == 'K1':
-        grado='K10'
-    if grado == 'K2':
-        grado='K20'
-    if grado == 'K3':
-        grado='K30'    
     try:
         historico = datos[0][0]+str(grado)
     except TypeError:
@@ -1053,9 +1047,11 @@ def promover_grado(ids, grado,grado_nuevo):
     conexion.commit()
     if grado_nuevo =='E':
         cursor.execute("UPDATE estudiante SET estado='B',grado=%s, grados_pasados=%s WHERE estudiante_id=%s;",(grado_nuevo,historico,ids))
+        cursor.execute("INSERT INTO historico_grado(estudiante_id, grado) VALUES(%s, %s)",(ids,historico))
         conexion.commit()
     else:
         cursor.execute("UPDATE estudiante SET ingresos_pltaforma=0,grado=%s, grados_pasados=%s WHERE estudiante_id=%s;",(grado_nuevo,historico,ids))
+        cursor.execute("INSERT INTO historico_grado(estudiante_id, grado) VALUES(%s, %s)",(ids,historico))
     #datos = cursor.fetchall()
     conexion.commit()
     cursor.close()

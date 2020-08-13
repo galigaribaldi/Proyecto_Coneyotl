@@ -232,3 +232,11 @@ CREATE TABLE ingreso_plataforma_prof_especialista(
 	CONSTRAINT profesor_id_fkey FOREIGN KEY(profesor_id)
 	REFERENCES profesor_especialista(profesor_id)
 );
+
+CREATE TABLE historico_grado(
+  historico_grado_id SERIAL PRIMARY KEY,
+  grado character varying(90),
+	estudiante_id INTEGER NOT NULL,
+  CONSTRAINT estudiante_id_fkey FOREIGN KEY(estudiante_id)
+	REFERENCES estudiante(estudiante_id)
+);
