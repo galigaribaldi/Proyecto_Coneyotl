@@ -1,5 +1,7 @@
 {% extends "layout.html" %} {% block content %}
-<h1 class="center">Alumnos de {{ estu.4.5 }} </h1>
+<!---->
+
+<!---->
 {% block navbar %}
 <ul class="sidenav" id="mobile-demo">
     {% block list %}
@@ -55,6 +57,7 @@
                 <th> Calificaciones </th>
                 <th>Cambiar Status</th>
                 <th>Enviar PDF informacion</th>
+                <th>Promover de Grado</th>
             </tr>
         </thead>
         <tbody>
@@ -77,13 +80,28 @@
                         <a href="/suspender/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small yellow accent-4">Suspender</a><br></td>
                     <td><a href="/enviar_pdf/alumno/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small indigo lighten-4">Enviar</a>
                     </td>
+                    <td><a href="/editar/actualizar/calificaciones2/{{ i.0 }}/{{ i.5 }}" class="waves-effect waves-light btn-small indigo lighten-4">Pasar de Grado</a>
+                        <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Promover</a>
+                    </td>
             </tr>
+            <ul id='dropdown1' class='dropdown-content'>
+                <li><a href="/PromoverGrado/{{ i.0 }}/{{ i.5 }}/K1">K1</a></li>
+                <li><a href="/PromoverGrado/{{ i.0 }}/{{ i.5 }}/K2">K2</a></li>
+                <li><a href="/PromoverGrado/{{ i.0 }}/{{ i.5 }}/K3">K3</a></li>
+                <li class="divider" tabindex="-1"></li>
+                <li><a href="/PromoverGrado/{{ i.0 }}/{{ i.5 }}/1ro">1º</a></li>
+                <li><a href="/PromoverGrado/{{ i.0 }}/{{ i.5 }}/2do">2º</a></li>
+                <li><a href="/PromoverGrado/{{ i.0 }}/{{ i.5 }}/3ro">3º</a></li>
+                <li><a href="/PromoverGrado/{{ i.0 }}/{{ i.5 }}/4to">4º</a></li>
+                <li><a href="/PromoverGrado/{{ i.0 }}/{{ i.5 }}/5to">5º</a></li>
+                <li><a href="/PromoverGrado/{{ i.0 }}/{{ i.5 }}/6to">6º</a></li>
+                <li><a href="/PromoverGrado/{{ i.0 }}/{{ i.5 }}/E">E</a></li>
+            </ul>
             {% endfor %}
         </tbody>
     </table>
     <div class="center">
         <a href="/admin" class="waves-effect waves-light btn-large"><i class="material-icons left">mood_bad</i>Regresar</a>
-        <a href="/enviar_pdf/alumno/000/{{ estu.4.5 }}" class="waves-effect waves-light btn-small indigo lighten-4">Enviar</a>
     </div>
 
 </div>
@@ -152,4 +170,26 @@
 <div class="center">
     <a href="/salir" class="waves-effect waves-light btn-large"><i class="material-icons left">mood_bad</i>Salir</a>
     <br> <br>
-</div> {% endblock %}
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        var instances = M.Dropdown.init(elems);
+    });
+</script>
+<!-- Dropdown Structure -->
+<ul id='dropdown1' class='dropdown-content'>
+    <li><a href="/PromoverGrado/<id_e>/<grado>/<grado_nuevo>">K1</a></li>
+    <li><a href="/PromoverGrado/<id_e>/<grado>/<grado_nuevo>">K2</a></li>
+    <li><a href="/PromoverGrado/<id_e>/<grado>/<grado_nuevo>">K3</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/PromoverGrado/<id_e>/<grado>/<grado_nuevo>">1º</a></li>
+    <li><a href="/PromoverGrado/<id_e>/<grado>/<grado_nuevo>">2º</a></li>
+    <li><a href="/PromoverGrado/<id_e>/<grado>/<grado_nuevo>">3º</a></li>
+    <li><a href="/PromoverGrado/<id_e>/<grado>/<grado_nuevo>">4º</a></li>
+    <li><a href="/PromoverGrado/<id_e>/<grado>/<grado_nuevo>">5º</a></li>
+    <li><a href="/PromoverGrado/<id_e>/<grado>/<grado_nuevo>">6º</a></li>
+    <li><a href="/PromoverGrado/<id_e>/<grado>/<grado_nuevo>">E</a></li>
+</ul>
+{% endblock %}

@@ -199,12 +199,13 @@ def verAlumno(grupo):
         estudiantes = coneccion.consulta_estudiantes(grupo)
         prof=coneccion.consulta_prof_grado3(grupo)
         idp=prof[0][0]
+        #print(estudiantes)
         return render_template('veralumno.html', estu=estudiantes, bandera3=1,idp=idp)
 
     if "username" in session and session["username"] =='profesor_grado':
         estudiantes = coneccion.consulta_estudiantes(grupo)
         prof=coneccion.consulta_prof_grado3(grupo)
-        idp=prof[0][0]        
+        idp=prof[0][0]
         return render_template('veralumno.html', estu=estudiantes, bandera=1,idp=idp)
     else:
         flash("Inicia Sesion Primero")
@@ -284,21 +285,57 @@ def actualizar_calificacion(e_ID,grado):
     if "username" in session and session["username"] =='ADMINISTRADOR':
         p_id = coneccion.consulta_prof_grado2(grado)
         m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
-        est = coneccion.consulta_estudiantes_id(e_ID,grado)
+        est = coneccion.consulta_estudiantes_id(e_ID, grado)
         u = coneccion.consulta_promedio(e_ID, grado)
+        #c = coneccion.comprobar_materias_grado(e_ID)
         return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera1=1, promedios=u)
 
     if "username" in session and session["username"] =='profesor_grado':
         p_id = coneccion.consulta_prof_grado2(grado)
         m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
-        est = coneccion.consulta_estudiantes_id(e_ID,grado)
+        est = coneccion.consulta_estudiantes_id3(e_ID)
         u = coneccion.consulta_promedio(e_ID, grado)
         return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera1=1,d=1, promedios=u)
 
     if "username" in session and session["username"] =='profesor_especialista':
         p_id = coneccion.consulta_prof_grado2(grado)
         m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
-        est = coneccion.consulta_estudiantes_id(e_ID,grado)
+        est = coneccion.consulta_estudiantes_id3(e_ID)
+        u = coneccion.consulta_promedio(e_ID, grado)
+        return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera2=1, promedios=u)
+    else:
+        flash("Inicia Sesion Primero")
+        return redirect(url_for("index"))
+    
+@app.route('/PromoverGrado/<id_e>/<grupo>/<grado_nuevo>')
+def promover(id_e, grupo, grado_nuevo):
+    if "username" in session and session["username"] =='ADMINISTRADOR':
+        d = coneccion.promover_grado(id_e, grupo, grado_nuevo)
+        estudiantes = coneccion.consulta_estudiantes(grupo)
+        prof=coneccion.consulta_prof_grado3(grupo)
+        idp=prof[0][0]
+        return render_template('veralumno.html', estu=estudiantes, bandera3=1,idp=idp)
+
+@app.route('/editar/actualizar/calificaciones2/<e_ID>/<grado>')
+def actualizar_calificacion2(e_ID,grado):
+    if "username" in session and session["username"] =='ADMINISTRADOR':
+        p_id = coneccion.consulta_prof_grado2(grado)
+        m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
+        est = coneccion.consulta_estudiantes_id3(e_ID)
+        u = coneccion.consulta_promedio(e_ID, grado)
+        return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera1=1, promedios=u)
+
+    if "username" in session and session["username"] =='profesor_grado':
+        p_id = coneccion.consulta_prof_grado2(grado)
+        m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
+        est = coneccion.consulta_estudiantes_id3(e_ID)
+        u = coneccion.consulta_promedio(e_ID, grado)
+        return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera1=1,d=1, promedios=u)
+
+    if "username" in session and session["username"] =='profesor_especialista':
+        p_id = coneccion.consulta_prof_grado2(grado)
+        m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
+        est = coneccion.consulta_estudiantes_id3(e_ID)
         u = coneccion.consulta_promedio(e_ID, grado)
         return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera2=1, promedios=u)
     else:
@@ -620,6 +657,7 @@ def materia():
 def inscripcionalumno(id_alumno, grupo):
     if "username" in session and session["username"] =='ADMINISTRADOR':
         coneccion.inscripcion_estudiante_ID(grupo, id_alumno)
+        coneccion.registra_promedio(id_alumno,grupo)
         return redirect(url_for('administrador'))
 
     if "username" in session and session["username"] =='profesor_grado':
@@ -1526,6 +1564,10 @@ def enviar_alumno_PDF(opcion,grado):
         print(d)
         flash("PDF enviado a "+str(d[0][2]))
         return redirect(url_for('verAlumno', grupo=grado))
-    
+
+@app.route('/test')
+def test():
+    return render_template('test.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

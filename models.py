@@ -31,6 +31,17 @@ def consulta_estudiantes(grado):
     conexion.close()
     return datos_estudiantes
 
+def consulta_estudiantes_id3(ids):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT * FROM estudiante where estudiante_id= %s",(ids,))
+    datos_estudiantes = cursor.fetchall()
+    #print(datos_estudiantes)
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return datos_estudiantes
+
 ##Consulta profesores por grado
 def consulta_all_prof_grado():
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
@@ -1013,3 +1024,41 @@ def obtener_status_prof_esp(ide):
     cursor.close()
     conexion.close()
     return datos_tarea
+
+def comprobar_materias_grado(ids):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT materia_id from inscripcion_grado WHERE estudiante_id=%s ORDER BY materia_id ASC;",(ids,))
+    datos = cursor.fetchall()
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    return datos
+#UPDATE promedio SET promedio_b1=%s WHERE estudiante_id=%s AND grado=%s
+def promover_grado(ids, grado,grado_nuevo):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT grados_pasados FROM estudiante WHERE estudiante_id=%s;",(ids,))
+    datos = cursor.fetchall()
+    if grado == 'K1':
+        grado='K10'
+    if grado == 'K2':
+        grado='K20'
+    if grado == 'K3':
+        grado='K30'    
+    try:
+        historico = datos[0][0]+str(grado)
+    except TypeError:
+        historico = ''+str(grado)
+    conexion.commit()
+    if grado_nuevo =='E':
+        cursor.execute("UPDATE estudiante SET estado='B',grado=%s, grados_pasados=%s WHERE estudiante_id=%s;",(grado_nuevo,historico,ids))
+        conexion.commit()
+    else:
+        cursor.execute("UPDATE estudiante SET ingresos_pltaforma=0,grado=%s, grados_pasados=%s WHERE estudiante_id=%s;",(grado_nuevo,historico,ids))
+    #datos = cursor.fetchall()
+    conexion.commit()
+    cursor.close()
+    conexion.close() 
+    
+#promover_grado(1106,'6to','E')
