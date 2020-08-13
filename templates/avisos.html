@@ -8,66 +8,82 @@
             <!--Grado-->
             <!--Exclusivo K2-->
             {% if i.1=="Grado" and i.2=="K2" %}
-            <div class="card pink accent-1">
+            <div class="card cyan lighten-2">
                 {% endif %}
-                <!--Normal-->
-                {% if i.1=="Grado" and i.2 != "K2" %}
-                <div class="card blue accent-3">
+                <!--Exclusivo K1-->
+                {% if i.1=="Grado" and i.2=="K1" %}
+                <div class="card morado">
                     {% endif %}
-                    <!--Computacion-->
-                    {% if i.1=="Compu"%}
-                    <div class="card indigo accent-3">
+                    <!--Exclusivo K3-->
+                    {% if i.1=="Grado" and i.2=="K3" %}
+                    <div class="card pink lighten-4">
                         {% endif %}
-                        <!--Ingles-->
-                        {% if i.1=="Ingles"%}
-                        <div class="card deep-purple accent-3">
+                        <!--Exclusivo 4to-->
+                        {% if i.1=="Grado" and i.2=="4to" %}
+                        <div class="card yellow accent-2">
                             {% endif %}
-                            <!--Artes-->
-                            {% if i.1=="Artes"%}
-                            <div class="card green darken-3">
+                            <!--Exclusivo 6to-->
+                            {% if i.1=="Grado" and i.2=="4to" %}
+                            <div class="card light-green accent-3">
                                 {% endif %}
-                                <!--Musica-->
-                                {% if i.1=="Musica"%}
-                                <div class="card lime darken-3 ">
+                                <!--Normal-->
+                                {% if i.1=="Grado" and i.2 != "K2" %}
+                                <div class="card blue accent-3">
                                     {% endif %}
-                                    <!--TaeKwondo-->
-                                    {% if i.1=="Tae"%}
-                                    <div class="card lime orange accent-3">
+                                    <!--Computacion-->
+                                    {% if i.1=="Compu"%}
+                                    <div class="card indigo accent-3">
                                         {% endif %}
-                                        <!-- Modal Structure -->
-                                        <div id="{{ i.0 }}" class="modal modal-fixed-footer blue lighten-4">
-                                            <div class="modal-content">
-                                                <h4>{{ i.3 }} {{ i.2 }}</h4>
-                                                <p> {{ i.4 }} </p>
+                                        <!--Ingles-->
+                                        {% if i.1=="Ingles"%}
+                                        <div class="card purple lighten-1">
+                                            {% endif %}
+                                            <!--Artes-->
+                                            {% if i.1=="Artes"%}
+                                            <div class="card blue-grey darken-2">
+                                                {% endif %}
+                                                <!--Musica-->
+                                                {% if i.1=="Musica"%}
+                                                <div class="card lime darken-3 ">
+                                                    {% endif %}
+                                                    <!--TaeKwondo-->
+                                                    {% if i.1=="Tae"%}
+                                                    <div class="card lime orange accent-3">
+                                                        {% endif %}
+                                                        <!-- Modal Structure -->
+                                                        <div id="{{ i.0 }}" class="modal modal-fixed-footer blue lighten-4">
+                                                            <div class="modal-content">
+                                                                <h4>{{ i.3 }} {{ i.2 }}</h4>
+                                                                <p> {{ i.4 }} </p>
+                                                            </div>
+                                                            <div class="modal-footer blue lighten-4">
+                                                                <a class="waves-effect waves-light btn-small blue lighten-1" href="{{ i.5 }}" target="_blank" class="modal-close waves-effect waves-green btn-flat">Link 1 (Video)</a>
+                                                                <a class="waves-effect waves-light btn-small blue lighten-1" href="{{ i.7 }}" target="_blank" class="modal-close waves-effect waves-green btn-flat">Link 2 (Material)</a>
+                                                                <a href="#!" class="modal-close waves-effect waves-green btn-flat waves-effect waves-light btn-small">¡OK!</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-content white-text">
+                                                            <span class="card-title"> {{ i.2 }} {{ i.1 }} </span>
+                                                            <p> <a class="waves-effect waves-light btn modal-trigger" href="#{{ i.0 }}">{{ i.2 }} {{ i.3 }}</a>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
                                             </div>
-                                            <div class="modal-footer blue lighten-4">
-                                                <a class="waves-effect waves-light btn-small blue lighten-1" href="{{ i.5 }}" target="_blank" class="modal-close waves-effect waves-green btn-flat">Link 1 (Video)</a>
-                                                <a class="waves-effect waves-light btn-small blue lighten-1" href="{{ i.7 }}" target="_blank" class="modal-close waves-effect waves-green btn-flat">Link 2 (Material)</a>
-                                                <a href="#!" class="modal-close waves-effect waves-green btn-flat waves-effect waves-light btn-small">¡OK!</a>
-                                            </div>
+                                            {% endif %} {% if not tareas %}
+                                            <h3>No hay tareas disponibles</h3>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
                                         </div>
-                                        <div class="card-content white-text">
-                                            <span class="card-title"> {{ i.2 }} {{ i.1 }} </span>
-                                            <p> <a class="waves-effect waves-light btn modal-trigger" href="#{{ i.0 }}">{{ i.2 }} {{ i.3 }}</a>
-                                            </p>
-                                        </div>
+                                        {% endif %}
                                     </div>
-                                </div>
-                                {% endfor %}
-                            </div>
-                            {% endif %} {% if not tareas %}
-                            <h3>No hay tareas disponibles</h3>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                        </div>
-                        {% endif %}
-                    </div>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            var elems = document.querySelectorAll('.modal');
-                            var instances = M.Modal.init(elems);
-                        });
-                    </script>
-                    {% endblock %}
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function() {
+                                            var elems = document.querySelectorAll('.modal');
+                                            var instances = M.Modal.init(elems);
+                                        });
+                                    </script>
+                                    {% endblock %}

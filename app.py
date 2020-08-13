@@ -299,7 +299,7 @@ def actualizar_calificacion(e_ID,grado):
         m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
         est = coneccion.consulta_estudiantes_id(e_ID, grado)
         u = coneccion.consulta_promedio(e_ID, grado)
-        print(est)
+        print(u)
         return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera1=1, promedios=u)
 
     if "username" in session and session["username"] =='profesor_grado':
@@ -478,7 +478,7 @@ def registrar_esudiante():
 def registrar_esudiante2():
     if "username" in session and session["username"] =='ADMINISTRADOR':
         if request.method == 'POST':
-            estudiante_ID = request.form['estudiante_ID']
+            estudiante_ID = int(request.form['estudiante_ID'])
             curp = request.form['curp']
             nombre = request.form['nombre']
             apellido_pat = request.form['apellido_pat']
@@ -492,12 +492,12 @@ def registrar_esudiante2():
             passwords = request.form['passwords']
             dia_registro = request.form['dia_registro']
             estado = request.form['estado']
-            try:
-                coneccion.insertarestud(estudiante_ID, curp,nombre, apellido_pat, apellido_mat, grado, edad, nombre_tutor, telefono_casa, telefono_celular,correo_electronico, passwords, dia_registro,estado)
-                flash('Tu cuenta ha quedado Registrada, por favor inicia sesion')
-                return redirect(url_for('registrar_esudiante'))            
-            except:
-                return 'Hubo un error favor de intentar de nuevo'
+            #try:
+            coneccion.insertarestud(estudiante_ID, curp,nombre, apellido_pat, apellido_mat, grado, edad, nombre_tutor, telefono_casa, telefono_celular,correo_electronico, passwords, dia_registro,estado)
+            flash('Tu cuenta ha quedado Registrada, por favor inicia sesion')
+            return redirect(url_for('registrar_esudiante'))            
+            #except:
+            #    return 'Hubo un error favor de intentar de nuevo'
         else:
             return render_template('index.html')
     else:
@@ -676,6 +676,7 @@ def inscripcionalumno(id_alumno, grupo):
     if "username" in session and session["username"] =='profesor_grado':
         coneccion.inscripcion_estudiante_ID(grupo, id_alumno)
         estudiantes = coneccion.consulta_estudiantes(grupo)
+        coneccion.registra_promedio(id_alumno,grupo)
         return render_template('veralumno.html', estu=estudiantes, bandera=1 )
     else:
         flash("Inicia Sesion Primero")
