@@ -5,13 +5,13 @@ from datetime import date
 import datetime
 ###Credenciales
 ##Obtener datos desde la DATABASE URL
-DATABASE_URL=os.environ.get('DATABASE_URL')
+DATABASE_URL=os.environ.get('HEROKU_POSTGRESQL_BLUE_URL')
 if DATABASE_URL == None:
     print("Variable de entorno no definida!")
     exit()
 du =str(DATABASE_URL)
 print("DATABASE_URL: ", du)
-host =obtener.gethost(du)
+host ="ec2-3-214-4-151.compute-1.amazonaws.com"
 print("HOST: ", host)
 database =obtener.getdbname(du)
 print("DATABASE: ", database)
