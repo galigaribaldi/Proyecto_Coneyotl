@@ -23,18 +23,18 @@
     {% if bandera1 %} <br>
     <!--Datos de la inscripcion de la materia-->
     <div>
-        <h2 class="center">Bimestre 1</h2>
+        <h2 class="center">Evaluación 1</h2>
 
         <table class="responsive-table highlight striped">
             <thead>
                 <tr>
                     <th>Nombre de la Materia </th>
-                    <th>Promedio Bimestral 1</th>
-                    <th>Examen <br> 50%</th>
-                    <th>Tareas 15%</th>
-                    <th>Exposición 15%</th>
-                    <th>Asistencia<br>Participación en Clase 10%</th>
-                    <th>Cuaderno y Libros 10%</th>
+                    <th>Promedio 1</th>
+                    <th>Proyecto <br> (50% Primaria) - (60% Preescolar) </th>
+                    <th>Asistencia y puntualidad <br> (20% Primaria) - (15% Preescolar)</th>
+                    <th>Tareas <br> (15% Primaria) - (10% Preescolar)%</th>
+                    <th>Libros y Cuadernos <br> (15% Primaria - Kinder)</th>
+                    <!--<th>Cuaderno y Libros <br> 10%</th>-->
                 </tr>
             </thead>
             <tbody>
@@ -46,7 +46,7 @@
                     <td>{{ i.3 }}</td>
                     <td>{{ i.4 }}</td>
                     <td>{{ i.5 }}</td>
-                    <td>{{ i.6 }}</td>
+                    <!--<td>{{ i.6 }}</td>-->
                 </tr>
                 {% endfor %}
             </tbody>
@@ -54,22 +54,21 @@
         <div class="container">
             <div class="card-panel blue">
                 <span class="white-text">
-                    <h5>Promedio Bimestral: {{ promedios.0.0 }}</h5>
+                    <h5>Promedio : {{ promedios.0.0 }}</h5>
                 </span>
             </div>
         </div>
         <div>
-            <h2 class="center">Bimestre 2</h2>
+            <h2 class="center">Evaluación 2</h2>
             <table class="responsive-table highlight striped">
                 <thead>
                     <tr>
                         <th>Nombre de la Materia </th>
-                        <th>Promedio Bimestral 2</th>
-                        <th>Examen 50%</th>
-                        <th>Tareas 15%</th>
-                        <th>Exposición 15%</th>
-                        <th>Asistencia<br>Participación en Clase 10%</th>
-                        <th>Cuaderno y Libros 10%</th>
+                        <th>Promedio 2</th>
+                        <th>Proyecto <br> (50% Primaria) - (60% Preescolar) </th>
+                        <th>Asistencia y puntualidad <br> (20% Primaria) - (15% Preescolar)</th>
+                        <th>Tareas <br> (15% Primaria) - (10% Preescolar)%</th>
+                        <th>Libros y Cuadernos <br> (15% Primaria - Kinder)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,7 +80,7 @@
                         <td>{{ i.9 }}</td>
                         <td>{{ i.10 }}</td>
                         <td>{{ i.11 }}</td>
-                        <td>{{ i.12 }}</td>
+                        <!--<td>{{ i.12 }}</td>-->
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -89,21 +88,22 @@
             <div class="container">
                 <div class="card-panel blue">
                     <span class="white-text">
-                        <h5>Promedio Bimestral: {{ promedios.0.1 }}</h5>
+                        <h5>Promedio : {{ promedios.0.1 }}</h5>
                     </span>
                 </div>
             </div>
         </div>
         <div>
-            <h2 class="center">Bimestre 3</h2>
+            <h2 class="center">Evaluación 3</h2>
             <table class="responsive-table highlight striped">
                 <thead>
                     <tr>
                         <th>Nombre de la Materia </th>
-                        <th>Promedio Bimestral 3</th>
-                        <th>Examen 50%</th>
-                        <th>Guia 25%</th>
-                        <th>Exposición 25%</th>
+                        <th>Promedio 3</th>
+                        <th>Proyecto <br> (50% Primaria) - (60% Preescolar) </th>
+                        <th>Asistencia y puntualidad <br> (20% Primaria) - (15% Preescolar)</th>
+                        <th>Tareas <br> (15% Primaria) - (10% Preescolar)%</th>
+                        <th>Libros y Cuadernos <br> (15% Primaria - Kinder)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -114,6 +114,8 @@
                         <td>{{ i.14 }}</td>
                         <td>{{ i.15 }}</td>
                         <td>{{ i.16 }}</td>
+                        <td>{{ i.17 }}</td>
+                        <!--<td>{{ i.18 }}</td>-->
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -121,21 +123,22 @@
             <div class="container">
                 <div class="card-panel blue">
                     <span class="white-text">
-                        <h5>Promedio Bimestral: {{ promedios.0.2 }}</h5>
+                        <h5>Promedio : {{ promedios.0.2 }}</h5>
                     </span>
                 </div>
             </div>
         </div>
         <div>
-            <h2 class="center">Bimestre 4</h2>
+            <h2 class="center">Evaluación 4</h2>
             <table class="responsive-table highlight striped">
                 <thead>
                     <tr>
                         <th>Nombre de la Materia </th>
-                        <th>Promedio Bimestral 4</th>
-                        <th>Carpeta 60%</th>
-                        <th>Clases de Zoom 20%</th>
-                        <th>Exposición/proyecto 20%</th>
+                        <th>Promedio 4</th>
+                        <th>Proyecto <br> (50% Primaria) - (60% Preescolar) </th>
+                        <th>Asistencia y puntualidad <br> (20% Primaria) - (15% Preescolar)</th>
+                        <th>Tareas <br> (15% Primaria) - (10% Preescolar)%</th>
+                        <th>Libros y Cuadernos <br> (15% Primaria - Kinder)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -146,6 +149,8 @@
                         <td>{{ i.20 }}</td>
                         <td>{{ i.21 }}</td>
                         <td>{{ i.22 }}</td>
+                        <td>{{ i.23 }}</td>
+                        <!--<td>{{ i.24 }}</td> -->
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -153,7 +158,7 @@
             <div class="container">
                 <div class="card-panel blue">
                     <span class="white-text">
-                        <h5>Promedio Bimestral: {{ promedios.0.3 }}</h5>
+                        <h5>Promedio : {{ promedios.0.3 }}</h5>
                     </span>
                 </div>
             </div>
@@ -184,17 +189,16 @@
     {% if materia %} {% if bandera3 %}
     <h3 class="center">Calificaciones</h3>
     <div>
-        <h2 class="center">Bimestre 1</h2>
+        <h2 class="center">Evaluación 1</h2>
         <table class="responsive-table highlight striped">
             <thead>
                 <tr>
                     <th>Nombre de la Materia </th>
-                    <th>Promedio Bimestre 1</th>
-                    <th>Examen <br> 50%</th>
-                    <th>Tareas 15%</th>
-                    <th>Exposición 15%</th>
-                    <th>Asistencia<br>Participación en Clase 10%</th>
-                    <th>Cuaderno y Libros 10%</th>
+                    <th>Promedio Evaluación 1</th>
+                    <th>Proyecto <br> (50% Primaria) - (60% Preescolar) </th>
+                    <th>Asistencia y puntualidad <br> (20% Primaria) - (15% Preescolar)</th>
+                    <th>Tareas <br> (15% Primaria) - (10% Preescolar)%</th>
+                    <th>Libros y Cuadernos <br> (15% Primaria - Kinder)</th>
                 </tr>
             </thead>
             <tbody>
@@ -206,7 +210,7 @@
                     <td>{{ i.3 }}</td>
                     <td>{{ i.4 }}</td>
                     <td>{{ i.5 }}</td>
-                    <td>{{ i.6 }}</td>
+                    <!--<td>{{ i.6 }}</td>-->
                 </tr>
                 {% endfor %}
             </tbody>
@@ -214,23 +218,22 @@
         <div class="container">
             <div class="card-panel blue">
                 <span class="white-text">
-                    <h5>Promedio Bimestral: {{ promedios.0.0 }}</h5>
+                    <h5>Promedio : {{ promedios.0.0 }}</h5>
                 </span>
             </div>
         </div>
     </div>
     <div>
-        <h2 class="center">Bimestre 2</h2>
+        <h2 class="center">Evaluación 2</h2>
         <table class="responsive-table highlight striped">
             <thead>
                 <tr>
                     <th>Nombre de la Materia </th>
-                    <th>Promedio Bimestre 2</th>
-                    <th>Examen 50%</th>
-                    <th>Tareas 15%</th>
-                    <th>Exposición 15%</th>
-                    <th>Asistencia <br> Participación en Clase 10%</th>
-                    <th>Cuaderno y Libros 10%</th>
+                    <th>Promedio Evaluación 2</th>
+                    <th>Proyecto <br> (50% Primaria) - (60% Preescolar) </th>
+                    <th>Asistencia y puntualidad <br> (20% Primaria) - (15% Preescolar)</th>
+                    <th>Tareas <br> (15% Primaria) - (10% Preescolar)%</th>
+                    <th>Libros y Cuadernos <br> (15% Primaria - Kinder)</th>
                 </tr>
             </thead>
             <tbody>
@@ -242,7 +245,7 @@
                     <td>{{ i.9 }}</td>
                     <td>{{ i.10 }}</td>
                     <td>{{ i.11 }}</td>
-                    <td>{{ i.12 }}</td>
+                    <!--<td>{{ i.12 }}</td>-->
                 </tr>
                 {% endfor %}
             </tbody>
@@ -250,21 +253,22 @@
         <div class="container">
             <div class="card-panel blue">
                 <span class="white-text">
-                    <h5>Promedio Bimestral: {{ promedios.0.1 }}</h5>
+                    <h5>Promedio : {{ promedios.0.1 }}</h5>
                 </span>
             </div>
         </div>
     </div>
     <div>
-        <h2 class="center">Bimestre 3</h2>
+        <h2 class="center">Evaluación 3</h2>
         <table class="responsive-table highlight striped">
             <thead>
                 <tr>
                     <th>Nombre de la Materia </th>
-                    <th>Promedio Bimestre 3</th>
-                    <th>Examen 50%</th>
-                    <th>Tareas 25%</th>
-                    <th>Exposición 25%</th>
+                    <th>Promedio Evaluación 3</th>
+                    <th>Proyecto <br> (50% Primaria) - (60% Preescolar) </th>
+                    <th>Asistencia y puntualidad <br> (20% Primaria) - (15% Preescolar)</th>
+                    <th>Tareas <br> (15% Primaria) - (10% Preescolar)%</th>
+                    <th>Libros y Cuadernos <br> (15% Primaria - Kinder)</th>
                 </tr>
             </thead>
             <tbody>
@@ -275,6 +279,8 @@
                     <td>{{ i.14 }}</td>
                     <td>{{ i.15 }}</td>
                     <td>{{ i.16 }}</td>
+                    <td>{{ i.17 }}</td>
+                    <!--<td>{{ i.18 }}</td>-->
                 </tr>
                 {% endfor %}
             </tbody>
@@ -282,21 +288,22 @@
         <div class="container">
             <div class="card-panel blue">
                 <span class="white-text">
-                    <h5>Promedio Bimestral: {{ promedios.0.2 }}</h5>
+                    <h5>Promedio : {{ promedios.0.2 }}</h5>
                 </span>
             </div>
         </div>
     </div>
     <div>
-        <h2 class="center">Bimestre 4</h2>
+        <h2 class="center">Evaluación 4</h2>
         <table class="responsive-table highlight striped">
             <thead>
                 <tr>
                     <th>Nombre de la Materia </th>
-                    <th>Promedio Bimestre 4 </th>
-                    <th>Carpeta 60%</th>
-                    <th>Clases Zoom 20%</th>
-                    <th>Exposición/proyecto 20%</th>
+                    <th>Promedio Evaluación 4 </th>
+                    <th>Proyecto <br> (50% Primaria) - (60% Preescolar) </th>
+                    <th>Asistencia y puntualidad <br> (20% Primaria) - (15% Preescolar)</th>
+                    <th>Tareas <br> (15% Primaria) - (10% Preescolar)%</th>
+                    <th>Libros y Cuadernos <br> (15% Primaria - Kinder)</th>
                 </tr>
             </thead>
             <tbody>
@@ -307,6 +314,8 @@
                     <td>{{ i.20 }}</td>
                     <td>{{ i.21 }}</td>
                     <td>{{ i.22 }}</td>
+                    <td>{{ i.23 }}</td>
+                    <td>{{ i.24 }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -314,7 +323,7 @@
         <div class="container">
             <div class="card-panel blue">
                 <span class="white-text">
-                    <h5>Promedio Bimestral: {{ promedios.0.3 }}</h5>
+                    <h5>Promedio : {{ promedios.0.3 }}</h5>
                 </span>
             </div>
         </div>

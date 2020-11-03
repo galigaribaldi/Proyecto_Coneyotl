@@ -245,7 +245,8 @@ def actualizar_calificacion_esp(e_ID,grado, id_profesor):
             materia_especial.append(m_inscrita[r])
         print(materia_especial)
         print(r)
-        return render_template('verCalifAlu.html', estudiante=est, materia=materia_especial, bandera1=1, prof_esp=id_profesor, b=1, c=1)
+        u = coneccion.consulta_promedio(e_ID, grado)
+        return render_template('verCalifAlu.html', estudiante=est, materia=materia_especial, bandera1=1, prof_esp=id_profesor, b=1, c=1, promedios=u)
     else:
         flash("Inicia Sesion Primero")
         return redirect(url_for("index"))
