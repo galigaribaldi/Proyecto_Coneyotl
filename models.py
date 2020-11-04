@@ -864,50 +864,51 @@ def eliminar_pago(id_pago):
     cursor.close()
     conexion.close()
 
-def promedio_b1(ids, grado):
+def promedio_b1(ids, grado,idp):
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
     cursor = conexion.cursor()
-    cursor.execute("SELECT i.calificacion_b1 from inscripcion_grado i join estudiante e on e.estudiante_id=i.estudiante_id where i.estudiante_id=%s and e.grado=%s",(ids,grado))
+    cursor.execute("SELECT i.calificacion_b1 from inscripcion_grado i join estudiante e on e.estudiante_id=i.estudiante_id where i.estudiante_id=%s and e.grado=%s and i.profesor_id=%s",(ids,grado,idp))
+    datos_tarea = cursor.fetchall()
+    conexion.commit()
+    cursor.close()
+    conexion.close()
+    print("Promedio b1: ",datos_tarea)
+    return datos_tarea
+
+def promedio_b2(ids, grado,idp):
+    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
+    cursor = conexion.cursor()
+    cursor.execute("SELECT i.calificacion_b2 from inscripcion_grado i join estudiante e on e.estudiante_id=i.estudiante_id where i.estudiante_id=%s and e.grado=%s and i.profesor_id=%s",(ids,grado,idp))
     datos_tarea = cursor.fetchall()
     conexion.commit()
     cursor.close()
     conexion.close()
     return datos_tarea
 
-def promedio_b2(ids, grado):
+def promedio_b3(ids, grado,idp):
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
     cursor = conexion.cursor()
-    cursor.execute("SELECT i.calificacion_b2 from inscripcion_grado i join estudiante e on e.estudiante_id=i.estudiante_id where i.estudiante_id=%s and e.grado=%s",(ids,grado))
+    cursor.execute("SELECT i.calificacion_b3 from inscripcion_grado i join estudiante e on e.estudiante_id=i.estudiante_id where i.estudiante_id=%s and e.grado=%s and i.profesor_id=%s",(ids,grado,idp))
     datos_tarea = cursor.fetchall()
     conexion.commit()
     cursor.close()
     conexion.close()
     return datos_tarea
 
-def promedio_b3(ids, grado):
+def promedio_b4(ids, grado,idp):
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
     cursor = conexion.cursor()
-    cursor.execute("SELECT i.calificacion_b3 from inscripcion_grado i join estudiante e on e.estudiante_id=i.estudiante_id where i.estudiante_id=%s and e.grado=%s",(ids,grado))
+    cursor.execute("SELECT i.calificacion_b4 from inscripcion_grado i join estudiante e on e.estudiante_id=i.estudiante_id where i.estudiante_id=%s and e.grado=%s and i.profesor_id=%s",(ids,grado,idp))
     datos_tarea = cursor.fetchall()
     conexion.commit()
     cursor.close()
     conexion.close()
     return datos_tarea
 
-def promedio_b4(ids, grado):
+def promedio_total(ids, grado, idp):
     conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
     cursor = conexion.cursor()
-    cursor.execute("SELECT i.calificacion_b4 from inscripcion_grado i join estudiante e on e.estudiante_id=i.estudiante_id where i.estudiante_id=%s and e.grado=%s",(ids,grado))
-    datos_tarea = cursor.fetchall()
-    conexion.commit()
-    cursor.close()
-    conexion.close()
-    return datos_tarea
-
-def promedio_total(ids, grado):
-    conexion = psycopg2.connect(host=host, database=database, user=user, password=password)
-    cursor = conexion.cursor()
-    cursor.execute("SELECT ((i.calificacion_b1+i.calificacion_b2+i.calificacion_b3+i.calificacion_b4)/4) from inscripcion_grado i join estudiante e on e.estudiante_id=i.estudiante_id where i.estudiante_id=%s and e.grado=%s",(ids,grado))
+    cursor.execute("SELECT ((i.calificacion_b1+i.calificacion_b2+i.calificacion_b3+i.calificacion_b4)/4) from inscripcion_grado i join estudiante e on e.estudiante_id=i.estudiante_id where i.estudiante_id=%s and e.grado=%s and i.profesor_id=%s",(ids,grado,idp))
     datos_tarea = cursor.fetchall()
     conexion.commit()
     cursor.close()
@@ -977,6 +978,7 @@ def actualiza_promedios_All(ide, grado, calificacion1, calificacion2, calificaci
     conexion.close()
     
 def sacar_promedio(b):
+    print("Este es b: ", b)
     res = 0
     contador = 0
     for i in b:

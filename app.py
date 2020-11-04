@@ -308,6 +308,7 @@ def actualizar_calificacion(e_ID,grado):
         m_inscrita = coneccion.consulta_inscrita2(int(e_ID), p_id,grado)
         est = coneccion.consulta_estudiantes_id3(e_ID)
         u = coneccion.consulta_promedio(e_ID, grado)
+        print(u)
         return render_template('verCalifAlu.html', estudiante=est, materia=m_inscrita, bandera1=1,d=1, promedios=u)
 
     if "username" in session and session["username"] =='profesor_especialista':
@@ -858,7 +859,7 @@ def cambiar_calificacion_Bimestre1(id_materia, id_estudiante, id_profesor,grado)
                 ##A ctualizar calificaciones
                 coneccion.insertarcalificacion_Bimestre1(campo1_B1,campo2_B1,campo3_B1, campo4_B1,campo5_B1 ,promedio, id_estudiante, id_materia, id_profesor)
                 ##Actualizar promedios general y por bimestre
-                job = q.enqueue(coneccion.actualiza_promedios_All,id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado)))
+                job = q.enqueue(coneccion.actualiza_promedios_All,id_estudiante, grado, coneccion.sacar_promedio(coneccion.promedio_b1(id_estudiante, grado, id_profesor)),coneccion.sacar_promedio(coneccion.promedio_b2(id_estudiante, grado, id_profesor)), coneccion.sacar_promedio(coneccion.promedio_b3(id_estudiante, grado, id_profesor)), coneccion.sacar_promedio(coneccion.promedio_b4(id_estudiante, grado, id_profesor)), coneccion.sacar_promedio(coneccion.promedio_total(id_estudiante, grado, id_profesor)))
                 flash('La Calificacion se Actualizó correctamente')
                 return redirect(url_for('administrador'))
             except:
