@@ -3,14 +3,14 @@ from flask import render_template, request, flash
 from flask import redirect, url_for, session
 import os
 ###Coneccion a la base
-import models as coneccion
+import Old.models as coneccion
 ##Generador de correos
-import correo as enviar
+import util.correo as enviar
 #Generador de imagenes
-import generador_img as img
+import util.generador_img as img
 ##Generador de Espera
 import redis
-import automatizar as au
+import Old.automatizar as au
 from rq import Queue
 from urllib.parse import urlparse
 url=urlparse(os.environ.get('REDISCLOUD_URL'))

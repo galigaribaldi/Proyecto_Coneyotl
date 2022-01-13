@@ -1,5 +1,5 @@
 import psycopg2
-import expresiones as obtener
+import Old.expresiones as obtener
 import os
 from datetime import date
 import datetime

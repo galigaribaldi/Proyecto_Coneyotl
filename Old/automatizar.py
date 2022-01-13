@@ -1,7 +1,7 @@
-import models as coneccion
-import correo as enviar
-import generador_img as img
-import generar_PDF as PDF
+import Old.models as coneccion
+import util.correo as enviar
+import util.generador_img as img
+import util.generar_PDF as PDF
 import os
 #########################################Alumnos#############################################
 ##Automatizacion de correos con imagenes a alumnos

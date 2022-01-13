@@ -1,10 +1,10 @@
-import models as coneccion
+import Old.models as coneccion
 #promedio1 = coneccion.promedio_b1(1106,'5to')
 #promedio2 = coneccion.promedio_b2(1106,'5to')
 ##promedio3 = coneccion.promedio_b3(1106,'5to')
 #promedio4 = coneccion.promedio_b4(1106,'5to')
 #promedio_t = coneccion.promedio_total(1106, '5to')
-import correo as correos
+import util.correo as correos
 
 def sacar1(b):
     res = 0

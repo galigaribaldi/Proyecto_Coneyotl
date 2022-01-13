@@ -6,7 +6,7 @@ import dash_bootstrap_components as dbc
 import plotly.graph_objs as go
 import numpy as np
 import pandas as pd
-import model_dash as coneccion
+import util.model_dash as coneccion
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 ###
 data = coneccion.traer_calificaciones_materias_Bimestral(1106, 'B1')
