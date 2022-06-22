@@ -20,5 +20,5 @@ dash-core-components==1.10.0
 dash-html-components==1.0.3
 dash-renderer==1.4.1
 dash-table==4.7.0
-numpy==1.18.4
+numpy==1.22.0
 plotly==4.8.1
